@@ -3,7 +3,7 @@ const fs = require('fs');
 
 const productController = {
     index:(req,res) => {
-        res.render('index')
+        res.render('CargaDeFicha')
     }
 }
 
