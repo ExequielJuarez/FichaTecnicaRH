@@ -3,47 +3,67 @@
 }
 
 body{
-    min-height: 100vh;
+    width: 100% ;
+    height: 2140px ;
+    background: red;
     margin: 0;
     display: flex;
     justify-content: center;
-    align-items: center;
-}
-.box_iniciar_sesion{
-    width: 90%;
-    max-width: 320px;
-    padding: 20px ;
     background-image: url(https://lh3.googleusercontent.com/proxy/w61PRtI66t9RSC6G7Ax8XTJRaPQZFDUp_ltb8L60h3OE_qKvVHIP9Bqbal4_0K6qzyCGjn-0nFaVwVaRcvZ_Jbiwfj9Yv3vAon4igu6PdfZnuR1hgSKOYtnXvYnkUwdZX4IiSvPEcpgiokEeLMk);
     background-size: cover;
     background-position: center;
     box-shadow: inset 0 0 20px 1px black;
+    background-repeat: no-repeat
+}
+.box_iniciar_sesion{
+    width: 90%;
+    padding: 20px ;
+    margin-top: 600px ;
+    height: 600px;
 }
 
 .box_datos{
+    height: 800px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
     padding: 20px;
     background-color: transparent ;
     border-radius: 20px;
-    box-shadow: 0 10px 30px  black ;
+    box-shadow: 0 9px 20px  black ;
+    
 
 }
 
 form{
     display: flex;
     flex-direction: column;
+    justify-content: center;
     gap: 10px;
+    margin-top: 50px;
+    margin-bottom: 0px;
+    
+    
 }
 
 .inicio_titulo{
     color: white;
     font-family: sans-serif;
-    font-size: 24px;
+    font-size: 50px;
+    text-align: center;
+    margin-bottom: 50px;
+    font-weight: 100;
+    text-shadow: 0 0 3px white ;
 }
 
 .submit{
     color: white ;
     background: rgb(55, 69, 89);
-    border-radius: 10px;
+    border-radius: 15px;
     border: none;
+    margin-top: 30px;
+    font-size: 34px;
     
     
 }
@@ -52,28 +72,38 @@ form{
     color: white;
     font-family: sans-serif;
     margin: 0 ;
-    font-size: 16px;
-    text-shadow: 0 0 2px white ;
+    font-size: 30px;
+    text-shadow: 0 0 5px white ;
+    text-align: left;
+    margin-left: 40px;
+    margin-bottom: 20px ;
+    
 }
 
-.input_usuario{
-    border-radius: 10px;
+input{
+    border-radius: 15px;
     border-style: solid;
     border-color: rgb(147, 144, 144) ;
     border-width: 1.3px;
+    font-size: 27px;
+    width: 90%;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    margin : auto ;
+    margin-bottom: 10px ;
+    
+    
+
 }
 
 .contraseña{
     color: white;
     font-family: sans-serif;
     margin: 0 ;
-    font-size: 16px;
-    text-shadow: 0 0 2px white ;
-}
-
-.input_contraseña{
-    border-radius: 10px;
-    border-style: solid;
-    border-color: rgb(147, 144, 144) ;
-    border-width: 1.3px;
+    font-size: 30px;
+    text-shadow: 0 0 5px white ;
+    margin-left: 40px;
+    margin-bottom: 0 ;
+    
 }
