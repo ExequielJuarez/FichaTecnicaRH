@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     tipo: DataTypes.ENUM('liviano', 'pesado')
   }, {
     tableName: 'vehiculos',
-    timestamps: true
+    timestamps: false
   });
 
   return Vehiculo;

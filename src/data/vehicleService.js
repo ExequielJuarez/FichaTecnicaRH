@@ -4,7 +4,7 @@ const path = require('path');
 
 const vehicleService = {
 
-    getData: async function () {
+    getAll: async function () {
     try {
       return await db.Vehiculo.findAll({
         // include: []  ← solo si tenés relaciones
