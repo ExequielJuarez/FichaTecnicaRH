@@ -11,3 +11,5 @@ CREATE TABLE vehiculos (
     combustible ENUM('nafta', 'diesel', 'electrico', 'hibrido') NOT NULL,
     tipo ENUM('liviano', 'pesado') NOT NULL
 );
+
+

@@ -3,3 +3,5 @@ INSERT INTO vehiculos
 VALUES
 ('Juan Perez', 'ABC123', 120000, 'Toyota', 'MTR123', 'nafta', 'liviano'),
 ('Carlos Gomez', 'XYZ789', 300000, 'Scania', 'SC456', 'diesel', 'pesado');
+
+
