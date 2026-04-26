@@ -9,8 +9,12 @@
 </head>
 <body>
 
+  <!-- Overlay para cerrar sidebar en mobile/tablet -->
+  <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
+
   <!-- ===================== SIDEBAR ===================== -->
-  <aside class="sidebar">
+  <aside class="sidebar" id="sidebar" aria-label="Menú de navegación">
+
     <div class="sidebar__brand">
       <div class="sidebar__logo">
         <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
@@ -22,12 +26,18 @@
         <span class="sidebar__brand-name">Gestión de Flota</span>
         <span class="sidebar__brand-sub">Municipalidad</span>
       </div>
+      <button class="sidebar__close-btn" id="sidebar-close" aria-label="Cerrar menú">
+        <svg viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+        </svg>
+      </button>
     </div>
 
-    <nav class="sidebar__nav">
+    <nav class="sidebar__nav" aria-label="Navegación principal">
       <span class="sidebar__nav-label">Menú Principal</span>
 
       <ul class="sidebar__menu">
+
         <li class="sidebar__menu-item">
           <a href="#" class="sidebar__menu-link">
             <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
@@ -35,7 +45,7 @@
           </a>
         </li>
 
-        <li class="sidebar__menu-item sidebar__menu-item--active sidebar__menu-item--expandable">
+        <li class="sidebar__menu-item sidebar__menu-item--expandable">
           <a href="#" class="sidebar__menu-link sidebar__menu-link--active">
             <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/><path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z"/></svg>
             Vehículos
@@ -43,7 +53,7 @@
           </a>
           <ul class="sidebar__submenu">
             <li><a href="#" class="sidebar__submenu-link sidebar__submenu-link--active">Listado de vehículos</a></li>
-            <li><a href="#" class="sidebar__submenu-link">Agregar vehículo</a></li>
+            <li><a href="agregar-vehiculo.html" class="sidebar__submenu-link">Agregar vehículo</a></li>
           </ul>
         </li>
 
@@ -124,24 +134,38 @@
             Auditoría
           </a>
         </li>
+
       </ul>
     </nav>
   </aside>
 
-  <!-- ===================== WRAPPER ===================== -->
+  <!-- ===================== APP WRAPPER ===================== -->
   <div class="app-wrapper">
 
-    <!-- ===================== HEADER ===================== -->
+    <!-- ===================== HEADER / TOPBAR ===================== -->
     <header class="topbar">
-      <button class="topbar__menu-toggle" aria-label="Abrir menú">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      <button class="topbar__menu-toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="sidebar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="6"  x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
       </button>
+
+      <div class="topbar__mobile-brand" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 28 28" fill="none">
+          <rect width="28" height="28" rx="6" fill="#F59E0B"/>
+          <path d="M6 18L10 10L14 16L18 8L22 18H6Z" fill="#1E293B" stroke="#1E293B" stroke-width="0.5"/>
+        </svg>
+        <span>Gestión de Flota</span>
+      </div>
+
       <div class="topbar__actions">
-        <button class="topbar__notification-btn" aria-label="Notificaciones">
+        <button class="topbar__notification-btn" aria-label="Notificaciones (3 sin leer)">
           <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/></svg>
-          <span class="topbar__notification-dot">3</span>
+          <span class="topbar__notification-dot" aria-label="3 notificaciones">3</span>
         </button>
-        <div class="topbar__user">
+        <div class="topbar__user" role="button" tabindex="0">
           <svg class="topbar__user-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/></svg>
           <span class="topbar__user-name">Administrador</span>
           <svg class="topbar__user-chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
@@ -150,14 +174,17 @@
     </header>
 
     <!-- ===================== MAIN ===================== -->
-    <main class="main-content">
+    <main class="main-content" id="main-content">
 
       <!-- ---- PANEL IZQUIERDO: Listado de Vehículos ---- -->
-      <section class="vehicle-list-panel" aria-label="Listado de vehículos">
-        <h2 class="vehicle-list-panel__title">Listado de Vehículos</h2>
+      <section class="vehicle-list-panel" id="vehicle-list-panel" aria-label="Listado de vehículos">
+
+        <div class="vehicle-list-panel__top">
+          <h2 class="vehicle-list-panel__title">Listado de Vehículos</h2>
+        </div>
 
         <div class="vehicle-list-panel__search-bar">
-          <input class="vehicle-list-panel__search-input" type="text" placeholder="Buscar por patente..." />
+          <input class="vehicle-list-panel__search-input" type="search" placeholder="Buscar por patente..." aria-label="Buscar vehículo" />
           <button class="vehicle-list-panel__search-btn" aria-label="Buscar">
             <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"/></svg>
           </button>
@@ -206,32 +233,33 @@
         <div class="vehicle-list-panel__footer">
           <p class="vehicle-list-panel__count">Mostrando 1 a 8 de 28 vehículos</p>
           <nav class="pagination" aria-label="Paginación">
-            <button class="pagination__btn pagination__btn--arrow" disabled aria-label="Anterior">&lsaquo;</button>
-            <button class="pagination__btn pagination__btn--active">1</button>
+            <button class="pagination__btn pagination__btn--arrow" disabled aria-label="Página anterior">&lsaquo;</button>
+            <button class="pagination__btn pagination__btn--active" aria-current="page">1</button>
             <button class="pagination__btn">2</button>
             <button class="pagination__btn">3</button>
             <button class="pagination__btn">4</button>
-            <button class="pagination__btn pagination__btn--arrow" aria-label="Siguiente">&rsaquo;</button>
+            <button class="pagination__btn pagination__btn--arrow" aria-label="Página siguiente">&rsaquo;</button>
           </nav>
         </div>
       </section>
 
       <!-- ---- PANEL DERECHO: Detalle del Vehículo ---- -->
-      <section class="vehicle-detail" aria-label="Detalle del vehículo">
+      <section class="vehicle-detail" id="vehicle-detail" aria-label="Detalle del vehículo">
 
         <!-- Breadcrumb -->
         <nav class="vehicle-detail__breadcrumb" aria-label="Ruta de navegación">
-          <a href="#" class="vehicle-detail__breadcrumb-link">
+          <button class="vehicle-detail__back-btn" id="detail-back-btn">
             <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"/></svg>
             Volver al listado
-          </a>
+          </button>
         </nav>
 
         <h1 class="vehicle-detail__heading">Detalle del Vehículo</h1>
 
         <!-- Ficha principal del vehículo -->
         <article class="vehicle-profile">
-          <img class="vehicle-profile__photo" src="https://placehold.co/200x130/cbd5e1/475569?text=Ford+Ranger" alt="Ford Ranger XL 4x4" />
+
+          <img class="vehicle-profile__photo" src="https://placehold.co/200x130/dbeafe/1d4ed8?text=Ford+Ranger" alt="Ford Ranger XL 4x4" />
 
           <div class="vehicle-profile__content">
             <div class="vehicle-profile__header">
@@ -240,6 +268,7 @@
             </div>
 
             <div class="vehicle-profile__specs">
+
               <dl class="vehicle-profile__spec-group">
                 <div class="vehicle-profile__spec-row">
                   <dt class="vehicle-profile__spec-label">Marca / Modelo</dt>
@@ -301,9 +330,10 @@
                 </div>
                 <div class="vehicle-profile__spec-row">
                   <dt class="vehicle-profile__spec-label">Chofer Asignado</dt>
-                  <dd class="vehicle-profile__spec-value">-</dd>
+                  <dd class="vehicle-profile__spec-value">—</dd>
                 </div>
               </dl>
+
             </div>
           </div>
 
@@ -315,17 +345,18 @@
 
         <!-- Tabs de navegación -->
         <nav class="detail-tabs" aria-label="Secciones del vehículo">
-          <button class="detail-tabs__tab detail-tabs__tab--active">Resumen</button>
-          <button class="detail-tabs__tab">Mantenimientos</button>
-          <button class="detail-tabs__tab">Préstamos / Uso</button>
-          <button class="detail-tabs__tab">Documentación</button>
-          <button class="detail-tabs__tab">Combustible</button>
-          <button class="detail-tabs__tab">Informes</button>
+          <div class="detail-tabs__track">
+            <button class="detail-tabs__tab detail-tabs__tab--active" aria-selected="true">Resumen</button>
+            <button class="detail-tabs__tab" aria-selected="false">Mantenimientos</button>
+            <button class="detail-tabs__tab" aria-selected="false">Préstamos / Uso</button>
+            <button class="detail-tabs__tab" aria-selected="false">Documentación</button>
+            <button class="detail-tabs__tab" aria-selected="false">Combustible</button>
+            <button class="detail-tabs__tab" aria-selected="false">Informes</button>
+          </div>
         </nav>
 
-        <!-- Contenido del tab: Resumen -->
+        <!-- Contenido tab Resumen -->
         <div class="detail-tab-content">
-
           <div class="detail-columns">
 
             <!-- Columna principal -->
@@ -337,7 +368,6 @@
                   <svg class="data-card__icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/></svg>
                   <h3 class="data-card__title">Mantenimientos Recientes</h3>
                 </header>
-
                 <div class="data-table-wrapper">
                   <table class="data-table">
                     <thead class="data-table__head">
@@ -353,39 +383,39 @@
                     </thead>
                     <tbody class="data-table__body">
                       <tr class="data-table__row">
-                        <td class="data-table__td">15/03/2025</td>
-                        <td class="data-table__td">Cambio de aceite y filtros</td>
-                        <td class="data-table__td">40.000 km</td>
-                        <td class="data-table__td">Lubricentro Central</td>
-                        <td class="data-table__td">$ 85.000</td>
-                        <td class="data-table__td">50.000 km / 15/09/2025</td>
-                        <td class="data-table__td">
+                        <td class="data-table__td" data-label="Fecha">15/03/2025</td>
+                        <td class="data-table__td" data-label="Tipo">Cambio de aceite y filtros</td>
+                        <td class="data-table__td" data-label="Km">40.000 km</td>
+                        <td class="data-table__td" data-label="Proveedor">Lubricentro Central</td>
+                        <td class="data-table__td" data-label="Costo">$ 85.000</td>
+                        <td class="data-table__td" data-label="Próximo">50.000 km / 15/09/2025</td>
+                        <td class="data-table__td" data-label="Acciones">
                           <button class="data-table__action-btn" aria-label="Ver detalle">
                             <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/></svg>
                           </button>
                         </td>
                       </tr>
                       <tr class="data-table__row">
-                        <td class="data-table__td">10/12/2024</td>
-                        <td class="data-table__td">Revisión general</td>
-                        <td class="data-table__td">35.000 km</td>
-                        <td class="data-table__td">Taller Municipal</td>
-                        <td class="data-table__td">$ 120.000</td>
-                        <td class="data-table__td">40.000 km / 10/06/2025</td>
-                        <td class="data-table__td">
+                        <td class="data-table__td" data-label="Fecha">10/12/2024</td>
+                        <td class="data-table__td" data-label="Tipo">Revisión general</td>
+                        <td class="data-table__td" data-label="Km">35.000 km</td>
+                        <td class="data-table__td" data-label="Proveedor">Taller Municipal</td>
+                        <td class="data-table__td" data-label="Costo">$ 120.000</td>
+                        <td class="data-table__td" data-label="Próximo">40.000 km / 10/06/2025</td>
+                        <td class="data-table__td" data-label="Acciones">
                           <button class="data-table__action-btn" aria-label="Ver detalle">
                             <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/></svg>
                           </button>
                         </td>
                       </tr>
                       <tr class="data-table__row">
-                        <td class="data-table__td">05/09/2024</td>
-                        <td class="data-table__td">Cambio de pastillas</td>
-                        <td class="data-table__td">30.000 km</td>
-                        <td class="data-table__td">Frenos del Sur</td>
-                        <td class="data-table__td">$ 65.000</td>
-                        <td class="data-table__td">-</td>
-                        <td class="data-table__td">
+                        <td class="data-table__td" data-label="Fecha">05/09/2024</td>
+                        <td class="data-table__td" data-label="Tipo">Cambio de pastillas</td>
+                        <td class="data-table__td" data-label="Km">30.000 km</td>
+                        <td class="data-table__td" data-label="Proveedor">Frenos del Sur</td>
+                        <td class="data-table__td" data-label="Costo">$ 65.000</td>
+                        <td class="data-table__td" data-label="Próximo">—</td>
+                        <td class="data-table__td" data-label="Acciones">
                           <button class="data-table__action-btn" aria-label="Ver detalle">
                             <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/></svg>
                           </button>
@@ -394,7 +424,6 @@
                     </tbody>
                   </table>
                 </div>
-
                 <a href="#" class="data-card__see-all">
                   Ver todos los mantenimientos
                   <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
@@ -407,7 +436,6 @@
                   <svg class="data-card__icon" viewBox="0 0 20 20" fill="currentColor"><path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/><path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3z"/></svg>
                   <h3 class="data-card__title">Préstamos / Uso Recientes</h3>
                 </header>
-
                 <div class="data-table-wrapper">
                   <table class="data-table">
                     <thead class="data-table__head">
@@ -421,30 +449,29 @@
                     </thead>
                     <tbody class="data-table__body">
                       <tr class="data-table__row">
-                        <td class="data-table__td">10/05/2025</td>
-                        <td class="data-table__td">12/05/2025</td>
-                        <td class="data-table__td">Hernán Quiroga</td>
-                        <td class="data-table__td">Traslado al Distrito Norte</td>
-                        <td class="data-table__td"><span class="badge badge--finished">Finalizado</span></td>
+                        <td class="data-table__td" data-label="Salida">10/05/2025</td>
+                        <td class="data-table__td" data-label="Devolución">12/05/2025</td>
+                        <td class="data-table__td" data-label="Chofer">Hernán Quiroga</td>
+                        <td class="data-table__td" data-label="Destino">Traslado al Distrito Norte</td>
+                        <td class="data-table__td" data-label="Estado"><span class="badge badge--finished">Finalizado</span></td>
                       </tr>
                       <tr class="data-table__row">
-                        <td class="data-table__td">02/05/2025</td>
-                        <td class="data-table__td">05/05/2025</td>
-                        <td class="data-table__td">Marcos Díaz</td>
-                        <td class="data-table__td">Servicio de inspección</td>
-                        <td class="data-table__td"><span class="badge badge--finished">Finalizado</span></td>
+                        <td class="data-table__td" data-label="Salida">02/05/2025</td>
+                        <td class="data-table__td" data-label="Devolución">05/05/2025</td>
+                        <td class="data-table__td" data-label="Chofer">Marcos Díaz</td>
+                        <td class="data-table__td" data-label="Destino">Servicio de inspección</td>
+                        <td class="data-table__td" data-label="Estado"><span class="badge badge--finished">Finalizado</span></td>
                       </tr>
                       <tr class="data-table__row">
-                        <td class="data-table__td">20/04/2025</td>
-                        <td class="data-table__td">22/04/2025</td>
-                        <td class="data-table__td">Hernán Quiroga</td>
-                        <td class="data-table__td">Traslado materiales</td>
-                        <td class="data-table__td"><span class="badge badge--finished">Finalizado</span></td>
+                        <td class="data-table__td" data-label="Salida">20/04/2025</td>
+                        <td class="data-table__td" data-label="Devolución">22/04/2025</td>
+                        <td class="data-table__td" data-label="Chofer">Hernán Quiroga</td>
+                        <td class="data-table__td" data-label="Destino">Traslado materiales</td>
+                        <td class="data-table__td" data-label="Estado"><span class="badge badge--finished">Finalizado</span></td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
-
                 <a href="#" class="data-card__see-all">
                   Ver todos los préstamos / uso
                   <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
@@ -453,16 +480,15 @@
 
             </div>
 
-            <!-- Columna lateral -->
+            <!-- Columna lateral: alertas e info -->
             <aside class="detail-side-column" aria-label="Alertas e información adicional">
 
               <!-- Alertas -->
-              <section class="alerts-card" aria-label="Alertas">
+              <section class="alerts-card" aria-label="Alertas del vehículo">
                 <header class="data-card__header">
                   <svg class="data-card__icon" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/></svg>
                   <h3 class="data-card__title">Alertas</h3>
                 </header>
-
                 <ul class="alert-list">
                   <li class="alert-item alert-item--warning">
                     <div class="alert-item__content">
@@ -474,7 +500,6 @@
                     </div>
                     <span class="alert-item__badge alert-item__badge--warning">4.770 km</span>
                   </li>
-
                   <li class="alert-item alert-item--warning">
                     <div class="alert-item__content">
                       <svg class="alert-item__icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
@@ -485,7 +510,6 @@
                     </div>
                     <span class="alert-item__badge alert-item__badge--warning">En 18 días</span>
                   </li>
-
                   <li class="alert-item alert-item--danger">
                     <div class="alert-item__content">
                       <svg class="alert-item__icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
@@ -497,7 +521,6 @@
                     <span class="alert-item__badge alert-item__badge--danger">Vencido</span>
                   </li>
                 </ul>
-
                 <a href="#" class="data-card__see-all">
                   Ver todas las alertas
                   <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
@@ -505,12 +528,11 @@
               </section>
 
               <!-- Información Adicional -->
-              <section class="info-card" aria-label="Información adicional">
+              <section class="info-card" aria-label="Información adicional del vehículo">
                 <header class="data-card__header">
                   <svg class="data-card__icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
                   <h3 class="data-card__title">Información Adicional</h3>
                 </header>
-
                 <dl class="info-list">
                   <div class="info-list__row">
                     <dt class="info-list__label">Kilometraje Inicial</dt>
@@ -544,6 +566,88 @@
     </footer>
 
   </div><!-- /app-wrapper -->
+
+  <script>
+    /* ============================================================
+       SIDEBAR TOGGLE — mobile / tablet
+    ============================================================ */
+    const sidebar      = document.getElementById('sidebar');
+    const overlay      = document.getElementById('sidebar-overlay');
+    const menuToggle   = document.getElementById('menu-toggle');
+    const sidebarClose = document.getElementById('sidebar-close');
+
+    function openSidebar() {
+      sidebar.classList.add('sidebar--open');
+      overlay.classList.add('sidebar-overlay--visible');
+      menuToggle.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeSidebar() {
+      sidebar.classList.remove('sidebar--open');
+      overlay.classList.remove('sidebar-overlay--visible');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+
+    menuToggle.addEventListener('click', openSidebar);
+    sidebarClose.addEventListener('click', closeSidebar);
+    overlay.addEventListener('click', closeSidebar);
+
+    /* ============================================================
+       LISTADO ↔ DETALLE — vista única en mobile
+    ============================================================ */
+    const listPanel  = document.getElementById('vehicle-list-panel');
+    const detailPanel = document.getElementById('vehicle-detail');
+    const backBtn    = document.getElementById('detail-back-btn');
+
+    function isMobileView() {
+      return window.innerWidth < 900;
+    }
+
+    // Click en una card del listado
+    document.querySelectorAll('.vehicle-card').forEach(card => {
+      card.addEventListener('click', function () {
+        // Marcar activa
+        document.querySelectorAll('.vehicle-card').forEach(c => c.classList.remove('vehicle-card--active'));
+        this.classList.add('vehicle-card--active');
+        // En mobile mostrar detalle
+        if (isMobileView()) {
+          listPanel.classList.add('vehicle-list-panel--hidden');
+          detailPanel.classList.add('vehicle-detail--visible');
+          detailPanel.scrollTop = 0;
+        }
+      });
+    });
+
+    // Volver al listado
+    backBtn.addEventListener('click', function () {
+      listPanel.classList.remove('vehicle-list-panel--hidden');
+      detailPanel.classList.remove('vehicle-detail--visible');
+    });
+
+    // Al redimensionar, restablecer si vuelve a desktop
+    window.addEventListener('resize', function () {
+      if (!isMobileView()) {
+        listPanel.classList.remove('vehicle-list-panel--hidden');
+        detailPanel.classList.remove('vehicle-detail--visible');
+      }
+    });
+
+    /* ============================================================
+       TABS DE DETALLE
+    ============================================================ */
+    document.querySelectorAll('.detail-tabs__tab').forEach(tab => {
+      tab.addEventListener('click', function () {
+        document.querySelectorAll('.detail-tabs__tab').forEach(t => {
+          t.classList.remove('detail-tabs__tab--active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        this.classList.add('detail-tabs__tab--active');
+        this.setAttribute('aria-selected', 'true');
+      });
+    });
+  </script>
 
 </body>
 </html>

@@ -4,6 +4,6 @@ const router = express.Router();
 const vehicleController = require('../controllers/vehicleController')
 
 
-router.get('/', vehicleController.index)
+router.get('/Vehicles', vehicleController.List)
 
 module.exports=router;

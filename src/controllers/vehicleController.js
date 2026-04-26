@@ -4,7 +4,7 @@ const vehicleService = require('../data/vehicleService')
 
 const vehicleController = {
     
-    index: async (req,res) => {
+    List: async (req,res) => {
         try {
         let Vehiculos = await vehicleService.getAll();
         console.log(Vehiculos)
