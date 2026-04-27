@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/public/css/Header.css">
+    <link rel="stylesheet" href="/public/css/Mantenimientos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" 
+    integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" 
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+</head>
+<body>
+
+<div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="Side-bar">
+        <ul class="side-bar-options">
+            <li class="activo">Vehículos</li>
+            <li>Choferes</li>
+            <li>Mantenimientos</li>
+            <li>Alertas</li>
+        </ul>
+    </aside>
+
+    
+    <div class="main-area">
+
+        <header class="header">
+            <section class="iconBar"><i class="fa-solid fa-bars"></i></section>
+            <section class="contLogo">
+                <img class="imgLogo" src="/public/images/header/images-removebg-preview (1).png">
+            </section>
+            <section class="iconUser2"><i class="fa-regular fa-user"></i></section>
+        </header>
+
+        <main class="Main-content">
+
+            <h2>Mantenimientos</h2>
+            <p class="descripcion">Historial de mantenimientos de los vehículos.</p>
+
+            <div class="acciones">
+                <button class="exportar">Exportar</button>
+                <button class="nuevo-mantenimiento">Nuevo Mantenimiento</button>
+                <button class="btn-filtrar">Filtrar</button>
+            </div>
+
+            <section class="box-main">
+
+                
+            <section class="box-filtros">
+
+                    <div class="filtro">
+                        <label>Buscar</label>
+                        <input class="input" type="search" placeholder="Patente, servicio...">
+                    </div>
+
+                    <div class="filtro">
+                        <label>Fecha desde</label>
+                        <input class="input" type="date">
+                    </div>
+
+                    <div class="filtro">
+                        <label>Fecha hasta</label>
+                        <input class="input" type="date">
+                    </div>
+
+                    <div class="filtro">
+                        <label>Tipo de servicio</label>
+                        <input class="input" type="text">
+                    </div>
+
+                    <div class="filtro">
+                        <label>Proveedor</label>
+                        <input class="input" type="text">
+                    </div>
+
+                    <div class="filtro">
+                        <label>Estado</label>
+                        <select class="input">
+                            <option value="">Todos</option>
+                            <option>Realizado</option>
+                            <option>Pendiente</option>
+                        </select>
+                    </div>
+
+                    <div class="filtro filtro-boton">
+                        <button class="boton-limpiar">Limpiar</button>
+                    </div>
+                
+            </section>
+                
+                <section class="box-lista">
+
+                    <div class="tabla-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Vehículo</th>
+                                    <th>Patente</th>
+                                    <th>Servicio</th>
+                                    <th>Km</th>
+                                    <th>Proveedor</th>
+                                    <th>Costo</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+                                    <td data-label="Fecha">15/03/2025</td>
+                                    <td data-label="Vehículo">Ford Ranger</td>
+                                    <td data-label="Patente">AB123CD</td>
+                                    <td data-label="Servicio">Cambio de aceite</td>
+                                    <td data-label="Km">40000</td>
+                                    <td data-label="Proveedor">Lubricentro</td>
+                                    <td data-label="Costo">$85000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </section>
+
+                
+                <section class="box-cambiarLista">
+
+                    <p class="info">Mostrando 1-8</p>
+
+                    <div class="paginacion">
+                        <button class="cambiar">Anterior</button>
+                        <button class="pagina">1</button>
+                        <button class="pagina">2</button>
+                        <button class="cambiar">Siguiente</button>
+                    </div>
+
+                </section>
+
+            </section>
+
+        </main>
+
+    </div>
+
+</div>
+
+</body>
+</html>

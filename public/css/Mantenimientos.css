@@ -1,0 +1,268 @@
+/* RESET */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: sans-serif;
+}
+
+/* LAYOUT */
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* SIDEBAR */
+.Side-bar {
+    width: 250px;
+    background: #020167;
+    color: white;
+}
+
+.side-bar-options {
+    list-style: none;
+    padding: 0;
+}
+
+.side-bar-options li {
+    padding: 20px;
+    cursor: pointer;
+}
+
+.side-bar-options li:hover {
+    background: #370fe6;
+}
+
+.activo {
+    background: #032c80;
+}
+/*-------------------------------------------------------------*/
+/* MAIN AREA */
+.main-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* HEADER */
+.header {
+    height: 70px;
+    background: #0b2a5c;
+}
+
+/* CONTENIDO */
+.Main-content {
+    padding: 20px;
+}
+
+
+/* ACCIONES */
+.acciones {
+    display: flex;
+    justify-content: right;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.exportar,.nuevo-mantenimiento,.btn-filtrar {
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+}
+
+.exportar {
+    background: white;
+    border: 1px solid #ccc;
+    height: 40px;
+    margin: 5px;
+}
+
+.nuevo-mantenimiento {
+    background: #02014d;
+    color: white;
+    height: 40px;
+    margin: 5px;
+
+}
+
+.btn-filtrar {
+    background: #1e3a5f;
+    color: white;
+    height: 40px;
+    margin: 5px;
+}
+
+
+/* BOX */
+.box-main {
+    background: white;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+/* FILTROS */
+.box-filtros {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding:10px ;
+    margin-bottom: 15px;
+    border-bottom: 1.5px solid lightgray ;
+    border-top: 1.5px solid lightgray ;
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
+}
+
+
+.filtro {
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+    color: #1e2737;
+}
+
+.filtro label {
+    margin-bottom: 3px;
+    font-weight: 600;
+}
+
+.input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* BOTÓN LIMPIAR ABAJO */
+.filtro-boton {
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+
+.boton-limpiar {
+    margin-top: 18px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    background: transparent;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* TABLA */
+.tabla-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 15px;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+}
+
+/* PAGINADO */
+.box-cambiarLista {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.pagina{
+    height: 30px;
+    width: 30px;
+    border-radius: 3px;
+    background-color: lightgray;
+    border: none;
+}
+
+.cambiar{
+    color: white;
+    height: 30px;
+    border-radius: 3px;
+    background-color: #1e2737;
+    border: none;
+    margin: 5px;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+
+    .layout {
+        flex-direction: column;
+    }
+
+    .box-filtros{
+        border-radius: 5px;
+        border: 1.5px solid lightgrey;
+        padding: 10px;
+    }
+
+    .boton-limpiar{
+        margin-left: 120px;
+        height:40px ;
+    }
+
+    .Side-bar {
+        display: none;
+    }
+
+    .acciones{
+        margin-bottom: 0 ;
+    }
+        table, thead, tbody, tr, td {
+        display: block;
+        width: 100%;
+    }
+
+    thead {
+        display: none;
+    }
+
+    tr {
+        background: white;
+        margin-bottom: 10px;
+        border-radius: 10px;
+        padding: 10px;
+        border: 1px solid #ddd;
+    }
+
+    td {
+        display: flex;
+        justify-content: space-between;
+        padding: 5px 0;
+    }
+
+    td::before {
+        content: attr(data-label);
+        font-weight: bold;
+    }
+
+    .box-cambiarLista{
+        flex-direction: column;
+    }
+
+    .cambiar{
+        color: white;
+        height: 30px;
+        border-radius: 3px;
+        background-color: #1e2737;
+        border: none;
+    }
+
+}
+
+
+/*ESCRITORIO*/
+@media (min-width: 1024px) {
+    .box-filtros {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 15px;
+    }
+}
