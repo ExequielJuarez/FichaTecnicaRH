@@ -9,6 +9,7 @@ const vehicleController = {
     ListVehicles: async (req,res) => {
     try {
         let vehiculos = await vehicleService.getAll();
+        
         console.log(vehiculos);
         res.render("listadoVehiculos", { vehiculos });
     } catch (error) {      
@@ -45,7 +46,8 @@ const vehicleController = {
         }
 
 
-    }
+    },
+
 }
 
 module.exports = vehicleController;

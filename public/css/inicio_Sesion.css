@@ -5,11 +5,10 @@
 body{
     width: 100% ;
     height: 2140px ;
-    background: red;
     margin: 0;
     display: flex;
     justify-content: center;
-    background-image: url(https://lh3.googleusercontent.com/proxy/w61PRtI66t9RSC6G7Ax8XTJRaPQZFDUp_ltb8L60h3OE_qKvVHIP9Bqbal4_0K6qzyCGjn-0nFaVwVaRcvZ_Jbiwfj9Yv3vAon4igu6PdfZnuR1hgSKOYtnXvYnkUwdZX4IiSvPEcpgiokEeLMk);
+    background-image:url(/images/InicioSesion/Gemini_Generated_Image_uysasbuysasbuysa.png);
     background-size: cover;
     background-position: center;
     box-shadow: inset 0 0 20px 1px black;
@@ -18,7 +17,7 @@ body{
 .box_iniciar_sesion{
     width: 90%;
     padding: 20px ;
-    margin-top: 600px ;
+    margin-top: 300px ;
     height: 600px;
 }
 
@@ -106,4 +105,11 @@ input{
     margin-left: 40px;
     margin-bottom: 0 ;
     
+}
+
+@media (min-width: 1100px) {
+
+    .box_datos{
+        width: 60%;
+    }
 }
