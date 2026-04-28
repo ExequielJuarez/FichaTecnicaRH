@@ -148,38 +148,42 @@
 
         <ul class="vehicle-list" aria-label="Vehículos">
 
+                  <% if (vehiculos && vehiculos.length > 0) { %>
           <% vehiculos.forEach(vehiculo => { %>
-                <li class="vehicle-card vehicle-card--active">
-                  
-                  <img 
-                    class="vehicle-card__thumbnail" 
-                    src="https://placehold.co/60x44/e2e8f0/64748b?text=<%= vehiculo.tipo %>" 
-                    alt="<%= vehiculo.marca %> <%= vehiculo.tipo %>" 
-                  />
+            <li class="vehicle-card vehicle-card--active">
+              
+              <img 
+                class="vehicle-card__thumbnail" 
+                src="https://placehold.co/60x44/e2e8f0/64748b?text=<%= vehiculo.modelo %>" 
+                alt="<%= vehiculo.marca %> <%= vehiculo.modelo %>" 
+              />
 
-                  <div class="vehicle-card__info">
-                    
-                    <span class="vehicle-card__plate">
-                      <%= vehiculo.patente %>
-                    </span>
+              <div class="vehicle-card__info">
+                
+                <span class="vehicle-card__plate">
+                  <%= vehiculo.patente %>
+                </span>
 
-                    <span class="vehicle-card__model">
-                      <%= vehiculo.marca %> - <%= vehiculo.tipo %>
-                    </span>
+                <span class="vehicle-card__model">
+                  <%= vehiculo.marca %> - <%= vehiculo.modelo %>
+                </span>
 
-                    <div class="vehicle-card__meta">
-                      <span class="badge badge--available">
-                        <%= vehiculo.combustible %>
-                      </span>
+                <div class="vehicle-card__meta">
+                  <span class="badge badge--available">
+                    <%= vehiculo.estado_actual %>
+                  </span>
 
-                      <span class="vehicle-card__km">
-                        <%= vehiculo.km_actual %> km
-                      </span>
-                    </div>
+                  <span class="vehicle-card__km">
+                    <%= vehiculo.km_actual %> km
+                  </span>
+                </div>
 
-                  </div>
-                </li>
-              <% }) %>
+              </div>
+            </li>
+          <% }) %>
+        <% } else { %>
+          <p>No hay vehículos</p>
+        <% } %>
 
         </ul>
 
