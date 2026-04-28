@@ -14,7 +14,18 @@ const userService = {
           console.log(error);
           return [];
         }
+      },
+
+    findByField : async function (field,otrotext,text) {
+      try {
+          let allUsers = await this.getAll();
+          let userFound = allUsers.find(oneUser => oneUser[field] === text || oneUser[otrotext] === text );
+          return userFound ;
+      } catch (error) {
+        
       }
+      
+    }
 }
 
 module.exports = userService

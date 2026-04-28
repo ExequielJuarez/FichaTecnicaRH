@@ -15,4 +15,6 @@ router.post('/cargaVehiculo', vehicleController.processVehicle);
 
 router.get('/InicioSesion',userController.InicioSesion);
 
+router.post('/InicioSesion',userController.ProcesoIniciarSesion);
+
 module.exports=router;

@@ -15,7 +15,20 @@ const userController = {
             } catch (error) {
                 res.send("Error");
                 }
-            }
+            },
+
+    ProcesoIniciarSesion : async (req,res) => {
+        let usuario = req.body.Usuario;
+        let contrasena = req.body.Contrasena;
+        let UsuarioDB = await userService.findByField('nombre_usuario','mail',usuario);
+        if(UsuarioDB){
+            res.redirect('/Vehicles')
+        }else{
+            res.send('problema al iniciar')
+        }
+        
+    }
+
 }
 
 module.exports = userController
