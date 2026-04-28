@@ -14,6 +14,26 @@ const vehicleService = {
       return [];
     }
   },
+    getOne: async function (id) {
+      try {
+          Vehicle = await db.User.findByPk(id);
+          return Vehicle;
+
+      } catch (error) {
+
+      }
+
+  },
+
+    findByPk: async function (id) {
+      try {
+          let allVehicles = await this.getAll(); // Aquí se llama a la función
+          let OneVehicle = allVehicles.find(onevehicle => onevehicle.id === id);
+          return OneVehicle;
+      } catch (error) {
+
+      }
+  },
 
   create: async function (req) {
         try {

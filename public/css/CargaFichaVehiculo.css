@@ -424,6 +424,14 @@ svg     { display: block; flex-shrink: 0; }
   box-shadow: var(--shadow-sm);
 }
 
+.form-sectionMod{
+  background: #f1f5f9;;
+  border: 1px solid #f1f5f9;;
+  border-radius: #f1f5f9;;
+  padding: 20px;
+  box-shadow: #f1f5f9;;
+}
+
 .form-section h3 {
   font-size: 13px;
   font-weight: 700;

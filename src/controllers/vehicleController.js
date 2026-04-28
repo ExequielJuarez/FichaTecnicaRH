@@ -17,7 +17,6 @@ const vehicleController = {
         res.send("Error");
     }
 },
-
     CargaVehiculo : async (req,res) => {
         try {
         res.render('CargaFichaVehiculo')
