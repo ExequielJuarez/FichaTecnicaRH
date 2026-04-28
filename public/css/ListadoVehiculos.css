@@ -130,6 +130,8 @@ img          { display: block; }
 }
 
 .sidebar__logo { flex-shrink: 0; }
+.imglogosidebar{ width: 100%; height: 50px;}
+.imglogosidebarcel{ width: 25%; height: 40px; }
 
 .sidebar__brand-name {
   display: block;

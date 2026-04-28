@@ -10,13 +10,40 @@ const vehicleController = {
         try {
         let Vehiculos = await vehicleService.getAll();
         console.log(Vehiculos)
-        res.render('listadoVehiculos', {vehiculos: Vehiculos})
         } catch (error) {      
         }
         
+    },
+
+    CargaVehiculo : async (req,res) => {
+        try {
+        res.render('CargaFichaVehiculo')
+        } catch (error) {      
+        }
+        
+    },
+
+    Mantenimientos : async (req,res) => {
+        try {
+        res.render('Mantenimientos')
+        } catch (error) {      
+        }
+
+
+    },
+
+    processVehicle : async (req,res) => {
+        try {
+        let newVehicle = await vehicleService.create(req);
+        res.redirect('/Vehicles');
+        console.log("hola")
+        console.log(req.body)
+        console.log(newVehicle)
+        } catch (error) {      
+        }
+
+
     }
-
-
 }
 
 module.exports = vehicleController;
