@@ -7,7 +7,7 @@ const userController = require('../controllers/userController');
 
 router.get('/Vehicles', vehicleController.ListVehicles);
 
-router.get('/Vehicles/:id', vehicleController.ListVehicles);
+router.get('/Vehicles/:id', vehicleController.getVehicleById);
 
 router.get('/Mantenimientos', vehicleController.Mantenimientos);
 
