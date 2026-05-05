@@ -99,6 +99,15 @@ img          { display: block; }
   transition: opacity 0.25s;
 }
 
+.vehicle-card__link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
 .sidebar-overlay--visible {
   opacity: 1;
 }

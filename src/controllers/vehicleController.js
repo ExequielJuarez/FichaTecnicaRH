@@ -11,12 +11,29 @@ const vehicleController = {
         let vehiculos = await vehicleService.getAll();
         
         console.log(vehiculos);
-        res.render("listadoVehiculos", { vehiculos });
+        res.render("listadoVehiculos", { vehiculos, vehiculoSeleccionado: null });
     } catch (error) {      
         console.log(error);
         res.send("Error");
     }
 },
+
+    getVehicleById: async (req, res) => {
+    try {
+        const id = req.params.id;
+
+        const vehiculo = await vehicleService.getOne(id);
+
+        const vehiculos = await vehicleService.getAll();
+
+        res.render("listadoVehiculos", { vehiculos, vehiculoSeleccionado: vehiculo});
+
+    } catch (error) {
+        console.log(error);
+        res.send("Error al obtener el vehículo");
+    }
+    },
+
     CargaVehiculo : async (req,res) => {
         try {
         res.render('CargaFichaVehiculo')

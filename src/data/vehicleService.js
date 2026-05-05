@@ -16,7 +16,7 @@ const vehicleService = {
   },
     getOne: async function (id) {
       try {
-          Vehicle = await db.User.findByPk(id);
+          Vehicle = await db.Vehiculo.findByPk(id);
           return Vehicle;
 
       } catch (error) {
