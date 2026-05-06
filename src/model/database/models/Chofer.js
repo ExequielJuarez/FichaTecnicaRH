@@ -36,6 +36,18 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false
   });
 
+  Chofer.associate = function(models) {
+  Chofer.hasMany(models.LicenciaChofer, {
+    foreignKey: 'id_chofer',
+    as: 'licencias'
+  });
+
+  Chofer.hasMany(models.AsignacionVehiculo, {
+    foreignKey: 'id_chofer',
+    as: 'asignaciones'
+  });
+};
+
  
 
   return Chofer;

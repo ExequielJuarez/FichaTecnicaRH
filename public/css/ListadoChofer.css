@@ -462,9 +462,13 @@ svg     { display: block; flex-shrink: 0; }
     border-color: var(--color-primary);
 }
 
-.filtro-boton { justify-content: flex-end; }
+.filtro-boton { 
+    justify-content: flex-end; 
+    
+}
 
 .boton-limpiar {
+    text-align: center;
     margin-top: 18px;
     padding: 7px 14px;
     border: 1px solid var(--color-border);

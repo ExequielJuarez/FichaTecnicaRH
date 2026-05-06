@@ -8,10 +8,14 @@ const choferController = {
     
     ListChoferes: async (req,res) => {
     try {
-        let choferes = await choferService.getAll();
+
+        const filtros = req.query;
+
+        let choferes = await choferService.getAll(filtros);
         
         console.log(choferes);
         res.render("listadoChofer", { choferes });
+
     } catch (error) {      
         console.log(error);
         res.send("Error");
@@ -38,6 +42,7 @@ const choferController = {
 
 
     },
+    
 
 }
 

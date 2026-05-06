@@ -226,13 +226,13 @@
 
     <div class="form-group">
       <label>Número de Licencia</label>
-      <input name="Licencia" type="text" placeholder="Ingrese el número de licencia">
+      <input name="numero_licencia" type="text" placeholder="Ingrese el número de licencia">
     </div>
 
     <div class="form-row">
       <div class="form-group">
         <label>Categoría de Licencia</label>
-        <select name="categoriaLicencia">
+        <select name="categoria">
           <!-- EXACTO como en ENUM -->
             <option value="">Seleccione categoría</option>
             <option value="A">A - Motocicletas</option>
@@ -246,10 +246,16 @@
       </div>
 
       <div class="form-group">
-        <label>Vencimiento</label>
-        <input name="Vencimiento" type="date">
+        <label>Fecha de Emisión</label>
+        <input name="fecha_emision" type="date">
       </div>
+
     </div>
+
+    <div class="form-group small">
+        <label>Vencimiento</label>
+        <input name="fecha_vencimiento" type="date">
+      </div>
 
   </section>
 

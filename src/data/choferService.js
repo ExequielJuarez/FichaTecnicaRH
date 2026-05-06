@@ -2,19 +2,81 @@ const db = require('../model/database/models')
 const fs = require('fs');
 const path = require('path');
 const Chofer = require('../model/database/models/Chofer');
+const { Op } = require('sequelize');
 
 const choferService = {
 
-    getAll: async function () {
+    getAll: async function (filtros = {}) {
 
     try {
-      return await db.Chofer.findAll ({
-      })
+
+        const where = {};
+
+        if (filtros.buscar) {
+            where[Op.or] = [
+                { nombre: { [Op.like]: `%${filtros.buscar}%` } },
+                { apellido: { [Op.like]: `%${filtros.buscar}%` } },
+                { dni: { [Op.like]: `%${filtros.buscar}%` } },
+                { '$asignaciones.vehiculo.patente$': { [Op.like]: `%${filtros.buscar}%` } }
+            ];
+        }
+
+        
+        //estado
+        if (filtros.estado) {
+            where.estado = filtros.estado;
+        }
+        //licencias
+        const includeLicencias = {
+            model: db.LicenciaChofer,
+            as: 'licencias',
+            required: filtros.categoriaLicencia
+        };
+
+        if (filtros.categoriaLicencia) {
+            includeLicencias.where = {
+            categoria: {
+                [Op.like]: filtros.categoriaLicencia
+            }
+            };
+        }
+        //vehiculos
+        const includeAsignaciones = {
+            model: db.AsignacionVehiculo,
+            as: 'asignaciones',
+            required: false,
+            include: [
+                {
+                    model: db.Vehiculo,
+                    as: 'vehiculo',
+                    required: false
+                }
+            ]
+        };
+
+
+        return await db.Chofer.findAll({
+        where,
+        include: [
+            includeLicencias,
+            includeAsignaciones,
+            {
+                model: db.AsignacionVehiculo,
+                as: 'asignaciones',
+                include: [
+                    {
+                        model: db.Vehiculo,
+                        as: 'vehiculo'
+                    }
+                ]
+            }
+        ]
+        }+);
     } catch (error) {
-      console.log(error);
-      return [];
+        console.log(error);
+        return [];
     }
-  },
+    },
     getOne: async function (id) {
       try {
           Chofer = await db.Chofer.findByPk(id);
@@ -47,8 +109,20 @@ const choferService = {
                 telefono: req.body.telefono,
                 direccion: req.body.direccion,
                 estado: req.body.estado,
-            })
+            });
+
+            if (req.body.numero_licencia) {
+            await db.LicenciaChofer.create({
+                id_chofer: newChofer.id_chofer,
+                numero: req.body.numero_licencia,
+                categoria: req.body.categoria,
+                fecha_emision: req.body.fecha_emision,
+                fecha_vencimiento: req.body.fecha_vencimiento
+            });
+            }
+
             return newChofer
+
         } catch (error) {
 
         }

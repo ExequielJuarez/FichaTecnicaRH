@@ -127,67 +127,73 @@
             <div class="acciones">
                 <button class="exportar">Exportar</button>
                 <a href="/Choferes/Carga" class="nuevo-chofer">Nuevo Chofer</a>
-                <button class="btn-filtrar">Filtrar</button>
             </div>
 
             <section class="box-main">
 
-                <section class="box-filtros">
+                <form method="GET" action="/Choferes">
 
-                    <div class="filtro">
-                        <label>Buscar</label>
-                        <input class="input" type="search" placeholder="Dni, apellido...">
-                    </div>
+                    <section class="box-filtros">
 
-                    <div class="filtro">
-                        <label>Fecha desde</label>
-                        <input class="input" type="date">
-                    </div>
+                        <div class="filtro">
+                            <label>Buscar</label>
+                            <input name="buscar" class="input" type="search" placeholder="Dni, apellido...">
+                        </div>
 
-                    <div class="filtro">
-                        <label>Fecha hasta</label>
-                        <input class="input" type="date">
-                    </div>
+                        <div class="filtro">
+                            <label>Fecha desde</label>
+                            <input name="fechaDesde" class="input" type="date">
+                        </div>
 
-                    <div class="filtro">
-                        <label>Categoría</label>
-                                <select class="input" name="categoriaLicencia">
-                                    <option value="">Seleccione categoría</option>
-                                    <option value="A">A - Motocicletas</option>
-                                    <option value="B1">B1 - Autos y camionetas</option>
-                                    <option value="B2">B2 - Vehículos utilitarios</option>
-                                    <option value="C">C - Camiones sin acoplado</option>
-                                    <option value="D">D - Transporte de pasajeros</option>
-                                    <option value="E">E - Camiones con acoplado</option>
-                                    <option value="G">G - Maquinaria especial</option>
-                                </select> 
-                    </div>
+                        <div class="filtro">
+                            <label>Fecha hasta</label>
+                            <input name="fechaHasta" class="input" type="date">
+                        </div>
 
-                    <div class="filtro">
-                        <label>Tipo de Vehículo</label>
-                                <select class="input">
-                                    <option value="">Todos</option>
-                                    <option>Camión</option>
-                                    <option>Camioneta</option>
-                                    <option>Auto</option>
-                                    <option>Maquinaria</option>
-                                </select>
-                    </div>
+                        <div class="filtro">
+                            <label>Categoría</label>
+                                    <select class="input" name="categoriaLicencia">
+                                        <option value="">Seleccione categoría</option>
+                                        <option value="A">A - Motocicletas</option>
+                                        <option value="B1">B1 - Autos y camionetas</option>
+                                        <option value="B2">B2 - Vehículos utilitarios</option>
+                                        <option value="C">C - Camiones sin acoplado</option>
+                                        <option value="D">D - Transporte de pasajeros</option>
+                                        <option value="E">E - Camiones con acoplado</option>
+                                        <option value="G">G - Maquinaria especial</option>
+                                    </select> 
+                        </div>
 
-                    <div class="filtro">
-                        <label>Estado</label>
-                        <select class="input">
-                            <option value="">Todos</option>
-                            <option>Activo</option>
-                            <option>Inactivo</option>
-                        </select>
-                    </div>
+                        <div class="filtro">
+                            <label>Tipo de Vehículo</label>
+                                    <select name="tipoVehiculo" class="input">
+                                        <option value="">Todos</option>
+                                        <option>Camión</option>
+                                        <option>Camioneta</option>
+                                        <option>Auto</option>
+                                        <option>Maquinaria</option>
+                                    </select>
+                        </div>
 
-                    <div class="filtro filtro-boton">
-                        <button class="boton-limpiar">Limpiar</button>
-                    </div>
+                        <div class="filtro">
+                            <label>Estado</label>
+                            <select name="estado" class="input">
+                                <option value="">Todos</option>
+                                <option>Activo</option>
+                                <option>Inactivo</option>
+                            </select>
+                        </div>
 
-                </section>
+                        <div class="filtro filtro-boton">
+                            <a href="/Choferes" class="boton-limpiar">Limpiar</a>
+                        </div>
+
+                        <div class="filtro filtro-boton">
+                            <button type="submit" class="btn-filtrar">Filtrar</button>
+                        </div>
+
+                    </section>
+                </form>
 
                 <section class="box-lista">
 
@@ -220,15 +226,17 @@
                                         </td>
 
                                         <td data-label="Licencia">
-                                            -
+                                            <%= chofer.licencias.length > 0 ? chofer.licencias[0].numero : '-' %>
                                         </td>
 
                                         <td data-label="Categoría">
-                                            -
+                                            <%= chofer.licencias.length > 0 ? chofer.licencias[0].categoria : '-' %>
                                         </td>
 
                                         <td data-label="Vehículo">
-                                            -
+                                            <%= chofer.asignaciones.length > 0 
+                                            ? chofer.asignaciones[0].vehiculo.patente 
+                                            : '-' %>
                                         </td>
 
                                         <td data-label="Teléfono">
