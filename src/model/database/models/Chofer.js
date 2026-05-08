@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {
     tableName: 'chofer',
-    timestamps: false
+    timestamps: true
   });
 
   Chofer.associate = function(models) {

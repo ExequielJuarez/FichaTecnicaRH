@@ -35,6 +35,8 @@ const choferController = {
         console.log("hola")
         console.log(req.body)
         console.log(newChofer)
+        console.log(req.query);
+        console.log(where);
         } catch (error) {
             console.log("error");
             res.render("Error")      
