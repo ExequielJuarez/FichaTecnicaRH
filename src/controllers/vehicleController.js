@@ -5,27 +5,19 @@ const vehicleService = require('../data/vehicleService');
 
 const vehicleController = {
     
-    ListVehicles: async (req,res) => {
-
+    ListVehicles: async (req, res) => {
         try {
-
             let vehiculos = await vehicleService.getAll();
-        
-            console.log(vehiculos);
-
-            res.render("listadoVehiculos", { 
-                vehiculos, 
-                vehiculoSeleccionado: null 
+            let vehiculoSeleccionado = await vehicleService.getOne(req.params.id); // ← getOne con include
+    
+            res.render("listadoVehiculos", {
+                vehiculos,
+                vehiculoSeleccionado
             });
-
-        } catch (error) {      
-
+        } catch (error) {
             console.log(error);
-
             res.send("Error");
-
         }
-
     },
 
     /* =========================================================

@@ -11,7 +11,13 @@ const vehicleService = {
         try {
 
             return await db.Vehiculo.findAll({
+              include: [
+                {
+                    association: "TipoVehiculo"
+                }
+            ]
             })
+            
 
         } catch (error) {
 
@@ -23,20 +29,19 @@ const vehicleService = {
     },
 
     getOne: async function (id) {
-
-        try {
-
-            let Vehicle = await db.Vehiculo.findByPk(id);
-
-            return Vehicle;
-
-        } catch (error) {
-
-            console.log(error);
-
-        }
-
-    },
+      try {
+          let Vehicle = await db.Vehiculo.findByPk(id, {
+              include: [
+                  {
+                      association: "TipoVehiculo"
+                  }
+              ]
+          });
+          return Vehicle;
+      } catch (error) {
+          console.log(error);
+      }
+  },
 
     findByPk: async function (id) {
 

@@ -106,7 +106,7 @@ module.exports = (sequelize, DataTypes) => {
 
         Vehiculo.belongsTo(models.TipoVehiculo, {
             foreignKey: "id_tipo",
-            as: "tipo"
+            as: "TipoVehiculo"
         });
 
         Vehiculo.hasMany(models.Mantenimiento, {
