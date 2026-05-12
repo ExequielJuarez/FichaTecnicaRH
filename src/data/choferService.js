@@ -12,17 +12,13 @@ const choferService = {
 
         const where = {};
 
-        if (filtros.fechaDesde && filtros.fechaHasta) {
-
-            where.createdAt = {
-                [Op.gte]: new Date(filtros.fechaDesde),
-                [Op.lt]: new Date(
-                    new Date(filtros.fechaHasta).setDate(
-                        new Date(filtros.fechaHasta).getDate() + 1
-                    )
-                )
-            };
-
+        if (filtros.buscar) {
+            where[Op.or] = [
+                { nombre: { [Op.like]: `%${filtros.buscar}%` } },
+                { apellido: { [Op.like]: `%${filtros.buscar}%` } },
+                { dni: { [Op.like]: `%${filtros.buscar}%` } },
+                { '$asignaciones.vehiculo.patente$': { [Op.like]: `%${filtros.buscar}%` } }
+            ];
         }
 
         
@@ -44,6 +40,19 @@ const choferService = {
             }
             };
         }
+        //fechas
+        if (filtros.fechaDesde && filtros.fechaHasta) {
+
+            where.createdAt = {
+                [Op.gte]: new Date(filtros.fechaDesde),
+                [Op.lt]: new Date(
+                    new Date(filtros.fechaHasta).setDate(
+                        new Date(filtros.fechaHasta).getDate() + 1
+                    )
+                )
+            };
+
+        }
         //vehiculos
         const includeAsignaciones = {
             model: db.AsignacionVehiculo,
@@ -63,7 +72,7 @@ const choferService = {
         where,
         include: [
             includeLicencias,
-            includeAsignaciones
+            includeAsignaciones,
         ]
         });
     } catch (error) {

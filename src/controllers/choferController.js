@@ -15,6 +15,7 @@ const choferController = {
         
         console.log(choferes);
         res.render("listadoChofer", { choferes });
+        
 
     } catch (error) {      
         console.log(error);
