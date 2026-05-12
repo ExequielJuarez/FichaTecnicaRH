@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Historial de Préstamos - Gestión Industrial</title>
+  <link rel="stylesheet" href="/css/ListadoVehiculos.css" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    .global-panel { padding: 20px; flex: 1; }
+    .global-table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .global-table th, .global-table td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+    .global-table th { background-color: #f8fafc; font-weight: 600; color: #475569; font-size: 0.85rem; text-transform: uppercase; }
+  </style>
+</head>
+<body>
+  <div class="app-wrapper" style="display: flex;">
+    
+    <main class="main-content" style="width: 100%;">
+      <header class="topbar">
+        <div class="topbar__actions" style="margin-left: auto;">
+          <span class="topbar__user-name">Administrador</span>
+        </div>
+      </header>
+
+      <section class="global-panel">
+        <h1 style="margin-bottom: 5px; color: #1e293b;">Historial Global de Préstamos</h1>
+        <p style="color: #64748b; margin-bottom: 20px;">Registro de todos los movimientos y asignaciones de activos.</p>
+
+        <div class="data-table-wrapper">
+          <table class="global-table">
+            <thead>
+              <tr>
+                <th>Herramienta</th>
+                <th>Operario</th>
+                <th>Destino</th>
+                <th>Fecha Salida</th>
+                <th>Devolución</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if (prestamos && prestamos.length > 0) { %>
+                <% prestamos.forEach(p => { %>
+                  <tr>
+                    <td>
+                      <strong><%= p.herramienta ? p.herramienta.codigo_activo : 'N/A' %></strong><br>
+                      <span style="font-size: 0.8rem; color: #64748b;"><%= p.herramienta ? p.herramienta.nombre : 'Herramienta eliminada' %></span>
+                    </td>
+                    <td><%= p.nombre_operario %></td>
+                    <td><%= p.sector_destino %></td>
+                    <td><%= new Date(p.fecha_salida).toLocaleDateString() %></td>
+                    <td><%= p.fecha_devolucion_real ? new Date(p.fecha_devolucion_real).toLocaleDateString() : 'Pendiente' %></td>
+                    <td>
+                      <span class="badge <%= p.estado_prestamo === 'Activo' ? 'badge--warning' : 'badge--finished' %>" style="color: black;">
+                        <%= p.estado_prestamo %>
+                      </span>
+                    </td>
+                  </tr>
+                <% }) %>
+              <% } else { %>
+                <tr>
+                  <td colspan="6" style="text-align: center; padding: 20px;">No hay registros de préstamos en el sistema.</td>
+                </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

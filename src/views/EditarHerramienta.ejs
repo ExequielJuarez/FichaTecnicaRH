@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Editar Herramienta - Gestión Industrial</title>
+  <link rel="stylesheet" href="/css/CargaFichaVehiculo.css" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
+
+  <aside class="sidebar" id="sidebar" aria-label="Menú de navegación">
+    <div class="sidebar__brand">
+      <div class="sidebar__logo">
+         <img class="imglogosidebar" src="/images/header/images-removebg-preview (1).png" alt="">
+      </div>
+      <div class="sidebar__brand-text">
+        <span class="sidebar__brand-name">ToolManager</span>
+        <span class="sidebar__brand-sub">Gestión Industrial</span>
+      </div>
+    </div>
+
+    <nav class="sidebar__nav" aria-label="Navegación principal">
+      <span class="sidebar__nav-label">Menú Principal</span>
+      <ul class="sidebar__menu">
+        <li class="sidebar__menu-item"><a href="/" class="sidebar__menu-link">Inicio</a></li>
+        <li class="sidebar__menu-item sidebar__menu-item--expandable"><a href="#" class="sidebar__menu-link">Vehículos</a></li>
+        <li class="sidebar__menu-item sidebar__menu-item--expandable">
+          <a href="#" class="sidebar__menu-link sidebar__menu-link--active">Herramientas</a>
+          <ul class="sidebar__submenu">
+            <li><a href="/Tools" class="sidebar__submenu-link">Inventario</a></li>
+            <li><a href="/Tools/Carga" class="sidebar__submenu-link">Cargar herramienta</a></li>
+            <li><a href="/Tools/Prestamos" class="sidebar__submenu-link">Préstamos</a></li>
+            <li><a href="/Tools/Ajustes" class="sidebar__submenu-link">Ajustes</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <div class="app-wrapper">
+    <header class="topbar">
+      <div class="topbar__actions" style="margin-left: auto;">
+        <div class="topbar__user" role="button" tabindex="0">
+          <span class="topbar__user-name">Administrador</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <div class="page-header">
+        <div>
+          <h2 class="page-title">Editar Herramienta</h2>
+          <p class="page-subtitle">Modifica los datos del activo seleccionado.</p>
+        </div>
+      </div>
+
+      <form class="form" action="/Tools/Editar/<%= herramienta.id_herramienta %>" method="post">
+        
+        <section class="form-section">
+          <h3>INFORMACIÓN BÁSICA</h3>
+          <div class="form-group">
+            <label>Código de Activo / ID</label>
+            <input name="codigo_activo" type="text" value="<%= herramienta.codigo_activo %>" required>
+          </div>
+          
+          <div class="form-group">
+            <label>Sector / Ubicación Destino</label>
+            <select name="sector" required>
+              <% if (typeof sectores !== 'undefined' && sectores.length > 0) { %>
+                <% sectores.forEach(s => { %>
+                  <option value="<%= s.nombre %>" <%= herramienta.sector === s.nombre ? 'selected' : '' %>>
+                    <%= s.nombre %>
+                  </option>
+                <% }) %>
+              <% } else { %>
+                <option value="">No hay sectores disponibles</option>
+              <% } %>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Nombre / Modelo</label>
+              <input name="nombre" type="text" value="<%= herramienta.nombre %>" required>
+            </div>
+            <div class="form-group">
+              <label>Stock / Cantidad</label>
+              <input name="stock" type="number" value="<%= herramienta.stock %>" required>
+            </div>
+          </div>
+        </section>
+
+        <section class="form-section">
+          <h3>ESTADO Y DETALLES TÉCNICOS</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Estado Actual</label>
+              <select name="estado">
+                <option value="Disponible" <%= herramienta.estado === 'Disponible' ? 'selected' : '' %>>Disponible</option>
+                <option value="En uso" <%= herramienta.estado === 'En uso' ? 'selected' : '' %>>En uso</option>
+                <option value="En Reparación" <%= herramienta.estado === 'En Reparación' ? 'selected' : '' %>>En Reparación</option>
+                <option value="Baja" <%= herramienta.estado === 'Baja' ? 'selected' : '' %>>Baja</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Combustible / Energía (Opcional)</label>
+              <input name="combustible_energia" type="text" value="<%= herramienta.combustible_energia || '' %>">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Observaciones Adicionales</label>
+            <textarea name="observaciones"><%= herramienta.observaciones || '' %></textarea>
+          </div>
+        </section>
+
+        <div class="acciones">
+          <button type="button" class="boton-secundario" onclick="window.history.back();">Cancelar</button>
+          <button type="submit" class="boton-primario">Actualizar Herramienta</button>
+        </div>
+
+      </form>
+    </main>
+  </div>
+</body>
+</html>

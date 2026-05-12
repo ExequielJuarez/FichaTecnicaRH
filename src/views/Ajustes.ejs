@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ajustes de Sistema - ToolManager</title>
+  <link rel="stylesheet" href="/css/ListadoVehiculos.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    .settings-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; padding: 20px; }
+    .settings-card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }
+    .settings-card h3 { margin-top: 0; color: #1e293b; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px; margin-bottom: 15px; }
+    .list-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #f8fafc; font-size: 0.95rem;}
+    .btn-add { background: #1d4ed8; color: white; border: none; padding: 10px 12px; border-radius: 6px; cursor: pointer; font-weight: 500; white-space: nowrap; }
+    .btn-delete { border: none; background: #fee2e2; color: #ef4444; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 0.8rem; }
+    .badge-count { background: #dbeafe; color: #1d4ed8; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: bold;}
+    .input-add { flex: 1; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; outline: none; }
+    .form-add { display: flex; gap: 10px; margin-top: 15px; }
+  </style>
+</head>
+<body>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__brand">
+      <div class="sidebar__logo">
+         <img class="imglogosidebar" src="/images/header/images-removebg-preview (1).png" alt="">
+      </div>
+      <div class="sidebar__brand-text">
+        <span class="sidebar__brand-name">ToolManager</span>
+        <span class="sidebar__brand-sub">Gestión Industrial</span>
+      </div>
+    </div>
+    <nav class="sidebar__nav">
+      <span class="sidebar__nav-label">Menú Principal</span>
+      <ul class="sidebar__menu">
+        <li class="sidebar__menu-item"><a href="/" class="sidebar__menu-link">Inicio</a></li>
+        <li class="sidebar__menu-item sidebar__menu-item--expandable"><a href="#" class="sidebar__menu-link">Vehículos</a></li>
+        <li class="sidebar__menu-item sidebar__menu-item--expandable">
+          <a href="#" class="sidebar__menu-link sidebar__menu-link--active">Herramientas</a>
+          <ul class="sidebar__submenu">
+            <li><a href="/Tools" class="sidebar__submenu-link">Inventario</a></li>
+            <li><a href="/Tools/Carga" class="sidebar__submenu-link">Cargar herramienta</a></li>
+            <li><a href="/Tools/Prestamos" class="sidebar__submenu-link">Préstamos</a></li>
+            <li><a href="/Tools/Ajustes" class="sidebar__submenu-link sidebar__submenu-link--active">Ajustes</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <div class="app-wrapper">
+    <header class="topbar">
+      <div class="topbar__actions" style="margin-left: auto;">
+        <span class="topbar__user-name">Administrador</span>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <div style="padding: 20px 20px 0 20px;">
+        <h2 style="margin: 0; color: #0f172a;">Configuración de Catálogos</h2>
+        <p style="color: #64748b; margin-top: 5px;">Administra los sectores y operarios disponibles en el sistema.</p>
+      </div>
+
+      <div class="settings-grid">
+        
+        <div class="settings-card">
+          <h3>Sectores / Ubicaciones Activas</h3>
+          <div class="list-container">
+            <% if (sectores && sectores.length > 0) { %>
+              <% sectores.forEach(s => { %>
+                <div class="list-item">
+                  <span><%= s.nombre %></span>
+                  <form action="/Tools/Ajustes/Sectores/Eliminar/<%= s.id_sector %>" method="POST" style="margin:0;">
+                    <button type="submit" class="btn-delete">Borrar</button>
+                  </form>
+                </div>
+              <% }) %>
+            <% } else { %>
+              <p style="color: #94a3b8; font-size: 0.9rem; text-align: center;">No hay sectores registrados.</p>
+            <% } %>
+          </div>
+          <form action="/Tools/Ajustes/Sectores" method="POST" class="form-add">
+            <input type="text" name="nombre" class="input-add" placeholder="Ej: Pañol Norte..." required>
+            <button type="submit" class="btn-add">+ Agregar</button>
+          </form>
+        </div>
+
+        <div class="settings-card">
+          <h3>Padrón de Operarios</h3>
+          <div class="list-container">
+            <% if (operarios && operarios.length > 0) { %>
+              <% operarios.forEach(o => { %>
+                <div class="list-item">
+                  <span><%= o.nombre %></span>
+                  <div style="display: flex; gap: 10px; align-items: center;">
+                    <span class="badge-count"><%= o.estado %></span>
+                    <form action="/Tools/Ajustes/Operarios/Eliminar/<%= o.id_operario %>" method="POST" style="margin:0;">
+                      <button type="submit" class="btn-delete">X</button>
+                    </form>
+                  </div>
+                </div>
+              <% }) %>
+            <% } else { %>
+              <p style="color: #94a3b8; font-size: 0.9rem; text-align: center;">No hay operarios registrados.</p>
+            <% } %>
+          </div>
+          <form action="/Tools/Ajustes/Operarios" method="POST" class="form-add">
+            <input type="text" name="nombre" class="input-add" placeholder="Ej: Luis Gómez..." required>
+            <button type="submit" class="btn-add">+ Registrar</button>
+          </form>
+        </div>
+
+        <div class="settings-card">
+          <h3>Preferencias Generales</h3>
+          <label style="display:block; margin-bottom: 10px; font-size: 0.9rem; color: #64748b;">
+            <input type="checkbox" checked disabled> Notificaciones de stock bajo
+          </label>
+          <label style="display:block; margin-bottom: 10px; font-size: 0.9rem; color: #64748b;">
+            <input type="checkbox" checked disabled> Forzar fecha de devolución real
+          </label>
+        </div>
+
+      </div>
+    </main>
+  </div>
+</body>
+</html>

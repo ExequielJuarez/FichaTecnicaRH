@@ -1,0 +1,20 @@
+{
+  "name": "emprendimiento",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/app.js "
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "method-override": "^3.0.0",
+    "mysql2": "^3.22.2",
+    "nodemon": "^3.1.9",
+    "sequelize": "^6.37.8"
+  }
+}

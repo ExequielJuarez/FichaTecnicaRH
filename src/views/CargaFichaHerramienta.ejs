@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cargar Herramienta - Gestión Industrial</title>
+  <link rel="stylesheet" href="/css/CargaFichaVehiculo.css" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
+
+  <aside class="sidebar" id="sidebar" aria-label="Menú de navegación">
+
+    <div class="sidebar__brand">
+      <div class="sidebar__logo">
+        <img class="imglogosidebar" src="/images/header/images-removebg-preview (1).png" alt="">
+      </div>
+      <div class="sidebar__brand-text">
+        <span class="sidebar__brand-name">ToolManager</span>
+        <span class="sidebar__brand-sub">Gestión Industrial</span>
+      </div>
+      <button class="sidebar__close-btn" id="sidebar-close" aria-label="Cerrar menú">
+        <svg viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+        </svg>
+      </button>
+    </div>
+
+    <nav class="sidebar__nav" aria-label="Navegación principal">
+      <span class="sidebar__nav-label">Menú Principal</span>
+
+      <ul class="sidebar__menu">
+
+        <li class="sidebar__menu-item">
+          <a href="/" class="sidebar__menu-link">
+            <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+            Inicio
+          </a>
+        </li>
+
+        <li class="sidebar__menu-item sidebar__menu-item--expandable">
+          <a href="#" class="sidebar__menu-link">
+            <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/><path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z"/></svg>
+            Vehículos
+            <svg class="sidebar__menu-chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+          </a>
+          <ul class="sidebar__submenu">
+            <li><a href="/Vehicles" class="sidebar__submenu-link">Listado de vehículos</a></li>
+            <li><a href="/Vehicles/Carga" class="sidebar__submenu-link">Agregar vehículo</a></li>
+          </ul>
+        </li>
+
+        <li class="sidebar__menu-item sidebar__menu-item--expandable">
+          <a href="#" class="sidebar__menu-link sidebar__menu-link--active">
+            <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/></svg>
+            Herramientas
+            <svg class="sidebar__menu-chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+          </a>
+          <ul class="sidebar__submenu">
+            <li><a href="/Tools" class="sidebar__submenu-link">Inventario</a></li>
+            <li><a href="/Tools/Carga" class="sidebar__submenu-link sidebar__submenu-link--active">Cargar herramienta</a></li>
+            <li><a href="/Tools/Prestamos" class="sidebar__submenu-link">Préstamos</a></li>
+            <li><a href="/Tools/Ajustes" class="sidebar__submenu-link">Ajustes</a></li>
+          </ul>
+        </li>
+
+        <li class="sidebar__menu-item">
+          <a href="#" class="sidebar__menu-link">
+            <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/></svg>
+            Choferes / Operarios
+          </a>
+        </li>
+
+      </ul>
+    </nav>
+  </aside>
+
+  <div class="app-wrapper">
+
+    <header class="topbar">
+      <button class="topbar__menu-toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="sidebar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="6"  x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+
+      <div class="topbar__mobile-brand" aria-hidden="true">
+         <img class="imglogosidebarcel" src="/images/header/images-removebg-preview (1).png" alt="">
+        <span>ToolManager</span>
+      </div>
+
+      <div class="topbar__actions">
+        <button class="topbar__notification-btn" aria-label="Notificaciones">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/></svg>
+          <span class="topbar__notification-dot" aria-label="3 notificaciones">3</span>
+        </button>
+        <div class="topbar__user" role="button" tabindex="0">
+          <svg class="topbar__user-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/></svg>
+          <span class="topbar__user-name">Administrador</span>
+          <svg class="topbar__user-chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-content">
+
+      <div class="page-header">
+        <div>
+          <h2 class="page-title">Cargar Herramienta</h2>
+          <p class="page-subtitle">Complete todos los datos del activo o herramienta.</p>
+        </div>
+      </div>
+
+      <form class="form" action="/Tools/ProcessCarga" method="post">
+
+        <section class="form-section">
+          <h3>Información Básica</h3>
+
+          <div class="form-group">
+            <label>Código de Activo / ID</label>
+            <input name="codigo_activo" type="text" placeholder="Ej: HTI-99203-PR" required>
+          </div>
+
+          <div class="form-group">
+            <label>Sector / Ubicación Destino</label>
+            <select name="sector" required>
+              <% if (typeof sectores !== 'undefined' && sectores.length > 0) { %>
+                <% sectores.forEach(s => { %>
+                  <option value="<%= s.nombre %>"><%= s.nombre %></option>
+                <% }) %>
+              <% } else { %>
+                <option value="">No hay sectores disponibles (Añade uno en Ajustes)</option>
+              <% } %>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Nombre / Modelo</label>
+              <input name="nombre" type="text" placeholder="Ej: Taladro Percutor Hilti" required>
+            </div>
+            <div class="form-group">
+              <label>Stock / Cantidad Ingresada</label>
+              <input name="stock" type="number" value="1" min="1" required>
+            </div>
+          </div>
+        </section>
+
+        <section class="form-section">
+          <h3>Estado y Detalles Técnicos</h3>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Estado Inicial</label>
+              <select name="estado">
+                <option value="Disponible">Disponible</option>
+                <option value="En Reparación">En Reparación</option>
+                <option value="Baja">Baja</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Combustible / Energía (Opcional)</label>
+              <input name="combustible_energia" type="text" placeholder="Ej: Batería 80% o Nafta">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Observaciones Adicionales</label>
+            <textarea name="observaciones" rows="3" placeholder="Detalle cualquier particularidad del ingreso..."></textarea>
+          </div>
+        </section>
+
+        <section class="form-section">
+          <h3>Imagen de Referencia</h3>
+
+          <div class="upload-box">
+            <label for="imagen">Subir imagen</label>
+            <input type="file" id="imagen" name="imagen">
+          </div>
+
+          <div id="preview">
+            No hay imagen
+          </div>
+        </section>
+
+        <div class="acciones">
+          <button type="button" class="boton-secundario" onclick="window.history.back();">Volver</button>
+        
+          <button type="submit" class="boton-primario">
+            Guardar Herramienta
+          </button>
+        </div>
+
+      </form>
+
+    </main>
+
+    <footer class="app-footer">
+      <p class="app-footer__copy">* Campos obligatorios &nbsp;|&nbsp; &copy; 2026 &mdash; Ficha Técnica</p>
+    </footer>
+
+  </div>
+
+  <script>
+    /* ============================================================
+       SIDEBAR TOGGLE — mobile / tablet
+    ============================================================ */
+    const sidebar      = document.getElementById('sidebar');
+    const overlay      = document.getElementById('sidebar-overlay');
+    const menuToggle   = document.getElementById('menu-toggle');
+    const sidebarClose = document.getElementById('sidebar-close');
+
+    function openSidebar() {
+      sidebar.classList.add('sidebar--open');
+      overlay.classList.add('sidebar-overlay--visible');
+      menuToggle.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeSidebar() {
+      sidebar.classList.remove('sidebar--open');
+      overlay.classList.remove('sidebar-overlay--visible');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+
+    menuToggle.addEventListener('click', openSidebar);
+    sidebarClose.addEventListener('click', closeSidebar);
+    overlay.addEventListener('click', closeSidebar);
+  </script>
+
+</body>
+</html>
