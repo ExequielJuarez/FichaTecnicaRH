@@ -1,7 +1,7 @@
 /* ============================================================
    VARIABLES & RESET
    ============================================================ */
-:root {
+   :root {
     --color-bg:           #f1f5f9;
     --color-surface:      #ffffff;
     --color-border:       #e2e8f0;
@@ -108,8 +108,8 @@ svg     { display: block; flex-shrink: 0; }
 }
 
 .sidebar__logo { flex-shrink: 0; }
-.imglogosidebar{ width: 100%; height: 50px;}
-.imglogosidebarcel{ width: 25%; height: 40px; }
+.imglogosidebar    { width: 100%; height: 50px; }
+.imglogosidebarcel { width: 25%; height: 40px; }
 
 .sidebar__brand-name {
     display: block;
@@ -188,7 +188,17 @@ svg     { display: block; flex-shrink: 0; }
 }
 
 .sidebar__menu-icon    { width: 16px; height: 16px; flex-shrink: 0; opacity: 0.8; }
-.sidebar__menu-chevron { width: 14px; height: 14px; margin-left: auto; }
+.sidebar__menu-chevron {
+    width: 14px;
+    height: 14px;
+    margin-left: auto;
+    transition: transform 0.25s ease;
+}
+
+/* Chevron girado cuando el submenú está abierto */
+.sidebar__menu-item--open .sidebar__menu-chevron {
+    transform: rotate(180deg);
+}
 
 .sidebar__badge {
     margin-left: auto;
@@ -202,12 +212,17 @@ svg     { display: block; flex-shrink: 0; }
     text-align: center;
 }
 
+/* Submenú colapsable */
 .sidebar__submenu {
     padding-left: 40px;
     padding-bottom: 4px;
-    display: flex;
+    display: none;
     flex-direction: column;
     gap: 1px;
+}
+
+.sidebar__menu-item--open .sidebar__submenu {
+    display: flex;
 }
 
 .sidebar__submenu-link {
@@ -572,7 +587,6 @@ tr:hover td { background-color: #f8fafc; }
 
 /* ============================================================
    RESPONSIVE — TABLET (max-width: 900px)
-   Sidebar pasa a drawer
    ============================================================ */
 @media (max-width: 900px) {
 
@@ -612,9 +626,7 @@ tr:hover td { background-color: #f8fafc; }
 
     .Main-content { padding: 16px; }
 
-    .acciones {
-        flex-direction: column;
-    }
+    .acciones { flex-direction: column; }
 
     .exportar,
     .nuevo-mantenimiento,
