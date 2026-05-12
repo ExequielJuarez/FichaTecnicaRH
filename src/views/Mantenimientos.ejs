@@ -190,16 +190,54 @@
                                     <th>Costo</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td data-label="Fecha">15/03/2025</td>
-                                    <td data-label="Vehículo">Ford Ranger</td>
-                                    <td data-label="Patente">AB123CD</td>
-                                    <td data-label="Servicio">Cambio de aceite</td>
-                                    <td data-label="Km">40000</td>
-                                    <td data-label="Costo">$85000</td>
-                                </tr>
-                            </tbody>
+                                <tbody>
+
+                                    <% if (mantenimientos && mantenimientos.length > 0) { %>
+
+                                        <% mantenimientos.forEach(mantenimiento => { %>
+
+                                            <tr>
+
+                                                <td data-label="Fecha">
+                                                    <%= mantenimiento.fecha_inicio %>
+                                                </td>
+
+                                                <td data-label="Vehículo">
+                                                    <%= mantenimiento.vehiculo?.marca %>
+                                                    <%= mantenimiento.vehiculo?.modelo %>
+                                                </td>
+
+                                                <td data-label="Patente">
+                                                    <%= mantenimiento.vehiculo?.patente %>
+                                                </td>
+
+                                                <td data-label="Servicio">
+                                                    <%= mantenimiento.tipo_servicio %>
+                                                </td>
+
+                                                <td data-label="Km">
+                                                    <%= mantenimiento.km_servicio %>
+                                                </td>
+
+                                                <td data-label="Costo">
+                                                    $<%= mantenimiento.costo_total %>
+                                                </td>
+
+                                            </tr>
+
+                                        <% }) %>
+
+                                    <% } else { %>
+
+                                        <tr>
+                                            <td colspan="6" style="text-align:center;">
+                                                No hay mantenimientos registrados
+                                            </td>
+                                        </tr>
+
+                                    <% } %>
+
+                                </tbody>
                         </table>
                     </div>
 
