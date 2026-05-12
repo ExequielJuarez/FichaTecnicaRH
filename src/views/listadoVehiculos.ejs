@@ -572,86 +572,160 @@
   </div><!-- /app-wrapper -->
 
   <script>
-    /* ============================================================
-       SIDEBAR TOGGLE — mobile / tablet
-    ============================================================ */
+    /* ── Sidebar ─────────────────────────────────────────── */
     const sidebar      = document.getElementById('sidebar');
     const overlay      = document.getElementById('sidebar-overlay');
     const menuToggle   = document.getElementById('menu-toggle');
     const sidebarClose = document.getElementById('sidebar-close');
 
     function openSidebar() {
-      sidebar.classList.add('sidebar--open');
-      overlay.classList.add('sidebar-overlay--visible');
-      menuToggle.setAttribute('aria-expanded', 'true');
-      document.body.style.overflow = 'hidden';
+        sidebar.classList.add('sidebar--open');
+        overlay.classList.add('sidebar-overlay--visible');
+        menuToggle.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
     }
-
     function closeSidebar() {
-      sidebar.classList.remove('sidebar--open');
-      overlay.classList.remove('sidebar-overlay--visible');
-      menuToggle.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
+        sidebar.classList.remove('sidebar--open');
+        overlay.classList.remove('sidebar-overlay--visible');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
     }
 
     menuToggle.addEventListener('click', openSidebar);
     sidebarClose.addEventListener('click', closeSidebar);
     overlay.addEventListener('click', closeSidebar);
 
-    /* ============================================================
-       LISTADO ↔ DETALLE — vista única en mobile
-    ============================================================ */
-    const listPanel  = document.getElementById('vehicle-list-panel');
+    /* ── Listado ↔ Detalle (mobile) ──────────────────────── */
+    const listPanel   = document.getElementById('vehicle-list-panel');
     const detailPanel = document.getElementById('vehicle-detail');
-    const backBtn    = document.getElementById('detail-back-btn');
+    const backBtn     = document.getElementById('detail-back-btn');
 
-    function isMobileView() {
-      return window.innerWidth < 900;
-    }
+    function isMobileView() { return window.innerWidth < 900; }
 
-    // Click en una card del listado
     document.querySelectorAll('.vehicle-card').forEach(card => {
-      card.addEventListener('click', function () {
-        // Marcar activa
-        document.querySelectorAll('.vehicle-card').forEach(c => c.classList.remove('vehicle-card--active'));
-        this.classList.add('vehicle-card--active');
-        // En mobile mostrar detalle
-        if (isMobileView()) {
-          listPanel.classList.add('vehicle-list-panel--hidden');
-          detailPanel.classList.add('vehicle-detail--visible');
-          detailPanel.scrollTop = 0;
-        }
-      });
+        card.addEventListener('click', function () {
+            document.querySelectorAll('.vehicle-card').forEach(c => c.classList.remove('vehicle-card--active'));
+            this.classList.add('vehicle-card--active');
+            if (isMobileView()) {
+                listPanel.classList.add('vehicle-list-panel--hidden');
+                detailPanel.classList.add('vehicle-detail--visible');
+                detailPanel.scrollTop = 0;
+            }
+        });
     });
 
-    // Volver al listado
     backBtn.addEventListener('click', function () {
-      listPanel.classList.remove('vehicle-list-panel--hidden');
-      detailPanel.classList.remove('vehicle-detail--visible');
-    });
-
-    // Al redimensionar, restablecer si vuelve a desktop
-    window.addEventListener('resize', function () {
-      if (!isMobileView()) {
         listPanel.classList.remove('vehicle-list-panel--hidden');
         detailPanel.classList.remove('vehicle-detail--visible');
-      }
     });
 
-    /* ============================================================
-       TABS DE DETALLE
-    ============================================================ */
-    document.querySelectorAll('.detail-tabs__tab').forEach(tab => {
-      tab.addEventListener('click', function () {
-        document.querySelectorAll('.detail-tabs__tab').forEach(t => {
-          t.classList.remove('detail-tabs__tab--active');
-          t.setAttribute('aria-selected', 'false');
-        });
-        this.classList.add('detail-tabs__tab--active');
-        this.setAttribute('aria-selected', 'true');
-      });
+    window.addEventListener('resize', function () {
+        if (!isMobileView()) {
+            listPanel.classList.remove('vehicle-list-panel--hidden');
+            detailPanel.classList.remove('vehicle-detail--visible');
+        }
     });
-  </script>
+
+    /* ── Tabs de detalle ─────────────────────────────────── */
+    document.querySelectorAll('.detail-tabs__tab').forEach(tab => {
+        tab.addEventListener('click', function () {
+            document.querySelectorAll('.detail-tabs__tab').forEach(t => {
+                t.classList.remove('detail-tabs__tab--active');
+                t.setAttribute('aria-selected', 'false');
+            });
+            this.classList.add('detail-tabs__tab--active');
+            this.setAttribute('aria-selected', 'true');
+        });
+    });
+
+    /* ── Paginación del listado ──────────────────────────── */
+    const ITEMS_POR_PAG  = 10;
+    const todasLasCards  = Array.from(document.querySelectorAll('.vehicle-list .vehicle-card'));
+    const searchInput    = document.querySelector('.vehicle-list-panel__search-input');
+    const countLabel     = document.querySelector('.vehicle-list-panel__count');
+    const paginationEl   = document.querySelector('.pagination');
+
+    let paginaActual   = 1;
+    let cardsFiltradas = [...todasLasCards];
+
+    function filtrar() {
+        const q = searchInput ? searchInput.value.toLowerCase() : '';
+        return todasLasCards.filter(card => {
+            const plate = card.querySelector('.vehicle-card__plate')?.textContent.toLowerCase() || '';
+            const model = card.querySelector('.vehicle-card__model')?.textContent.toLowerCase() || '';
+            return plate.includes(q) || model.includes(q);
+        });
+    }
+
+    function renderizar() {
+        const total      = cardsFiltradas.length;
+        const totalPags  = Math.max(1, Math.ceil(total / ITEMS_POR_PAG));
+        if (paginaActual > totalPags) paginaActual = totalPags;
+
+        const inicio = (paginaActual - 1) * ITEMS_POR_PAG;
+        const fin    = inicio + ITEMS_POR_PAG;
+
+        // Mostrar/ocultar cards
+        todasLasCards.forEach(c => c.style.display = 'none');
+        cardsFiltradas.forEach((c, i) => {
+            c.style.display = (i >= inicio && i < fin) ? '' : 'none';
+        });
+
+        // Actualizar contador
+        const desde = total === 0 ? 0 : inicio + 1;
+        const hasta  = Math.min(fin, total);
+        if (countLabel) countLabel.textContent = `Mostrando ${desde} a ${hasta} de ${total} vehículos`;
+
+        // Reconstruir botones de paginación
+        if (!paginationEl) return;
+        paginationEl.innerHTML = '';
+
+        // Anterior
+        const btnPrev = document.createElement('button');
+        btnPrev.className = 'pagination__btn pagination__btn--arrow';
+        btnPrev.setAttribute('aria-label', 'Página anterior');
+        btnPrev.innerHTML = '&lsaquo;';
+        btnPrev.disabled  = paginaActual <= 1;
+        btnPrev.addEventListener('click', () => { paginaActual--; renderizar(); });
+        paginationEl.appendChild(btnPrev);
+
+        // Números
+        for (let p = 1; p <= totalPags; p++) {
+            const btn = document.createElement('button');
+            btn.className = 'pagination__btn' + (p === paginaActual ? ' pagination__btn--active' : '');
+            btn.textContent = p;
+            if (p === paginaActual) btn.setAttribute('aria-current', 'page');
+            btn.addEventListener('click', () => { paginaActual = p; renderizar(); });
+            paginationEl.appendChild(btn);
+        }
+
+        // Siguiente
+        const btnNext = document.createElement('button');
+        btnNext.className = 'pagination__btn pagination__btn--arrow';
+        btnNext.setAttribute('aria-label', 'Página siguiente');
+        btnNext.innerHTML = '&rsaquo;';
+        btnNext.disabled  = paginaActual >= totalPags;
+        btnNext.addEventListener('click', () => { paginaActual++; renderizar(); });
+        paginationEl.appendChild(btnNext);
+    }
+
+    function actualizarTodo() {
+        paginaActual   = 1;
+        cardsFiltradas = filtrar();
+        renderizar();
+    }
+
+    if (searchInput) {
+        searchInput.addEventListener('input', actualizarTodo);
+    }
+
+    // Botón lupa (opcional, para confirmar búsqueda)
+    const searchBtn = document.querySelector('.vehicle-list-panel__search-btn');
+    if (searchBtn) searchBtn.addEventListener('click', actualizarTodo);
+
+    // Arranque inicial
+    actualizarTodo();
+</script>
 
 </body>
 </html>

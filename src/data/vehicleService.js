@@ -64,7 +64,7 @@ const vehicleService = {
 
                 patente: req.body.patente,
 
-                id_tipo: req.body.tipo,
+                id_tipo: req.body.id_tipo,
 
                 marca: req.body.marca,
 
