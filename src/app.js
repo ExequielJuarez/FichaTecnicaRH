@@ -36,7 +36,7 @@ db.sequelize.authenticate()
     console.log('✅ Conexión a la base de datos MySQL establecida con éxito.');
     
     // Opcional: Si quieres que Sequelize cree las tablas por ti si no existen, descomenta la siguiente línea:
-    //db.sequelize.sync({ force: false });
+    db.sequelize.sync({ force: false });
 
     // Iniciar servidor
     app.listen(puerto, () => {
