@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Asignar Préstamo - Gestión Industrial</title>
+  <link rel="stylesheet" href="/css/CargaFichaVehiculo.css" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
+
+  <aside class="sidebar" id="sidebar" aria-label="Menú de navegación">
+    <div class="sidebar__brand">
+      <div class="sidebar__logo">
+        <img class="imglogosidebar" src="/images/header/images-removebg-preview (1).png" alt="">
+      </div>
+      <div class="sidebar__brand-text">
+        <span class="sidebar__brand-name">ToolManager</span>
+        <span class="sidebar__brand-sub">Gestión Industrial</span>
+      </div>
+    </div>
+
+    <nav class="sidebar__nav" aria-label="Navegación principal">
+      <span class="sidebar__nav-label">Menú Principal</span>
+      <ul class="sidebar__menu">
+        <li class="sidebar__menu-item">
+          <a href="/" class="sidebar__menu-link">Inicio</a>
+        </li>
+        <li class="sidebar__menu-item sidebar__menu-item--expandable">
+          <a href="#" class="sidebar__menu-link">Vehículos</a>
+        </li>
+        <li class="sidebar__menu-item sidebar__menu-item--expandable">
+          <a href="#" class="sidebar__menu-link sidebar__menu-link--active">Herramientas</a>
+          <ul class="sidebar__submenu">
+            <li><a href="/Tools" class="sidebar__submenu-link">Inventario</a></li>
+            <li><a href="/Tools/Carga" class="sidebar__submenu-link">Cargar herramienta</a></li>
+            <li><a href="/Tools/Prestamos" class="sidebar__submenu-link sidebar__submenu-link--active">Préstamos</a></li>
+            <li><a href="/Tools/Ajustes" class="sidebar__submenu-link">Ajustes</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <div class="app-wrapper">
+
+    <header class="topbar">
+      <div class="topbar__actions" style="margin-left: auto;">
+        <div class="topbar__user" role="button" tabindex="0">
+          <span class="topbar__user-name">Administrador</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-content">
+
+      <div class="page-header">
+        <div>
+          <h2 class="page-title">Formulario de Préstamo</h2>
+          <p class="page-subtitle">Asignar activo a un colaborador externo o interno.</p>
+        </div>
+      </div>
+
+      <form class="form" action="/Tools/Prestamo" method="post">
+        
+        <input type="hidden" name="id_herramienta" value="<%= herramienta.id_herramienta %>">
+
+        <section class="form-section" style="background-color: #f8fafc; border: 1px solid #e2e8f0;">
+          <h3>Activo Seleccionado</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Código y Nombre</label>
+              <input type="text" class="form-control" value="<%= herramienta.codigo_activo %> - <%= herramienta.nombre %>" disabled>
+            </div>
+            <div class="form-group">
+              <label>Estado Actual</label>
+              <input type="text" class="form-control" value="<%= herramienta.estado %>" disabled>
+            </div>
+          </div>
+        </section>
+
+        <section class="form-section">
+          <h3>Detalles de Asignación</h3>
+
+          <div class="form-group">
+            <label>Persona destino / Operario</label>
+            <select name="nombre_operario" required>
+              <option value="">Seleccione Operario</option>
+              <% if (typeof operarios !== 'undefined' && operarios.length > 0) { %>
+                <% operarios.forEach(o => { %>
+                  <option value="<%= o.nombre %>"><%= o.nombre %></option>
+                <% }) %>
+              <% } else { %>
+                <option value="">No hay operarios disponibles (Registra uno en Ajustes)</option>
+              <% } %>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Sector destino</label>
+            <select name="sector_destino" required>
+              <option value="">Seleccione Sector</option>
+              <% if (typeof sectores !== 'undefined' && sectores.length > 0) { %>
+                <% sectores.forEach(s => { %>
+                  <option value="<%= s.nombre %>"><%= s.nombre %></option>
+                <% }) %>
+              <% } else { %>
+                <option value="Obras Públicas">Obras Públicas</option>
+                <option value="Mantenimiento Urbano">Mantenimiento Urbano</option>
+                <option value="Espacios Verdes">Espacios Verdes</option>
+                <option value="Taller Central">Taller Central</option>
+              <% } %>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Fecha de préstamo</label>
+              <input name="fecha_salida" type="date" required>
+            </div>
+            <div class="form-group">
+              <label>Fecha devolución esperada</label>
+              <input name="fecha_devolucion_estimada" type="date">
+            </div>
+          </div>
+        </section>
+
+        <section class="form-section">
+          <div style="background-color: #fffbeb; border-left: 4px solid #f59e0b; padding: 15px; border-radius: 4px;">
+            <h4 style="color: #b45309; margin-top: 0; margin-bottom: 5px;">⚠️ Recordatorio de Préstamo</h4>
+            <p style="color: #92400e; margin: 0; font-size: 0.9em;">Al completar este formulario, se generará el registro del préstamo y se actualizará automáticamente el estado de la herramienta a "En uso".</p>
+          </div>
+        </section>
+
+        <div class="acciones">
+          <button type="button" class="boton-secundario" onclick="window.history.back();">Cancelar</button>
+          <button type="submit" class="boton-primario">Confirmar Préstamo</button>
+        </div>
+
+      </form>
+
+    </main>
+
+  </div>
+
+</body>
+</html>
