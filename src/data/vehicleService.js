@@ -1,8 +1,6 @@
-const { log } = require('console');
 const db = require('../model/database/models')
 const fs = require('fs');
 const path = require('path');
-const { clearScreenDown } = require('readline');
 
 const vehicleService = {
 
@@ -17,7 +15,7 @@ const vehicleService = {
                 }
             ]
             })
-            
+             
 
         } catch (error) {
 
