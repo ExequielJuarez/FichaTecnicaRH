@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuarios - Gestión de Flota</title>
+    <link rel="stylesheet" href="/css/ListadoChofer.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
+
+    <%- include('./partials/sidebar') %>
+
+    <div class="app-wrapper">
+
+        <%- include('./partials/topbar') %>
+
+        <main class="Main-content">
+
+            <h2>Usuarios del Sistema</h2>
+            <p class="descripcion">Listado y gestión de accesos para el personal.</p>
+
+            <div class="acciones">
+                <button class="exportar">Exportar</button>
+                <a href="/Usuarios/Carga" class="nuevo-chofer">Nuevo Usuario</a>
+            </div>
+
+            <section class="box-main">
+
+                <form method="GET" action="/Usuarios">
+
+                    <section class="box-filtros">
+
+                        <div class="filtro">
+                            <label>Buscar</label>
+                            <input name="buscar" class="input" type="search" placeholder="Nombre, usuario...">
+                        </div>
+
+                        <div class="filtro">
+                            <label>Rol</label>
+                            <select name="rol" class="input">
+                                <option value="">Todos los roles</option>
+                                <option>Administrador</option>
+                                <option>Jefe de Taller</option>
+                                <option>Principal</option>
+                            </select>
+                        </div>
+
+                        <div class="filtro">
+                            <label>Estado</label>
+                            <select name="estado" class="input">
+                                <option value="">Todos</option>
+                                <option value="1">Activo</option>
+                                <option value="0">Inactivo</option>
+                            </select>
+                        </div>
+
+                        <div class="filtro filtro-boton">
+                            <a href="/Usuarios" class="boton-limpiar">Limpiar</a>
+                        </div>
+
+                        <div class="filtro filtro-boton">
+                            <button type="submit" class="btn-filtrar">Filtrar</button>
+                        </div>
+
+                    </section>
+                </form>
+
+                <section class="box-lista">
+
+                    <div class="tabla-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Apellido</th>
+                                    <th>Usuario (Login)</th>
+                                    <th>Rol en el Sistema</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <% if (usuarios && usuarios.length > 0) { %>
+                                    <% usuarios.forEach(user => { %>
+                                        <tr>
+                                            <td data-label="Nombre"><%= user.nombre %></td>
+                                            <td data-label="Apellido"><%= user.apellido %></td>
+                                            <td data-label="Usuario"><strong><%= user.nombre_usuario %></strong></td>
+                                            <td data-label="Rol"><%= user.rol ? user.rol.nombre : '-' %></td>
+                                            <td data-label="Estado">
+                                                <%= user.activo ? 'Activo' : 'Inactivo' %>
+                                            </td>
+                                            <td data-label="Acciones">
+                                                <a href="/Usuarios/Editar/<%= user.id_usuario %>" style="color: #f97316; font-weight: bold; text-decoration: none;">Editar</a>
+                                            </td>
+                                        </tr>
+                                    <% }) %>
+                                <% } else { %>
+                                    <tr>
+                                        <td colspan="6" style="text-align: center;">No se encontraron usuarios.</td>
+                                    </tr>
+                                <% } %>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </section>
+
+                <section class="box-cambiarLista">
+                    <p class="info">Mostrando usuarios registrados</p>
+                    <div class="paginacion">
+                        <button class="cambiar">Anterior</button>
+                        <button class="pagina">1</button>
+                        <button class="cambiar">Siguiente</button>
+                    </div>
+                </section>
+
+            </section>
+
+        </main>
+
+        <footer class="app-footer">
+            <p class="app-footer__copy">&copy; 2025 &mdash; Ficha Tecnica</p>
+        </footer>
+
+    </div>
+
+    <script>
+        const sidebar      = document.getElementById('sidebar');
+        const overlay      = document.getElementById('sidebar-overlay');
+        const menuToggle   = document.getElementById('menu-toggle');
+        const sidebarClose = document.getElementById('sidebar-close');
+
+        document.querySelectorAll('.sidebar__menu-item--expandable > .sidebar__menu-link')
+        .forEach(link => {
+            link.addEventListener('click', function (e) {
+            e.preventDefault();
+            const item = this.closest('.sidebar__menu-item--expandable');
+            item.classList.toggle('sidebar__menu-item--open');
+            });
+        });
+
+        document.querySelectorAll('.sidebar__submenu-link--active').forEach(active => {
+        const item = active.closest('.sidebar__menu-item--expandable');
+        if (item) item.classList.add('sidebar__menu-item--open');
+        });
+
+        function openSidebar() {
+            sidebar.classList.add('sidebar--open');
+            overlay.classList.add('sidebar-overlay--visible');
+            menuToggle.setAttribute('aria-expanded', 'true');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSidebar() {
+            sidebar.classList.remove('sidebar--open');
+            overlay.classList.remove('sidebar-overlay--visible');
+            menuToggle.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = '';
+        }
+
+        menuToggle.addEventListener('click', openSidebar);
+        sidebarClose.addEventListener('click', closeSidebar);
+        overlay.addEventListener('click', closeSidebar);
+    </script>
+
+</body>
+</html>

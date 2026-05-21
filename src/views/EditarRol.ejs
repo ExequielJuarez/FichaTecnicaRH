@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Permisos del Rol - Gestión de Flota</title>
+    <link rel="stylesheet" href="/css/CargaChofer.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
+    <%- include('./partials/sidebar') %>
+
+    <div class="app-wrapper">
+        <%- include('./partials/topbar') %>
+
+        <main class="main-content">
+            
+            <div class="header-section">
+                <h2>Editar Rol: <%= rol.nombre %></h2>
+                <p class="descripcion">Define qué vistas tienen permitido acceder los usuarios con el rol <strong><%= rol.nombre %></strong>.</p>
+            </div>
+
+            <section class="form-container">
+                <form action="/Usuarios/Roles/Editar/<%= rol.id_rol %>" method="POST" class="formulario">
+
+                    <div class="form-grid">
+                        
+                        <div class="form-group">
+                            <label for="nombre">Nombre del Rol</label>
+                            <input type="text" id="nombre" class="input-field" value="<%= rol.nombre %>" disabled>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="descripcion">Descripción</label>
+                            <input type="text" id="descripcion" class="input-field" value="<%= rol.descripcion %>" disabled>
+                        </div>
+
+                        <div class="form-group" style="grid-column: 1 / -1;">
+                            <label style="margin-bottom: 10px; display: block; font-weight: bold; color: #1e293b;">Permisos de Acceso</label>
+                            <div style="display: flex; gap: 20px; flex-wrap: wrap; background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                                
+                                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                    <input type="checkbox" name="vistas" value="Vehicles" <%= permisosActuales.includes('Vehicles') ? 'checked' : '' %>> Vehículos
+                                </label>
+                                
+                                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                    <input type="checkbox" name="vistas" value="Choferes" <%= permisosActuales.includes('Choferes') ? 'checked' : '' %>> Choferes
+                                </label>
+                                
+                                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                    <input type="checkbox" name="vistas" value="Mantenimientos" <%= permisosActuales.includes('Mantenimientos') ? 'checked' : '' %>> Mantenimientos
+                                </label>
+                                
+                                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                    <input type="checkbox" name="vistas" value="Tools" <%= permisosActuales.includes('Tools') ? 'checked' : '' %>> Herramientas
+                                </label>
+                                
+                                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                    <input type="checkbox" name="vistas" value="Alertas" <%= permisosActuales.includes('Alertas') ? 'checked' : '' %>> Alertas
+                                </label>
+                                
+                                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: #ef4444; font-weight: bold;">
+                                    <input type="checkbox" name="vistas" value="Usuarios" <%= permisosActuales.includes('Usuarios') ? 'checked' : '' %>> Usuarios
+                                </label>
+                                
+                                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: #ef4444; font-weight: bold;">
+                                    <input type="checkbox" name="vistas" value="Auditoria" <%= permisosActuales.includes('Auditoria') ? 'checked' : '' %>> Auditoría
+                                </label>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-actions">
+                        <a href="/Usuarios" class="btn-cancelar">Volver al Listado</a>
+                        <button type="submit" class="btn-guardar">Actualizar Permisos</button>
+                    </div>
+
+                </form>
+            </section>
+        </main>
+        <footer class="app-footer">
+            <p class="app-footer__copy">&copy; 2025 &mdash; Ficha Tecnica</p>
+        </footer>
+    </div>
+
+    <script>
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebar-overlay');
+        const menuToggle = document.getElementById('menu-toggle');
+        const sidebarClose = document.getElementById('sidebar-close');
+
+        document.querySelectorAll('.sidebar__menu-item--expandable > .sidebar__menu-link').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                this.closest('.sidebar__menu-item--expandable').classList.toggle('sidebar__menu-item--open');
+            });
+        });
+
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.add('sidebar--open');
+            overlay.classList.add('sidebar-overlay--visible');
+        });
+
+        sidebarClose.addEventListener('click', () => {
+            sidebar.classList.remove('sidebar--open');
+            overlay.classList.remove('sidebar-overlay--visible');
+        });
+    </script>
+</body>
+</html>
