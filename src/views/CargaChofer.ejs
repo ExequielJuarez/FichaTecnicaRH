@@ -167,18 +167,38 @@
 
     <div class="form-group">
       <label>Nombre</label>
-      <input name="nombre" type="text" placeholder="Ingrese el nombre">
+      <input class="input<%=errors?.nombre ? 'input-error' : '' %>" name="nombre" type="text" placeholder="Ingrese el nombre" value="<%= old?.nombre || '' %>">
+      <% if (errors?.nombre) { %>
+        <span class ="error">
+          <%= errors.nombre.msg %>
+        </span>
+      <% } %>
     </div>
 
     <div class="form-group">
       <label>Apellido</label>
-      <input name="Apellido" type="text" placeholder="Ingrese el apellido">
+      <input class="input <%= errors?.Apellido ? 'input-error' : '' %>" name="Apellido" type="text" placeholder="Ingrese el apellido" value="<%= old?.Apellido || '' %>">
+      <% if (errors?.apellido) { %>
+
+        <span class="error">
+          <%= errors.apellido.msg%>
+        </span>
+
+      <% } %>
     </div>
 
     <div class="form-row">
       <div class="form-group">
         <label>DNI</label>
-        <input name="dni" type="text">
+
+        <input class="input <%= errors?.dni ? 'input-error' : '' %>" name="dni" type="text" value="<%= old?.dni || '' %>">
+        <% if (errors?.dni) { %>
+
+        <span class="error">
+          <%= errors.dni.msg%>
+        </span>
+
+      <% } %>
       </div>
       <div class="form-group">
         <label>Fecha de Nacimiento</label>
@@ -189,7 +209,14 @@
     <div class="form-row">
       <div class="form-group">
         <label>Teléfono</label>
-        <input name="telefono" type="tel">
+        <input  class="input <%= errors?.telefono ? 'input-error' : '' %>" name="telefono" type="tel" value="<%= old?.telefono || '' %>">
+        <% if (errors?.telefono) { %>
+
+        <span class="error">
+          <%= errors.telefono.msg%>
+        </span>
+
+      <% } %>
       </div>
       <div class="form-group">
         <label>E-mail</label>
@@ -250,7 +277,14 @@
 
     <div class="form-group">
       <label>Número de Licencia</label>
-      <input name="numero_licencia" type="text" placeholder="Ingrese el número de licencia">
+      <input class="input <%= errors?.numero_licencia ? 'input-error' : '' %>" name="numero_licencia" type="text" placeholder="Ingrese el número de licencia" value="<%= old?.numero_licencia || '' %>">
+      <% if (errors?.numero_licencia) { %>
+
+        <span class="error">
+          <%= errors.numero_licencia.msg%>
+        </span>
+
+      <% } %>
     </div>
 
     <div class="form-row">
@@ -278,7 +312,14 @@
 
     <div class="form-group small">
         <label>Vencimiento</label>
-        <input name="fecha_vencimiento" type="date">
+        <input class="input <%= errors?.fecha_vencimiento ? 'input-error' : '' %>" name="fecha_vencimiento" type="date" value="<%= old?.fehca_vencimiento || '' %>">
+        <% if (errors?.fecha_vencimiento) { %>
+
+        <span class="error">
+          <%= errors.fecha_vencimiento.msg%>
+        </span>
+
+      <% } %>
       </div>
 
   </section>

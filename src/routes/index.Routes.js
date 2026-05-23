@@ -4,7 +4,8 @@ const router = express.Router();
 const vehicleController = require('../controllers/vehicleController');
 const userController = require('../controllers/userController');
 const choferController = require('../controllers/choferController');
-const toolController = require('../controllers/toolController')
+const toolController = require('../controllers/toolController');
+const choferVAlidation = require("../validations/choferValidation");
 
 
 // ================= VEHICULOS =================
@@ -22,9 +23,10 @@ router.post('/cargaVehiculo', vehicleController.processVehicle);
 
 router.get('/Choferes', choferController.ListChoferes);
 
-router.get('/Choferes/Carga', choferController.createChofer);
+router.get('/Choferes/Carga',choferVAlidation,choferController.createChofer);
 
-router.post('/Choferes/Carga', choferController.processChofer);
+router.post('/Choferes/Carga',choferVAlidation,choferController.processChofer);
+
 
 // ================= MANTENIMIENTOS =================
 router.get('/Mantenimientos', vehicleController.Mantenimientos);
