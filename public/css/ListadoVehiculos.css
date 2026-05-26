@@ -662,12 +662,8 @@ img          { display: block; }
   color: var(--color-text-primary);
   font-weight: 500;
 }
-
 .vehicle-profile__edit-btn {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 6px;
   padding: 7px 14px;
@@ -677,11 +673,38 @@ img          { display: block; }
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   background-color: var(--color-surface);
+  text-decoration: none;
+  cursor: pointer;
   transition: background 0.12s, border-color 0.12s;
 }
 
-.vehicle-profile__edit-btn:hover { background-color: var(--color-bg); border-color: #cbd5e1; }
-.vehicle-profile__edit-btn svg   { width: 15px; height: 15px; }
+.vehicle-profile__edit-btn:hover {
+  background-color: var(--color-bg);
+  border-color: #cbd5e1;
+}
+
+.vehicle-profile__edit-btn svg { width: 15px; height: 15px; }
+
+.vehicle-profile__actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.vehicle-profile__edit-btn--maint {
+  background-color: #0f766e;
+  color: #fff;
+  border-color: #0f766e;
+}
+
+.vehicle-profile__edit-btn--maint:hover {
+  background-color: #0d9488;
+  border-color: #0d9488;
+}
+
+
+
 
 /* ============================================================
    DETAIL TABS
@@ -1089,4 +1112,21 @@ img          { display: block; }
   .pagination__btn { width: 26px; height: 26px; font-size: 11px; }
 
   .vehicle-card__thumbnail { width: 52px; height: 38px; }
+}
+.vehicle-profile__actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.vehicle-profile__edit-btn--maint {
+  background-color: #0f766e; /* verde azulado, distinto al de editar */
+}
+
+.vehicle-profile__edit-btn--maint:hover {
+  background-color: #0d9488;
+}
+
+.vehicle-profile__actions .vehicle-profile__edit-btn {
+  position: static;
 }

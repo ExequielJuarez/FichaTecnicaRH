@@ -8,11 +8,9 @@ const vehicleController = {
     ListVehicles: async (req, res) => {
         try {
             let vehiculos = await vehicleService.getAll();
-            let vehiculoSeleccionado = await vehicleService.getOne(req.params.id); // ← getOne con include
-    
             res.render("listadoVehiculos", {
                 vehiculos,
-                vehiculoSeleccionado
+                vehiculoSeleccionado: null  // ← esto
             });
         } catch (error) {
             console.log(error);
@@ -24,28 +22,19 @@ const vehicleController = {
        VISTA CARGA MANTENIMIENTO
     ========================================================= */
 
-    CargaVMantenimiento: async (req,res) => {
-
+    CargaVMantenimiento: async (req, res) => {
         try {
-
             const data = await vehicleService.getCreateData();
-
+    
             res.render("cargaMantenimiento", {
-
                 vehiculos: data.vehiculos,
-
-                repuestos: data.repuestos
-
+                repuestos: data.repuestos,
+                id_vehiculo_preseleccionado: req.params.id_vehiculo || null
             });
-
-        } catch (error) {      
-
+        } catch (error) {
             console.log(error);
-
             res.send("Error");
-
         }
-
     },
 
     /* =========================================================
@@ -148,6 +137,25 @@ const vehicleController = {
 
         }
 
+    },
+    EditVehiculo: async (req, res) => {
+        try {
+            const vehiculo = await vehicleService.getOne(req.params.id);
+            res.render('EditarFichaVehiculo', { vehiculo });
+        } catch (error) {
+            console.log(error);
+            res.send("Error");
+        }
+    },
+    
+    processEditVehiculo: async (req, res) => {
+        try {
+            await vehicleService.update(req.params.id, req.body);
+            res.redirect('/Vehicles');
+        } catch (error) {
+            console.log(error);
+            res.send("Error al actualizar");
+        }
     },
 
 }

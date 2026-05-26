@@ -58,6 +58,7 @@ const choferService = {
             model: db.AsignacionVehiculo,
             as: 'asignaciones',
             required: false,
+            where: { estado: 'Activo' },      // ← agregar esto
             include: [
                 {
                     model: db.Vehiculo,

@@ -5,9 +5,14 @@ const vehicleController = require('../controllers/vehicleController');
 const userController = require('../controllers/userController');
 const choferController = require('../controllers/choferController');
 const toolController = require('../controllers/toolController')
+const assignmentController = require('../controllers/assignmentController');
 
 
 // ================= VEHICULOS =================
+
+// Editar vehículo
+router.get('/Vehicles/Editar/:id', vehicleController.EditVehiculo);
+router.post('/Vehicles/Editar/:id', vehicleController.processEditVehiculo);
 
 router.get('/Vehicles', vehicleController.ListVehicles);
 
@@ -30,10 +35,18 @@ router.post('/Choferes/Carga', choferController.processChofer);
 router.get('/Mantenimientos', vehicleController.Mantenimientos);
 
 // FORMULARIO
-router.get('/Mantenimientos/carga', vehicleController.CargaVMantenimiento);
+router.get('/Mantenimientos/carga/:id_vehiculo', vehicleController.CargaVMantenimiento);
+router.get('/Mantenimientos/carga', vehicleController.CargaVMantenimiento); 
 
 // GUARDAR MANTENIMIENTO
 router.post('/CargaMantenimiento', vehicleController.processMaintenance);
+
+
+// ASIGNACIONES 
+router.get('/Asignaciones',assignmentController.showForm);
+router.post('/Asignaciones',assignmentController.create);
+router.post('/Asignaciones/:id/finalizar', assignmentController.finalize);
+
 
 // =========================
 // HERRAMIENTAS

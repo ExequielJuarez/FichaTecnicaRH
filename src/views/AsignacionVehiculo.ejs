@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Asignación de Vehículo - Municipalidad</title>
+  <link rel="stylesheet" href="/css/AsignacionVehiculo.css" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- Overlay para cerrar sidebar en mobile/tablet -->
+  <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
+
+  <!-- ===================== SIDEBAR ===================== -->
+  <aside class="sidebar" id="sidebar" aria-label="Menú de navegación">
+
+    <div class="sidebar__brand">
+      <div class="sidebar__logo">
+        <img class="imglogosidebar" src="/images/header/images-removebg-preview (1).png" alt="Logo Municipalidad" />
+      </div>
+      <div class="sidebar__brand-text">
+        <span class="sidebar__brand-name">Ficha Tecnica</span>
+        <span class="sidebar__brand-sub">Municipalidad</span>
+      </div>
+      <button class="sidebar__close-btn" id="sidebar-close" aria-label="Cerrar menú">
+        <svg viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+        </svg>
+      </button>
+    </div>
+
+    <nav class="sidebar__nav" aria-label="Navegación principal">
+      <span class="sidebar__nav-label">Menú Principal</span>
+
+      <ul class="sidebar__menu">
+
+        <li class="sidebar__menu-item">
+          <a href="#" class="sidebar__menu-link">
+            <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+            Inicio
+          </a>
+        </li>
+
+        <li class="sidebar__menu-item sidebar__menu-item--expandable">
+          <a href="#" class="sidebar__menu-link">
+            <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/><path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z"/></svg>
+            Vehículos
+            <svg class="sidebar__menu-chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+          </a>
+          <ul class="sidebar__submenu">
+            <li><a href="/Vehicles" class="sidebar__submenu-link">Listado de vehículos</a></li>
+            <li><a href="/CargaVehiculo" class="sidebar__submenu-link">Agregar vehículo</a></li>
+          </ul>
+        </li>
+
+        <li class="sidebar__menu-item sidebar__menu-item--expandable">
+          <a href="#" class="sidebar__menu-link sidebar__menu-link--active">
+            <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/></svg>
+            Choferes
+            <svg class="sidebar__menu-chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+          </a>
+          <ul class="sidebar__submenu">
+            <li><a href="/Choferes" class="sidebar__submenu-link">Listado de choferes</a></li>
+            <li><a href="/Choferes/carga" class="sidebar__submenu-link">Agregar chofer</a></li>
+            <li><a href="/Choferes/asignacion" class="sidebar__submenu-link sidebar__submenu-link--active">Asignación de vehículo</a></li>
+          </ul>
+        </li>
+
+        <li class="sidebar__menu-item sidebar__menu-item--expandable">
+          <a href="#" class="sidebar__menu-link">
+            <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/></svg>
+            Mantenimientos
+            <svg class="sidebar__menu-chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+          </a>
+          <ul class="sidebar__submenu">
+            <li><a href="/Mantenimientos" class="sidebar__submenu-link">Listado</a></li>
+            <li><a href="/Mantenimientos/carga" class="sidebar__submenu-link">Agregar mantenimiento</a></li>
+          </ul>
+        </li>
+
+        <li class="sidebar__menu-item sidebar__menu-item--expandable">
+          <a href="#" class="sidebar__menu-link">
+            <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6.672 1.911a1 1 0 10-1.932.518l.259.966a1 1 0 001.932-.518l-.26-.966zM2.429 4.74a1 1 0 10-.517 1.932l.966.259a1 1 0 00.517-1.932l-.966-.26zm8.814-.569a1 1 0 00-1.415-1.414l-.707.707a1 1 0 101.415 1.415l.707-.708zm-7.071 7.072l.707-.707A1 1 0 003.465 9.12l-.708.707a1 1 0 001.415 1.415zm3.2-5.171a1 1 0 00-1.3 1.3l4 10a1 1 0 001.823.075l1.38-2.759 3.018 3.02a1 1 0 001.414-1.415l-3.019-3.02 2.76-1.379a1 1 0 00-.076-1.822l-10-4z" clip-rule="evenodd"/></svg>
+            Herramientas
+            <svg class="sidebar__menu-chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+          </a>
+          <ul class="sidebar__submenu">
+            <li><a href="/Tools" class="sidebar__submenu-link">Inventario</a></li>
+            <li><a href="/Tools/carga" class="sidebar__submenu-link">Carga herramienta</a></li>
+            <li><a href="/Tools/prestamos" class="sidebar__submenu-link">Préstamos</a></li>
+            <li><a href="/Tools/ajustes" class="sidebar__submenu-link">Ajustes</a></li>
+          </ul>
+        </li>
+
+        <li class="sidebar__menu-item">
+          <a href="#" class="sidebar__menu-link">
+            <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/></svg>
+            Alertas
+            <span class="sidebar__badge">5</span>
+          </a>
+        </li>
+
+        <li class="sidebar__menu-item">
+          <a href="#" class="sidebar__menu-link">
+            <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/></svg>
+            Usuarios
+          </a>
+        </li>
+
+        <li class="sidebar__menu-item">
+          <a href="#" class="sidebar__menu-link">
+            <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"/></svg>
+            Auditoría
+          </a>
+        </li>
+
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- ===================== APP WRAPPER ===================== -->
+  <div class="app-wrapper">
+
+    <!-- ===================== HEADER / TOPBAR ===================== -->
+    <header class="topbar">
+      <button class="topbar__menu-toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="sidebar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="6"  x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+
+      <div class="topbar__mobile-brand" aria-hidden="true">
+        <img class="imglogosidebarcel" src="/images/header/images-removebg-preview (1).png" alt="" />
+        <span>Ficha Tecnica</span>
+      </div>
+
+      <div class="topbar__actions">
+        <button class="topbar__notification-btn" aria-label="Notificaciones (3 sin leer)">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/></svg>
+          <span class="topbar__notification-dot" aria-label="3 notificaciones">3</span>
+        </button>
+        <div class="topbar__user" role="button" tabindex="0">
+          <svg class="topbar__user-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/></svg>
+          <span class="topbar__user-name">Administrador</span>
+          <svg class="topbar__user-chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+        </div>
+      </div>
+    </header>
+
+    <!-- ===================== MAIN ===================== -->
+    <main class="page-content" id="main-content">
+
+      <!-- Page Header -->
+      <header class="page-header">
+        <div>
+          <nav class="page-header__breadcrumb" aria-label="Ruta de navegación">
+            <a href="/Vehicles">Vehículos</a>
+            <svg class="page-header__breadcrumb-sep" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
+            <span>Asignación de Vehículo</span>
+          </nav>
+          <h1 class="page-header__title">Asignación de Vehículo</h1>
+          <p class="page-header__subtitle">Asociá un vehículo a un chofer y definí el período de uso autorizado.</p>
+        </div>
+        <a href="/Vehicles" class="btn btn--ghost">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"/></svg>
+          Volver al listado
+        </a>
+      </header>
+
+      <!-- Info banner -->
+      <div class="alert-banner alert-banner--info" role="note">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
+        <span>Solo se pueden asignar vehículos con estado <strong>Disponible</strong>. Si un vehículo ya tiene una asignación activa, no aparecerá en la lista.</span>
+      </div>
+
+      <% if (error) { %>
+        <div class="alert-banner" style="background:#fef2f2;border-color:#fecaca;color:#991b1b;margin-bottom:16px;">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+          <span><%= error %></span>
+        </div>
+      <% } %>
+      
+      <% if (success) { %>
+        <div class="alert-banner" style="background:#f0fdf4;border-color:#bbf7d0;color:#166534;margin-bottom:16px;">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+          <span><%= success %></span>
+        </div>
+      <% } %>
+
+      <!-- ===================== FORM CARD ===================== -->
+      <section class="assignment-card" aria-label="Formulario de asignación">
+
+        <div class="assignment-card__header">
+          <div class="assignment-card__header-icon">
+            <svg viewBox="0 0 20 20" fill="currentColor"><path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/><path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z"/></svg>
+          </div>
+          <div>
+            <p class="assignment-card__header-title">Nueva Asignación</p>
+            <p class="assignment-card__header-sub">Completá todos los campos requeridos</p>
+          </div>
+        </div>
+
+        <form class="assignment-card__body" id="assignment-form" action="/Asignaciones" method="POST" novalidate>
+
+          <!-- SECCIÓN: Selección -->
+          <fieldset class="form-section" style="border:none;padding:0;">
+            <legend class="form-section__title">Selección</legend>
+
+            <div class="form-section__grid">
+
+              <!-- Vehículo -->
+              <div class="form-field" id="field-vehiculo">
+                <label class="form-field__label" for="select-vehiculo">
+                  Vehículo
+                  <span class="form-field__required" aria-hidden="true">*</span>
+                </label>
+                <select class="form-field__select" id="select-vehiculo" name="id_vehiculo" required>
+                  <option value="">— Seleccioná un vehículo —</option>
+                  <% vehiculos.forEach(v => { %>
+                    <option value="<%= v.id_vehiculo %>"
+                      data-modelo="<%= v.marca %> <%= v.modelo %>"
+                      data-km="<%= v.km_actual %>">
+                      <%= v.patente %> — <%= v.marca %> <%= v.modelo %> (<%= v.anio %>)
+                    </option>
+                  <% }) %>
+                </select>
+                <span class="form-field__hint">Solo se muestran vehículos disponibles.</span>
+              </div>
+
+              <!-- Chofer -->
+              <div class="form-field" id="field-chofer">
+                <label class="form-field__label" for="select-chofer">
+                  Chofer
+                  <span class="form-field__required" aria-hidden="true">*</span>
+                </label>
+                <select class="form-field__select" id="select-chofer" name="id_chofer" required>
+                  <option value="">— Seleccioná un chofer —</option>
+                  <% choferes.forEach(c => { %>
+                    <option value="<%= c.id_chofer %>"
+                      data-dni="<%= c.dni %>"
+                      data-licencia="">
+                      <%= c.apellido %>, <%= c.nombre %>
+                    </option>
+                  <% }) %>
+                </select>
+                <span class="form-field__hint">Choferes con licencia vigente.</span>
+              </div>
+
+            </div>
+
+            <!-- Preview cards de selección -->
+            <div class="preview-strip" aria-live="polite" aria-atomic="true">
+
+              <div class="preview-card preview-card--empty" id="preview-vehiculo">
+                <div class="preview-card__icon">
+                  <svg viewBox="0 0 20 20" fill="currentColor"><path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/><path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z"/></svg>
+                </div>
+                <div>
+                  <span class="preview-card__label">Vehículo seleccionado</span>
+                  <span class="preview-card__value" id="prev-vehiculo-patente">Sin seleccionar</span>
+                  <span class="preview-card__sub"  id="prev-vehiculo-info">—</span>
+                </div>
+              </div>
+
+              <div class="preview-card preview-card--empty" id="preview-chofer">
+                <div class="preview-card__icon">
+                  <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/></svg>
+                </div>
+                <div>
+                  <span class="preview-card__label">Chofer seleccionado</span>
+                  <span class="preview-card__value" id="prev-chofer-nombre">Sin seleccionar</span>
+                  <span class="preview-card__sub"   id="prev-chofer-info">—</span>
+                </div>
+              </div>
+
+            </div>
+          </fieldset>
+
+          <div class="form-divider"></div>
+
+          <!-- SECCIÓN: Período de uso -->
+          <fieldset class="form-section" style="border:none;padding:0;">
+            <legend class="form-section__title">Período de Uso</legend>
+
+            <div class="date-range">
+
+              <div class="form-field">
+                <label class="form-field__label" for="fecha-desde">
+                  Fecha de inicio
+                  <span class="form-field__required" aria-hidden="true">*</span>
+                </label>
+                <input
+                  class="form-field__input"
+                  type="date"
+                  id="fecha-desde"
+                  name="fecha_desde"
+                  required
+                  aria-required="true"
+                />
+              </div>
+
+              <div class="date-range__separator" aria-hidden="true">
+                <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
+              </div>
+
+              <div class="form-field">
+                <label class="form-field__label" for="fecha-hasta">
+                  Fecha de fin
+                  <span class="form-field__required" aria-hidden="true">*</span>
+                </label>
+                <input
+                  class="form-field__input"
+                  type="date"
+                  id="fecha-hasta"
+                  name="fecha_hasta"
+                  required
+                  aria-required="true"
+                />
+                <span class="form-field__hint" id="duracion-hint"></span>
+              </div>
+
+            </div>
+          </fieldset>
+
+          <div class="form-divider"></div>
+
+          <!-- SECCIÓN: Información adicional -->
+          <fieldset class="form-section" style="border:none;padding:0;">
+            <legend class="form-section__title">Información Adicional</legend>
+
+            <div class="form-section__grid">
+
+              <div class="form-field">
+                <label class="form-field__label" for="destino">Destino / Área</label>
+                <input
+                  class="form-field__input"
+                  type="text"
+                  id="destino"
+                  name="destino"
+                  placeholder="Ej: Distrito Norte, Obras Públicas..."
+                  maxlength="120"
+                />
+              </div>
+
+              <div class="form-field">
+                <label class="form-field__label" for="km-salida">Km al momento de salida</label>
+                <input
+                  class="form-field__input"
+                  type="number"
+                  id="km-salida"
+                  name="km_salida"
+                  placeholder="Ej: 42300"
+                  min="0"
+                  step="1"
+                />
+              </div>
+
+              <div class="form-field form-field--full">
+                <label class="form-field__label" for="observaciones">Observaciones</label>
+                <textarea
+                  class="form-field__textarea"
+                  id="observaciones"
+                  name="observaciones"
+                  placeholder="Indicá cualquier detalle relevante para esta asignación..."
+                  maxlength="500"
+                ></textarea>
+                <span class="form-field__hint">Máximo 500 caracteres.</span>
+              </div>
+
+            </div>
+          </fieldset>
+
+        </form>
+
+        <!-- Form actions -->
+        <div class="form-actions">
+          <a href="/Vehicles" class="btn btn--ghost">
+            Cancelar
+          </a>
+          <button type="submit" form="assignment-form" class="btn btn--primary" id="btn-submit">
+            <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            Confirmar asignación
+          </button>
+        </div>
+
+      </section>
+
+      <!-- ===================== ASIGNACIONES ACTIVAS ===================== -->
+      <section style="margin-top: 36px;" aria-label="Asignaciones activas">
+
+        <h2 class="section-title">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/></svg>
+          Asignaciones Activas
+        </h2>
+
+        <div class="data-card">
+          <div class="data-card__header">
+            <svg class="data-card__icon" viewBox="0 0 20 20" fill="currentColor"><path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/><path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3z"/></svg>
+            <h3 class="data-card__title">Vehículos en uso actualmente</h3>
+            <span class="data-card__count">3 activas</span>
+          </div>
+
+          <div class="data-table-wrapper">
+            <table class="data-table" aria-label="Listado de asignaciones activas">
+              <thead class="data-table__head">
+                <tr>
+                  <th class="data-table__th">Vehículo</th>
+                  <th class="data-table__th">Chofer</th>
+                  <th class="data-table__th">Desde</th>
+                  <th class="data-table__th">Hasta</th>
+                  <th class="data-table__th">Destino</th>
+                  <th class="data-table__th">Estado</th>
+                  <th class="data-table__th">Acciones</th>
+                </tr>
+              </thead>
+              <tbody class="data-table__body">
+                <% if (asignaciones && asignaciones.length > 0) { %>
+                  <% asignaciones.forEach(a => { %>
+                    <tr class="data-table__row">
+                      <td class="data-table__td" data-label="Vehículo">
+                        <strong><%= a.vehiculo?.patente || '—' %></strong>
+                        <div class="data-table__td--muted">
+                          <%= a.vehiculo?.marca %> <%= a.vehiculo?.modelo %>
+                        </div>
+                      </td>
+                      <td class="data-table__td" data-label="Chofer">
+                        <%= a.Chofer?.apellido %>, <%= a.Chofer?.nombre %>
+                      </td>
+                      <td class="data-table__td" data-label="Desde">
+                        <%= new Date(a.fecha_salida).toLocaleDateString('es-AR') %>
+                      </td>
+                      <td class="data-table__td" data-label="Hasta">
+                        <%= a.fecha_estimada_devolucion
+                            ? new Date(a.fecha_estimada_devolucion).toLocaleDateString('es-AR')
+                            : '—' %>
+                      </td>
+                      <td class="data-table__td" data-label="Destino">
+                        <%= a.destino_area || '—' %>
+                      </td>
+                      <td class="data-table__td" data-label="Estado">
+                        <span class="badge badge--active"><%= a.estado %></span>
+                      </td>
+                      <td class="data-table__td" data-label="Acciones">
+                        <div class="data-table__actions">
+                          <form action="/Asignaciones/<%= a.id_asignacion %>/finalizar" method="POST"
+                                onsubmit="return confirm('¿Finalizar esta asignación?')">
+                            <button type="submit"
+                              class="data-table__action-btn data-table__action-btn--danger"
+                              title="Finalizar asignación">
+                              <svg viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                              </svg>
+                            </button>
+                          </form>
+                        </div>
+                      </td>
+                    </tr>
+                  <% }) %>
+                <% } else { %>
+                  <tr>
+                    <td colspan="7">
+                      <div class="empty-state">
+                        <svg class="empty-state__icon" viewBox="0 0 20 20" fill="currentColor">
+                          <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/>
+                          <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3z"/>
+                        </svg>
+                        <p class="empty-state__text">No hay asignaciones activas.</p>
+                      </div>
+                    </td>
+                  </tr>
+                <% } %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer class="app-footer">
+      <p class="app-footer__copy">&copy; 2025 &mdash; Ficha Tecnica</p>
+    </footer>
+
+  </div><!-- /app-wrapper -->
+
+  <script>
+    /* ── Sidebar ───────────────────────────────────────── */
+    const sidebar      = document.getElementById('sidebar');
+    const overlay      = document.getElementById('sidebar-overlay');
+    const menuToggle   = document.getElementById('menu-toggle');
+    const sidebarClose = document.getElementById('sidebar-close');
+
+    function openSidebar() {
+      sidebar.classList.add('sidebar--open');
+      overlay.classList.add('sidebar-overlay--visible');
+      menuToggle.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeSidebar() {
+      sidebar.classList.remove('sidebar--open');
+      overlay.classList.remove('sidebar-overlay--visible');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+
+    menuToggle.addEventListener('click', openSidebar);
+    sidebarClose.addEventListener('click', closeSidebar);
+    overlay.addEventListener('click', closeSidebar);
+
+    /* ── Acordeón submenús ─────────────────────────────── */
+    document.querySelectorAll('.sidebar__menu-item--expandable > .sidebar__menu-link')
+      .forEach(link => {
+        link.addEventListener('click', function (e) {
+          e.preventDefault();
+          const item = this.closest('.sidebar__menu-item--expandable');
+          item.classList.toggle('sidebar__menu-item--open');
+        });
+      });
+
+    document.querySelectorAll('.sidebar__submenu-link--active').forEach(active => {
+      const item = active.closest('.sidebar__menu-item--expandable');
+      if (item) item.classList.add('sidebar__menu-item--open');
+    });
+
+    /* ── Preview cards ─────────────────────────────────── */
+    const selectVehiculo = document.getElementById('select-vehiculo');
+    const selectChofer   = document.getElementById('select-chofer');
+
+    const prevVehiculoCard    = document.getElementById('preview-vehiculo');
+    const prevVehiculoPatente = document.getElementById('prev-vehiculo-patente');
+    const prevVehiculoInfo    = document.getElementById('prev-vehiculo-info');
+
+    const prevChoferCard   = document.getElementById('preview-chofer');
+    const prevChoferNombre = document.getElementById('prev-chofer-nombre');
+    const prevChoferInfo   = document.getElementById('prev-chofer-info');
+
+    selectVehiculo.addEventListener('change', function () {
+      const opt = this.options[this.selectedIndex];
+      if (this.value) {
+        const text    = opt.text.split('—');
+        const patente = text[0].trim();
+        const modelo  = opt.dataset.modelo  || '—';
+        const km      = opt.dataset.km ? Number(opt.dataset.km).toLocaleString('es-AR') + ' km' : '—';
+        prevVehiculoPatente.textContent = patente;
+        prevVehiculoInfo.textContent    = modelo + ' · ' + km;
+        prevVehiculoCard.classList.add('preview-card--active');
+        prevVehiculoCard.classList.remove('preview-card--empty');
+      } else {
+        prevVehiculoPatente.textContent = 'Sin seleccionar';
+        prevVehiculoInfo.textContent    = '—';
+        prevVehiculoCard.classList.remove('preview-card--active');
+        prevVehiculoCard.classList.add('preview-card--empty');
+      }
+    });
+
+    selectChofer.addEventListener('change', function () {
+      const opt = this.options[this.selectedIndex];
+      if (this.value) {
+        prevChoferNombre.textContent = opt.text.trim();
+        const dni      = opt.dataset.dni      ? 'DNI ' + opt.dataset.dni : '';
+        const licencia = opt.dataset.licencia ? 'Lic. ' + opt.dataset.licencia : '';
+        prevChoferInfo.textContent = [dni, licencia].filter(Boolean).join(' · ') || '—';
+        prevChoferCard.classList.add('preview-card--active');
+        prevChoferCard.classList.remove('preview-card--empty');
+      } else {
+        prevChoferNombre.textContent = 'Sin seleccionar';
+        prevChoferInfo.textContent   = '—';
+        prevChoferCard.classList.remove('preview-card--active');
+        prevChoferCard.classList.add('preview-card--empty');
+      }
+    });
+
+    /* ── Cálculo de duración ───────────────────────────── */
+    const fechaDesde  = document.getElementById('fecha-desde');
+    const fechaHasta  = document.getElementById('fecha-hasta');
+    const durHint     = document.getElementById('duracion-hint');
+
+    function calcDuracion() {
+      if (!fechaDesde.value || !fechaHasta.value) { durHint.textContent = ''; return; }
+      const d1   = new Date(fechaDesde.value);
+      const d2   = new Date(fechaHasta.value);
+      const diff = Math.round((d2 - d1) / (1000 * 60 * 60 * 24));
+      if (diff < 0) {
+        durHint.textContent  = '⚠ La fecha de fin debe ser posterior a la de inicio.';
+        durHint.style.color  = 'var(--color-red)';
+      } else {
+        durHint.textContent  = `Duración: ${diff} día${diff !== 1 ? 's' : ''}.`;
+        durHint.style.color  = 'var(--color-text-muted)';
+      }
+    }
+
+    fechaDesde.addEventListener('change', calcDuracion);
+    fechaHasta.addEventListener('change', calcDuracion);
+
+    /* Setear fecha de hoy como mínimo y valor por defecto */
+    const hoy = new Date().toISOString().split('T')[0];
+    fechaDesde.min   = hoy;
+    fechaDesde.value = hoy;
+    fechaHasta.min   = hoy;
+
+    /* ── Validación y submit ───────────────────────────── */
+    const form      = document.getElementById('assignment-form');
+    const btnSubmit = document.getElementById('btn-submit');
+
+    btnSubmit.addEventListener('click', function (e) {
+      e.preventDefault();
+
+      let valid = true;
+
+      [selectVehiculo, selectChofer, fechaDesde, fechaHasta].forEach(el => {
+        if (!el.value) {
+          el.style.borderColor = 'var(--color-red)';
+          el.style.boxShadow   = '0 0 0 3px rgba(220,38,38,0.12)';
+          valid = false;
+        } else {
+          el.style.borderColor = '';
+          el.style.boxShadow   = '';
+        }
+      });
+
+      if (fechaDesde.value && fechaHasta.value && fechaHasta.value < fechaDesde.value) {
+        fechaHasta.style.borderColor = 'var(--color-red)';
+        fechaHasta.style.boxShadow   = '0 0 0 3px rgba(220,38,38,0.12)';
+        valid = false;
+      }
+
+      if (!valid) return;
+
+      /* Aquí va el submit real — form.submit() o fetch() */
+      form.submit();
+    });
+
+    /* Limpiar estilos de error al corregir campos */
+    [selectVehiculo, selectChofer, fechaDesde, fechaHasta].forEach(el => {
+      el.addEventListener('change', function () {
+        this.style.borderColor = '';
+        this.style.boxShadow   = '';
+      });
+    });
+  </script>
+
+</body>
+</html>

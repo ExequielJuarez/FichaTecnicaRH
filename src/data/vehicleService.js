@@ -62,6 +62,7 @@ const vehicleService = {
     create: async function (req) {
 
         try {
+            
 
             let newVehicle = await db.Vehiculo.create({
 
@@ -190,6 +191,31 @@ const vehicleService = {
 
         }
 
+    },
+    update: async function (id, body) {
+        try {
+            await db.Vehiculo.update({
+                patente:       body.patente,
+                id_tipo:       body.id_tipo,
+                marca:         body.marca,
+                modelo:        body.modelo,
+                anio:          body.anio,
+                num_chasis:    body.chasis,
+                num_motor:     body.num_motor,
+                combustible:   body.combustible,
+                transmision:   body.transmision,
+                estado_actual: body.estado_actual,
+                km_actual:     body.km_actual,
+                distrito:      body.distrito,
+                observaciones: body.observaciones,
+                fecha_alta:    body.fecha_alta || null,
+                fecha_baja:    body.fecha_baja || null,
+            }, {
+                where: { id_vehiculo: id }
+            });
+        } catch (error) {
+            console.log(error);
+        }
     },
     getAllMantenimientos: async () => {
 

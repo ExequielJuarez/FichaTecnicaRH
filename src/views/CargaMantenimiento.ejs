@@ -178,15 +178,16 @@
               <% vehiculos.forEach(vehiculo => { %>
 
                 <option 
-                  value="<%= vehiculo.id_vehiculo %>"
-                  data-patente="<%= vehiculo.patente %>"
-                  data-detalle="<%= vehiculo.marca %> <%= vehiculo.modelo %>"
-                  data-km="<%= vehiculo.km_actual %>"
-                >
-                  <%= vehiculo.id_vehiculo %> —
-                  <%= vehiculo.patente %> ·
-                  <%= vehiculo.marca %> <%= vehiculo.modelo %>
-                </option>
+  value="<%= vehiculo.id_vehiculo %>"
+  data-patente="<%= vehiculo.patente %>"
+  data-detalle="<%= vehiculo.marca %> <%= vehiculo.modelo %>"
+  data-km="<%= vehiculo.km_actual %>"
+  <%= id_vehiculo_preseleccionado == vehiculo.id_vehiculo ? 'selected' : '' %>
+>
+  <%= vehiculo.id_vehiculo %> —
+  <%= vehiculo.patente %> ·
+  <%= vehiculo.marca %> <%= vehiculo.modelo %>
+</option>
 
               <% }) %>
             </select>
@@ -519,6 +520,10 @@ document.querySelectorAll('.sidebar__submenu-link--active').forEach(active => {
   }
 
   document.querySelectorAll('.repuesto-fila input[type=number]').forEach(i => i.addEventListener('input', calcularSubtotal));
+
+  if (vehicleSelect.value) {
+    vehicleSelect.dispatchEvent(new Event('change'));
+}
   </script>
 
 </body>
