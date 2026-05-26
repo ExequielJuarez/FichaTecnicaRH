@@ -5,7 +5,10 @@ const vehicleController = require('../controllers/vehicleController');
 const userController = require('../controllers/userController');
 const choferController = require('../controllers/choferController');
 const toolController = require('../controllers/toolController');
-const choferVAlidation = require("../validations/choferValidation");
+const {
+    choferVAlidation,
+    choferEditValidation
+} = require("../validations/choferValidation");
 
 
 // ================= VEHICULOS =================
@@ -21,11 +24,18 @@ router.post('/cargaVehiculo', vehicleController.processVehicle);
 
 // ================= CHOFERES =================
 
-router.get('/Choferes', choferController.ListChoferes);
+router.get('/Choferes',                choferController.ListChoferes);
+router.get('/Choferes/Carga',          choferController.createChofer);
+router.post('/Choferes/Carga',         choferVAlidation(), choferController.processChofer);
 
-router.get('/Choferes/Carga',choferVAlidation,choferController.createChofer);
+router.get('/Choferes/:id/editar',     choferController.editChofer);
+router.post(
+    '/Choferes/:id/editar',
+    choferEditValidation(),
+    choferController.processEdit
+);
 
-router.post('/Choferes/Carga',choferVAlidation,choferController.processChofer);
+router.post('/Choferes/:id/desactivar', choferController.desactivarChofer);
 
 
 // ================= MANTENIMIENTOS =================

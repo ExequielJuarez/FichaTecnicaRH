@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cargar Vehículo - Gestión de Flota</title>
+  <link rel="stylesheet" href="/css/CargaChofer.css" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- Overlay para cerrar sidebar en mobile/tablet -->
+  <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
+
+  <!-- ===================== SIDEBAR ===================== -->
+  <aside class="sidebar" id="sidebar" aria-label="Menú de navegación">
+
+    <div class="sidebar__brand">
+      <div class="sidebar__logo">
+        <img class="imglogosidebar" src="/images/header/images-removebg-preview (1).png" alt="">
+      </div>
+      <div class="sidebar__brand-text">
+        <span class="sidebar__brand-name">Ficha Tecnica</span>
+        <span class="sidebar__brand-sub">Municipalidad</span>
+      </div>
+      <button class="sidebar__close-btn" id="sidebar-close" aria-label="Cerrar menú">
+        <svg viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+        </svg>
+      </button>
+    </div>
+
+    <nav class="sidebar__nav" aria-label="Navegación principal">
+      <span class="sidebar__nav-label">Menú Principal</span>
+
+      <ul class="sidebar__menu">
+
+        <li class="sidebar__menu-item">
+          <a href="#" class="sidebar__menu-link">
+            <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+            Inicio
+          </a>
+        </li>
+      
+        <li class="sidebar__menu-item sidebar__menu-item--expandable">
+          <a href="#" class="sidebar__menu-link">
+            <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/><path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z"/></svg>
+            Vehículos
+            <svg class="sidebar__menu-chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+          </a>
+          <ul class="sidebar__submenu">
+            <li><a href="/Vehicles" class="sidebar__submenu-link">Listado de vehículos</a></li>
+            <li><a href="/CargaVehiculo" class="sidebar__submenu-link">Agregar vehículo</a></li>
+          </ul>
+        </li>
+      
+        <li class="sidebar__menu-item sidebar__menu-item--expandable">
+          <a href="#" class="sidebar__menu-link sidebar__menu-link--active">
+            <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/></svg>
+            Choferes
+            <svg class="sidebar__menu-chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+          </a>
+          <ul class="sidebar__submenu">
+            <li><a href="/Choferes" class="sidebar__submenu-link">Listado de choferes</a></li>
+            <li><a href="/Choferes/carga" class="sidebar__submenu-link sidebar__submenu-link--active">Agregar chofer</a></li>
+          </ul>
+        </li>
+      
+        <li class="sidebar__menu-item sidebar__menu-item--expandable">
+          <a href="#" class="sidebar__menu-link">
+            <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/></svg>
+            Mantenimientos
+            <svg class="sidebar__menu-chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+          </a>
+          <ul class="sidebar__submenu">
+            <li><a href="/Mantenimientos" class="sidebar__submenu-link">Listado</a></li>
+            <li><a href="/Mantenimientos/carga" class="sidebar__submenu-link">Agregar mantenimiento</a></li>
+          </ul>
+        </li>
+      
+        <li class="sidebar__menu-item sidebar__menu-item--expandable">
+          <a href="#" class="sidebar__menu-link">
+            <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6.672 1.911a1 1 0 10-1.932.518l.259.966a1 1 0 001.932-.518l-.26-.966zM2.429 4.74a1 1 0 10-.517 1.932l.966.259a1 1 0 00.517-1.932l-.966-.26zm8.814-.569a1 1 0 00-1.415-1.414l-.707.707a1 1 0 101.415 1.415l.707-.708zm-7.071 7.072l.707-.707A1 1 0 003.465 9.12l-.708.707a1 1 0 001.415 1.415zm3.2-5.171a1 1 0 00-1.3 1.3l4 10a1 1 0 001.823.075l1.38-2.759 3.018 3.02a1 1 0 001.414-1.415l-3.019-3.02 2.76-1.379a1 1 0 00-.076-1.822l-10-4z" clip-rule="evenodd"/></svg>
+            Herramientas
+            <svg class="sidebar__menu-chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+          </a>
+          <ul class="sidebar__submenu">
+            <li><a href="/Tools" class="sidebar__submenu-link">Inventario</a></li>
+            <li><a href="/Tools/carga" class="sidebar__submenu-link">Carga herramienta</a></li>
+            <li><a href="/Tools/prestamos" class="sidebar__submenu-link">Préstamos</a></li>
+            <li><a href="/Tools/ajustes" class="sidebar__submenu-link">Ajustes</a></li>
+          </ul>
+        </li>
+      
+        <li class="sidebar__menu-item">
+          <a href="#" class="sidebar__menu-link">
+            <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/></svg>
+            Alertas
+            <span class="sidebar__badge">5</span>
+          </a>
+        </li>
+      
+        <li class="sidebar__menu-item">
+          <a href="#" class="sidebar__menu-link">
+            <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/></svg>
+            Usuarios
+          </a>
+        </li>
+      
+        <li class="sidebar__menu-item">
+          <a href="#" class="sidebar__menu-link">
+            <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"/></svg>
+            Auditoría
+          </a>
+        </li>
+      
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- ===================== APP WRAPPER ===================== -->
+  <div class="app-wrapper">
+
+    <!-- ===================== HEADER / TOPBAR ===================== -->
+    <header class="topbar">
+      <button class="topbar__menu-toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="sidebar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="6"  x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+
+      <div class="topbar__mobile-brand" aria-hidden="true">
+         <img class="imglogosidebarcel" src="/images/header/images-removebg-preview (1).png" alt="">
+        <span>Ficha Tecnica</span>
+      </div>
+
+      <div class="topbar__actions">
+        <button class="topbar__notification-btn" aria-label="Notificaciones">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/></svg>
+          <span class="topbar__notification-dot" aria-label="3 notificaciones">3</span>
+        </button>
+        <div class="topbar__user" role="button" tabindex="0">
+          <svg class="topbar__user-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/></svg>
+          <span class="topbar__user-name">Administrador</span>
+          <svg class="topbar__user-chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+        </div>
+      </div>
+    </header>
+
+    <!-- ===================== MAIN ===================== -->
+    <main class="main-content">
+
+      <div class="page-header">
+        <div>
+          <h2 class="page-title">Editar Chofer</h2>
+            <p class="page-subtitle">Modificá los datos del chofer.</p>
+        </div>
+        
+      </div>
+
+      <form class="form" action="/Choferes/<%= chofer.id_chofer %>/editar" method="post">
+
+  <section class="form-section">
+    <h3>Información Básica</h3>
+
+    <div class="form-group">
+      <label>Nombre</label>
+      <input class="input <%= errors?.nombre ? 'input-error' : '' %>" name="nombre" type="text" placeholder="Ingrese el nombre" value="<%= old?.nombre || '' %>">
+      <% if (errors?.nombre) { %>
+        <span class="error"><%= errors.nombre.msg %></span>
+      <% } %>
+    </div>
+
+    <div class="form-group">
+      <label>Apellido</label>
+      <input class="input <%= errors?.apellido ? 'input-error' : '' %>" name="apellido" type="text" placeholder="Ingrese el apellido" value="<%= old?.apellido || '' %>">
+      <% if (errors?.apellido) { %>
+        <span class="error"><%= errors.apellido.msg %></span>
+      <% } %>
+    </div>
+
+    <div class="form-group">
+        <label>DNI <small>(no modificable)</small></label>
+
+        <input 
+        class="input" 
+        type="text" 
+        value="<%= old?.dni || chofer?.dni || '' %>" 
+        disabled
+        >
+
+        <input 
+        type="hidden" 
+        name="dni" 
+        value="<%= old?.dni || chofer?.dni || '' %>"
+        >
+
+        <% if (errors?.dni) { %>
+            <span class="error"><%= errors.dni.msg %></span>
+        <% } %>
+    </div>
+
+      <div class="form-group">
+        <label>Fecha de Nacimiento</label>
+        <input class="input <%= errors?.fechaNacimiento ? 'input-error' : '' %>" name="fechaNacimiento" type="date" value="<%= old?.fechaNacimiento || (chofer?.fecha_nacimiento ? new Date(chofer.fecha_nacimiento).toISOString().split('T')[0] : '') %>">
+        <% if (errors?.fechaNacimiento) { %>
+          <span class="error"><%= errors.fechaNacimiento.msg %></span>
+        <% } %>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Teléfono</label>
+        <input class="input <%= errors?.telefono ? 'input-error' : '' %>" name="telefono" type="tel" value="<%= old?.telefono || '' %>">
+        <% if (errors?.telefono) { %>
+          <span class="error"><%= errors.telefono.msg %></span>
+        <% } %>
+      </div>
+      <div class="form-group">
+        <label>E-mail</label>
+        <input class="input <%= errors?.email ? 'input-error' : '' %>" name="email" type="email" value="<%= old?.email || '' %>">
+        <% if (errors?.email) { %>
+          <span class="error"><%= errors.email.msg %></span>
+        <% } %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Dirección</label>
+      <input class="input <%= errors?.direccion ? 'input-error' : '' %>" name="direccion" type="text" value="<%= old?.direccion || '' %>">
+      <% if (errors?.direccion) { %>
+        <span class="error"><%= errors.direccion.msg %></span>
+      <% } %>
+    </div>
+  </section>
+
+  <section class="form-section">
+    <h3>Datos laborales</h3>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Fecha de Ingreso</label>
+        <input class="input <%= errors?.fechaIngreso ? 'input-error' : '' %>" name="fechaIngreso" type="date" value="<%= old?.fechaIngreso || (chofer?.fecha_ingreso ? new Date(chofer.fecha_ingreso).toISOString().split('T')[0] : '') %>">
+        <% if (errors?.fechaIngreso) { %>
+          <span class="error"><%= errors.fechaIngreso.msg %></span>
+        <% } %>
+      </div>
+
+      <div class="form-group">
+        <label>Estado</label>
+        <select class="input <%= errors?.['activo-inactivo'] ? 'input-error' : '' %>" name="activo-inactivo">
+          <option value="">Seleccionar</option>
+          <option value="Activo"   <%= old?.['activo-inactivo'] === 'Activo'   ? 'selected' : '' %>>Activo</option>
+          <option value="Inactivo" <%= old?.['activo-inactivo'] === 'Inactivo' ? 'selected' : '' %>>Inactivo</option>
+        </select>
+        <% if (errors?.['activo-inactivo']) { %>
+          <span class="error"><%= errors['activo-inactivo'].msg %></span>
+        <% } %>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Turno</label>
+        <select name="Turno">
+          <option value="">Seleccionar</option>
+          <option <%= old?.Turno === 'Mañana' ? 'selected' : '' %>>Mañana</option>
+          <option <%= old?.Turno === 'Tarde'  ? 'selected' : '' %>>Tarde</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <section class="form-section">
+    <h3>Datos de Licencia</h3>
+
+    <div class="form-group">
+      <label>Número de Licencia</label>
+      <input class="input <%= errors?.numero_licencia ? 'input-error' : '' %>" name="numero_licencia" type="text" placeholder="Ingrese el número de licencia" value="<%= old?.numero_licencia || '' %>">
+      <% if (errors?.numero_licencia) { %>
+        <span class="error"><%= errors.numero_licencia.msg %></span>
+      <% } %>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Categoría de Licencia</label>
+        <select class="input <%= errors?.categoria ? 'input-error' : '' %>" name="categoria">
+          <option value="">Seleccione categoría</option>
+          <option value="A"  <%= old?.categoria === 'A'  ? 'selected' : '' %>>A - Motocicletas</option>
+          <option value="B1" <%= old?.categoria === 'B1' ? 'selected' : '' %>>B1 - Autos y camionetas</option>
+          <option value="B2" <%= old?.categoria === 'B2' ? 'selected' : '' %>>B2 - Vehículos utilitarios</option>
+          <option value="C"  <%= old?.categoria === 'C'  ? 'selected' : '' %>>C - Camiones sin acoplado</option>
+          <option value="D"  <%= old?.categoria === 'D'  ? 'selected' : '' %>>D - Transporte de pasajeros</option>
+          <option value="E"  <%= old?.categoria === 'E'  ? 'selected' : '' %>>E - Camiones con acoplado</option>
+          <option value="G"  <%= old?.categoria === 'G'  ? 'selected' : '' %>>G - Maquinaria especial</option>
+        </select>
+        <% if (errors?.categoria) { %>
+          <span class="error"><%= errors.categoria.msg %></span>
+        <% } %>
+      </div>
+
+      <div class="form-group">
+        <label>Fecha de Emisión</label>
+        <input class="input <%= errors?.fecha_emision ? 'input-error' : '' %>" name="fecha_emision" type="date" value="<%= old?.fecha_emision || (chofer?.fecha_emision ? new Date(chofer.fecha_emision).toISOString().split('T')[0] : '') %>">
+        <% if (errors?.fecha_emision) { %>
+          <span class="error"><%= errors.fecha_emision.msg %></span>
+        <% } %>
+      </div>
+    </div>
+
+    <div class="form-group small">
+      <label>Vencimiento</label>
+      <input class="input <%= errors?.fecha_vencimiento ? 'input-error' : '' %>" name="fecha_vencimiento" type="date" value="<%= old?.fecha_vencimiento || (chofer?.fecha_vencimiento ? new Date(chofer.fecha_vencimiento).toISOString().split('T')[0] : '') %>">
+      <% if (errors?.fecha_vencimiento) { %>
+        <span class="error"><%= errors.fecha_vencimiento.msg %></span>
+      <% } %>
+    </div>
+  </section>
+
+  <section class="form-section">
+    <h3>Fechas</h3>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Fecha de Alta</label>
+        <input name="fecha_alta" type="date">
+      </div>
+
+      <div class="form-group">
+        <label>Fecha de Baja</label>
+        <!-- LE FALTABA name -->
+        <input name="fecha_baja" type="date">
+      </div>
+    </div>
+  </section>
+
+  <section class="form-section">
+    <h3>Imagenes de la Documentación</h3>
+
+    <div class="upload-box">
+      <label for="imagen">Subir imagen</label>
+      <!-- LE FALTABA name -->
+      <input type="file" id="imagen" name="imagen">
+    </div>
+
+    <div id="preview">
+      No hay imagen
+    </div>
+  </section>
+
+  <section class="form-sectionMod">
+   
+  </section>
+
+
+  <div class="acciones">
+    <!-- IMPORTANTE: este botón no debe enviar -->
+    <a href="/Choferes" class="boton-secundario">Volver</a>
+  
+    <button type="submit" class="boton-primario">
+      Guardar Chofer
+    </button>
+  </div>
+
+  
+
+</form>
+
+
+
+    </main>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer class="app-footer">
+      <p class="app-footer__copy">* Campos obligatorios &nbsp;|&nbsp; &copy; 2025 &mdash; Ficha Tecnica</p>
+    </footer>
+
+  </div><!-- /app-wrapper -->
+
+  <script>
+    /* ============================================================
+       SIDEBAR TOGGLE — mobile / tablet
+    ============================================================ */
+    const sidebar      = document.getElementById('sidebar');
+    const overlay      = document.getElementById('sidebar-overlay');
+    const menuToggle   = document.getElementById('menu-toggle');
+    const sidebarClose = document.getElementById('sidebar-close');
+
+    document.querySelectorAll('.sidebar__menu-item--expandable > .sidebar__menu-link')
+      .forEach(link => {
+        link.addEventListener('click', function (e) {
+          e.preventDefault();
+          const item = this.closest('.sidebar__menu-item--expandable');
+          item.classList.toggle('sidebar__menu-item--open');
+        });
+      });
+
+    document.querySelectorAll('.sidebar__submenu-link--active').forEach(active => {
+      const item = active.closest('.sidebar__menu-item--expandable');
+      if (item) item.classList.add('sidebar__menu-item--open');
+    });
+
+    function openSidebar() {
+      sidebar.classList.add('sidebar--open');
+      overlay.classList.add('sidebar-overlay--visible');
+      menuToggle.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeSidebar() {
+      sidebar.classList.remove('sidebar--open');
+      overlay.classList.remove('sidebar-overlay--visible');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+
+    menuToggle.addEventListener('click', openSidebar);
+    sidebarClose.addEventListener('click', closeSidebar);
+    overlay.addEventListener('click', closeSidebar);
+  </script>
+
+</body>
+</html>

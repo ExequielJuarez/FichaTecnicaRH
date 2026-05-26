@@ -279,7 +279,23 @@
                                         </td>
 
                                         <td data-label="Acciones">
+
+                                            <a href="/Choferes/<%= chofer.id_chofer %>/editar" class="btn-accion btn-editar">
                                             Editar
+                                            </a>
+
+                                            <% if (chofer.estado === 'Activo') { %>
+                                                <form method="POST" action="/Choferes/<%= chofer.id_chofer %>/desactivar"
+                                                    style="display:inline"
+                                                    onsubmit="return confirm('¿Desactivar a <%= chofer.nombre %> <%= chofer.apellido %>?')">
+                                                    <button type="submit" class="btn-accion btn-desactivar">
+                                                        Desactivar
+                                                    </button>
+                                                </form>
+                                            <% } else { %>
+                                                <span class="badge-inactivo">Inactivo</span>
+                                            <% } %>
+
                                         </td>
 
                                     </tr>
@@ -294,13 +310,41 @@
 
                 <section class="box-cambiarLista">
 
-                    <p class="info">Mostrando 1-8</p>
+                    <p class="info">
+                        Mostrando página <%= paginaActual %> de <%= totalPaginas %>
+                        &nbsp;|&nbsp; <%= totalRegistros %> resultado<%= totalRegistros !== 1 ? 's' : '' %>
+                    </p>
 
                     <div class="paginacion">
-                        <button class="cambiar">Anterior</button>
-                        <button class="pagina">1</button>
-                        <button class="pagina">2</button>
-                        <button class="cambiar">Siguiente</button>
+
+                        <%
+                            // Base de la URL para los links de paginación
+                            const base = '/Choferes?' + (queryString ? queryString + '&' : '');
+                        %>
+
+                        
+                        <% if (paginaActual > 1) { %>
+                            <a href="<%= base %>pagina=<%= paginaActual - 1 %>" class="cambiar">Anterior</a>
+                        <% } else { %>
+                            <button class="cambiar" disabled>Anterior</button>
+                        <% } %>
+
+                        
+                        <% for (let i = 1; i <= totalPaginas; i++) { %>
+                            <% if (i === paginaActual) { %>
+                                <button class="pagina pagina--activa"><%= i %></button>
+                            <% } else { %>
+                                <a href="<%= base %>pagina=<%= i %>" class="pagina"><%= i %></a>
+                            <% } %>
+                        <% } %>
+
+                        
+                        <% if (paginaActual < totalPaginas) { %>
+                            <a href="<%= base %>pagina=<%= paginaActual + 1 %>" class="cambiar">Siguiente</a>
+                        <% } else { %>
+                            <button class="cambiar" disabled>Siguiente</button>
+                        <% } %>
+
                     </div>
 
                 </section>
