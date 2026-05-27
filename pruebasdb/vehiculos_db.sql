@@ -326,4 +326,9 @@ UPDATE usuario
 SET contrasena = '$2b$12$CLH/uvs4ohyNSFuTNOBuXO9GLMDMklV2945./nMZeQ8qmNAgDz75i'
 WHERE nombre_usuario = 'admin5';
 
-
+ALTER TABLE chofer
+  ADD COLUMN fechaNacimiento DATE NULL,
+  ADD COLUMN fechaIngreso    DATE NULL,
+  ADD COLUMN email           VARCHAR(100) NULL,
+  ADD COLUMN turno           VARCHAR(50) NULL;
+  

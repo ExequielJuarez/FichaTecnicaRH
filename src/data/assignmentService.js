@@ -3,35 +3,28 @@ const db = require('../model/database/models');
 const assignmentService = {
 
     getFormData: async function () {
-        try {
-            const vehiculos = await db.Vehiculo.findAll({
-                where: { estado_actual: 'Disponible' },
-                include: [{ association: 'TipoVehiculo' }]
-            });
-    
-            // Buscar ids de choferes que ya tienen asignación activa
-            const asignacionesActivas = await db.AsignacionVehiculo.findAll({
-                where: { estado: 'Activo' },
-                attributes: ['id_chofer']
-            });
-    
-            const choferesOcupados = asignacionesActivas.map(a => a.id_chofer);
-    
-            // Excluir choferes ocupados del select
-            const choferes = await db.Chofer.findAll({
-                where: {
-                    estado: 'Activo',
-                    id_chofer: { [db.Sequelize.Op.notIn]: choferesOcupados.length ? choferesOcupados : [0] }
-                },
-                order: [['apellido', 'ASC'], ['nombre', 'ASC']]
-            });
-    
-            return { vehiculos, choferes };
-        } catch (error) {
-            console.log(error);
-            return { vehiculos: [], choferes: [] };
-        }
-    },
+    const vehiculos = await db.Vehiculo.findAll({
+        where: { estado_actual: 'Disponible' }
+        // sin include por ahora
+    });
+
+    const asignacionesActivas = await db.AsignacionVehiculo.findAll({
+        where: { estado: 'Activo' },
+        attributes: ['id_chofer']
+    });
+
+    const choferesOcupados = asignacionesActivas.map(a => a.id_chofer);
+
+    const choferes = await db.Chofer.findAll({
+        where: {
+            estado: 'Activo',
+            id_chofer: { [db.Sequelize.Op.notIn]: choferesOcupados.length ? choferesOcupados : [0] }
+        },
+        order: [['apellido', 'ASC'], ['nombre', 'ASC']]
+    });
+
+    return { vehiculos, choferes };
+},
 
     getActiveAssignments: async function () {
         try {

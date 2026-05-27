@@ -49,7 +49,7 @@
             <svg class="sidebar__menu-chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
           </a>
           <ul class="sidebar__submenu">
-            <li><a href="/Vehicles" class="sidebar__submenu-link sidebar__submenu-link--active">Listado de vehículos</a></li>
+            <li><a href="/Vehicles" class="sidebar__submenu-link ">Listado de vehículos</a></li>
             <li><a href="/CargaVehiculo" class="sidebar__submenu-link">Agregar vehículo</a></li>
             <li><a href="/asignaciones" class="sidebar__submenu-link ">Asignación de vehículo</a></li>
           </ul>
@@ -317,6 +317,44 @@
   </div><!-- /app-wrapper -->
 
   <script>
+
+     const sidebar      = document.getElementById('sidebar');
+  const overlay      = document.getElementById('sidebar-overlay');
+  const menuToggle   = document.getElementById('menu-toggle');
+  const sidebarClose = document.getElementById('sidebar-close');
+
+  function openSidebar() {
+      sidebar.classList.add('sidebar--open');
+      overlay.classList.add('sidebar-overlay--visible');
+      menuToggle.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+  }
+  function closeSidebar() {
+      sidebar.classList.remove('sidebar--open');
+      overlay.classList.remove('sidebar-overlay--visible');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+  }
+
+  /* ── Acordeón submenús ─────────────────────────────── */
+  document.querySelectorAll('.sidebar__menu-item--expandable > .sidebar__menu-link')
+    .forEach(link => {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        const item = this.closest('.sidebar__menu-item--expandable');
+        item.classList.toggle('sidebar__menu-item--open');
+      });
+    });
+
+  /* Abrir el submenú activo al cargar */
+  document.querySelectorAll('.sidebar__submenu-link--active').forEach(active => {
+    const item = active.closest('.sidebar__menu-item--expandable');
+    if (item) item.classList.add('sidebar__menu-item--open');
+  });
+
+  menuToggle.addEventListener('click', openSidebar);
+  sidebarClose.addEventListener('click', closeSidebar);
+  overlay.addEventListener('click', closeSidebar);
     /* ── Validación ──────────────────────────────────────── */
 function setError(inputId, errId, msg) {
   const el = document.getElementById(inputId);
