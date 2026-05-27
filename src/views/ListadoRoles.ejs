@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Roles</title>
+    <link rel="stylesheet" href="/css/CargaChofer.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
+    <%- include('./partials/sidebar') %>
+
+    <div class="app-wrapper">
+        <%- include('./partials/topbar') %>
+
+        <main class="main-content">
+            <div class="header-section">
+                <h2>Gestión de Roles</h2>
+            </div>
+
+            <section class="form-container">
+                <table class="table-listado">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Permisos</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% roles.forEach(rol => { %>
+                        <tr>
+                            <td><%= rol.nombre %></td>
+                            <td><%= rol.permisos %></td>
+                            <td>
+                                <a href="/Usuarios/Roles/Editar/<%= rol.id_rol %>" class="btn-editar">Editar Permisos</a>
+                            </td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+
+        <footer class="app-footer">
+            <p class="app-footer__copy">&copy; 2025 &mdash; Ficha Tecnica</p>
+        </footer>
+    </div>
+
+    <script>
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebar-overlay');
+        // ... (resto de tu lógica de sidebar si la tenías)
+    </script>
+</body>
+</html>

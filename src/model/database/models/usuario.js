@@ -1,42 +1,58 @@
-module.exports = (sequelize, DataTypes) => {
-
-  const Usuario = sequelize.define('Usuario', {
-
+module.exports = (sequelize, dataTypes) => {
+  let alias = "Usuario";
+  let cols = {
     id_usuario: {
-      type: DataTypes.INTEGER,
+      type: dataTypes.INTEGER,
+      primaryKey: true,
       autoIncrement: true,
-      primaryKey: true
     },
     nombre_usuario: {
-      type: DataTypes.STRING(50),
+      type: dataTypes.STRING(50),
       allowNull: false,
-      unique: true
+      unique: true,
     },
     contrasena: {
-      type: DataTypes.STRING(255),
-      allowNull: false
+      type: dataTypes.STRING(255),
+      allowNull: false,
     },
     nombre: {
-      type: DataTypes.STRING(50),
-      allowNull: false
+      type: dataTypes.STRING(50),
+      allowNull: false,
     },
     apellido: {
-      type: DataTypes.STRING(50),
-      allowNull: false
+      type: dataTypes.STRING(50),
+      allowNull: false,
     },
     activo: {
-      type: DataTypes.BOOLEAN,
+      type: dataTypes.BOOLEAN,
       allowNull: false,
-      defaultValue: true
+      defaultValue: true,
     },
     id_rol: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    }
-  }, {
-    tableName: 'usuario',
-    timestamps: false
-  });
+      type: dataTypes.INTEGER,
+      allowNull: false,
+    },
+    // === NUEVA COLUMNA AGREGADA ===
+    permisos: {
+      type: dataTypes.STRING(255),
+      allowNull: true,
+      defaultValue: "Vehicles",
+    },
+  };
+  let config = {
+    tableName: "usuario",
+    timestamps: false,
+  };
+
+  const Usuario = sequelize.define(alias, cols, config);
+
+  // Relación: Un usuario pertenece a un único rol
+  Usuario.associate = function (models) {
+    Usuario.belongsTo(models.Rol, {
+      as: "rol",
+      foreignKey: "id_rol",
+    });
+  };
 
   return Usuario;
 };
