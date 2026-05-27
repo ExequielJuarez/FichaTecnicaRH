@@ -1,23 +1,17 @@
-const db = require('../model/database/models')
-const fs = require('fs');
-const path = require('path');
-const Chofer = require('../model/database/models/Chofer');
+const db = require('../model/database/models');
 const { Op } = require('sequelize');
 
 const choferService = {
 
     getAll: async function (filtros = {}) {
-
     try {
-
         const where = {};
 
         if (filtros.buscar) {
             where[Op.or] = [
-                { nombre: { [Op.like]: `%${filtros.buscar}%` } },
+                    { nombre:   { [Op.like]: `%${filtros.buscar}%` } },
                 { apellido: { [Op.like]: `%${filtros.buscar}%` } },
-                { dni: { [Op.like]: `%${filtros.buscar}%` } },
-                { '$asignaciones.vehiculo.patente$': { [Op.like]: `%${filtros.buscar}%` } }
+                    { dni:      { [Op.like]: `%${filtros.buscar}%` } },
             ];
         }
 
@@ -26,21 +20,7 @@ const choferService = {
         if (filtros.estado) {
             where.estado = filtros.estado;
         }
-        //licencias
-        const includeLicencias = {
-            model: db.LicenciaChofer,
-            as: 'licencias',
-            required: filtros.categoriaLicencia
-        };
 
-        if (filtros.categoriaLicencia) {
-            includeLicencias.where = {
-            categoria: {
-                [Op.like]: filtros.categoriaLicencia
-            }
-            };
-        }
-        //fechas
         if (filtros.fechaDesde && filtros.fechaHasta) {
 
             where.createdAt = {
@@ -51,94 +31,127 @@ const choferService = {
                     )
                 )
             };
+            }
 
-        }
-        //vehiculos
+            const includeLicencias = {
+                model: db.LicenciaChofer,
+                as: 'licencias',
+                required: !!filtros.categoriaLicencia
+            };
+
+            if (filtros.categoriaLicencia) {
+                includeLicencias.where = { categoria: filtros.categoriaLicencia };
+            }
+
         const includeAsignaciones = {
             model: db.AsignacionVehiculo,
             as: 'asignaciones',
             required: false,
-            where: { estado: 'Activo' },      // ← agregar esto
-            include: [
-                {
+                include: [{
                     model: db.Vehiculo,
                     as: 'vehiculo',
                     required: false
-                }
-            ]
+                }]
         };
 
+            // Paginación
+            const limite = parseInt(filtros.limite) || 8;
+            const pagina = parseInt(filtros.pagina) || 1;
+            const offset  = (pagina - 1) * limite;
 
-        return await db.Chofer.findAll({
+            // findAndCountAll en lugar de findAll
+            // count: total de registros que coinciden con los filtros
+            // rows: solo los registros de la página actual
+            const { count, rows } = await db.Chofer.findAndCountAll({
         where,
-        include: [
-            includeLicencias,
-            includeAsignaciones,
-        ]
-        });
+                include: [includeLicencias, includeAsignaciones],
+                limit:   limite,
+                offset:  offset,
+                distinct: true  // necesario para que count sea correcto con includes
+            });
+
+            return {
+                choferes:     rows,
+                totalRegistros: count,
+                totalPaginas: Math.ceil(count / limite),
+                paginaActual: pagina,
+                limite
+            };
+
     } catch (error) {
         console.log(error);
-        return [];
+            return {
+                choferes: [],
+                totalRegistros: 0,
+                totalPaginas: 0,
+                paginaActual: 1,
+                limite: 8
+            };
     }
     },
-    getOne: async function (id) {
-      try {
-          Chofer = await db.Chofer.findByPk(id);
-          return Chofer;
 
+    getOneConLicencia: async function (id) {
+      try {
+            const chofer = await db.Chofer.findByPk(id, {
+                include: [{
+                    model: db.LicenciaChofer,
+                    as: 'licencias'
+                }]
+            });
+            return chofer;
       } catch (error) {
-        console.log("error");
+            console.log(error);
         return null;
 
       }
 
   },
 
-    findByPk: async function (id) {
-      try {
-          let allChoferes = await this.getAll(); // Aquí se llama a la función
-          let OneChofer = allChoferes.find(onechofer => onechofer.id === id);
-          return OneChofer;
-      } catch (error) {
-
-      }
-  },
 
   create: async function (req) {
         try {
+            const body = req.body;
+
+            // Corregido: leer 'activo-inactivo' con corchetes por el guión
+            const estado = body['activo-inactivo'];
+
             let newChofer = await db.Chofer.create({
-                nombre: req.body.nombre,
-                apellido: req.body.apellido,
-                dni: req.body.dni,
-                telefono: req.body.telefono,
-                direccion: req.body.direccion,
-                estado: req.body.estado,
+                nombre:          body.nombre,
+                apellido:        body.apellido,
+                dni:             body.dni,
+                telefono:        body.telefono,
+                direccion:       body.direccion,
+                estado:          estado,
+                // Estos campos requieren que los agregues al modelo Chofer
+                // y a la tabla en la BD (ver nota abajo)
+                email:           body.email           || null,
+                fechaNacimiento: body.fechaNacimiento || null,
+                fechaIngreso:    body.fechaIngreso     || null,
+                turno:           body.Turno            || null,
             });
 
-            if (req.body.numero_licencia) {
+            // Corregido: siempre crea la licencia (el campo es obligatorio)
             await db.LicenciaChofer.create({
-                id_chofer: newChofer.id_chofer,
-                numero: req.body.numero_licencia,
-                categoria: req.body.categoria,
-                fecha_emision: req.body.fecha_emision,
-                fecha_vencimiento: req.body.fecha_vencimiento
+                id_chofer:        newChofer.id_chofer,
+                numero:           body.numero_licencia,
+                categoria:        body.categoria,
+                fecha_emision:    body.fecha_emision,
+                fecha_vencimiento: body.fecha_vencimiento
             });
-            }
 
-            return newChofer
+            return newChofer;
 
         } catch (error) {
-
+            // Corregido: propagar el error para que el controller lo capture
+            console.log(error);
+            throw error;
         }
     },
     
-    update: async function(id, data) {
+    update: async function (id, data) {
     try {
-
         await db.Chofer.update(data, {
-            where: {
-                id_chofer: id
-            }
+                where: { id_chofer: id }
         });
 
         return true;
@@ -150,8 +163,6 @@ const choferService = {
 },
     
     
+};
 
-
-}
-
-module.exports = choferService
+module.exports = choferService;

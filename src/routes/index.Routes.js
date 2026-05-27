@@ -7,6 +7,11 @@ const choferController     = require('../controllers/choferController');
 const toolController       = require('../controllers/toolController');
 const assignmentController = require('../controllers/assignmentController');
 const authMiddleware       = require("../middlewares/authMiddleware");
+const {
+  choferVAlidation,
+  choferEditValidation
+} = require("../validations/choferValidation");
+const alertaController = require('../controllers/alertaController');
 
 // ================= LOGIN Y LOGOUT =================
 router.get('/InicioSesion', userController.InicioSesion);
@@ -23,6 +28,7 @@ router.post('/Usuarios/Editar/:id',        authMiddleware, userController.Proces
 router.get('/Usuarios/Roles/Editar/:id',   authMiddleware, userController.EditarRol);
 router.post('/Usuarios/Roles/Editar/:id',  authMiddleware, userController.ProcesoEditarRol);
 
+
 // ================= VEHICULOS =================
 router.get('/Vehicles/Editar/:id',  authMiddleware, vehicleController.EditVehiculo);
 router.post('/Vehicles/Editar/:id', authMiddleware, vehicleController.processEditVehiculo);
@@ -31,10 +37,24 @@ router.get('/Vehicles/:id',         authMiddleware, vehicleController.getVehicle
 router.get('/CargaVehiculo',        authMiddleware, vehicleController.CargaVehiculo);
 router.post('/CargaVehiculo',       authMiddleware, vehicleController.processVehicle);
 
-// ================= CHOFERES =================
+// ================= CHOFERES ================= //para editar
 router.get('/Choferes',        authMiddleware, choferController.ListChoferes);
 router.get('/Choferes/carga',  authMiddleware, choferController.createChofer);
 router.post('/Choferes/carga', authMiddleware, choferController.processChofer);
+
+router.get('/Choferes',                choferController.ListChoferes);
+router.get('/Choferes/Carga',          choferController.createChofer);
+router.post('/Choferes/Carga',         choferVAlidation(), choferController.processChofer);
+
+router.get('/Choferes/:id/editar',     choferController.editChofer);
+router.post(
+    '/Choferes/:id/editar',
+    choferEditValidation(),
+    choferController.processEdit
+);
+
+router.post('/Choferes/:id/desactivar', choferController.desactivarChofer);
+
 
 // ================= MANTENIMIENTOS =================
 router.get('/Mantenimientos',                        authMiddleware, vehicleController.Mantenimientos);
@@ -67,5 +87,12 @@ router.get('/Tools/:id',                        authMiddleware, toolController.g
 
 // Ruta raíz
 router.get("/", (req, res) => res.redirect("/InicioSesion"));
+
+//======================= Alertas =======================
+router.get('/Alertas',                alertaController.ListAlertas);
+router.get('/Alertas/recientes',      alertaController.getRecientes);   // ANTES de /:id
+router.post('/Alertas/leer-todas',    alertaController.marcarTodasLeidas);
+router.post('/Alertas/:id/leer',      alertaController.marcarLeida);
+router.get('/Alertas/:id',            alertaController.detalleAlerta);  // DESPUÉS
 
 module.exports = router;

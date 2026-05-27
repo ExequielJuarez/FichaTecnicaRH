@@ -68,3 +68,37 @@ INSERT INTO mantenimiento (id_vehiculo, id_usuario, tipo_servicio, fecha_inicio,
 (3, 1, 'Cambio de aceite y filtros',        '2025-05-08', '2025-05-08', 60000, 19000.00,  'Aceite 5W40 sintético, filtro aceite y habitáculo', 70000, '2025-11-08', 'Realizado'),
 (3, 1, 'Revisión frenos y suspensión',      '2025-09-15', '2025-09-16', 66000, 53500.00,  'Discos y pastillas delanteras, revisión rótulas',    76000, '2026-09-15', 'Realizado'),
 (3, 1, 'Service completo',                  '2026-02-28', '2026-03-01', 74000, 82000.00,  'Aceite, filtros, líquidos, revisión general',        84000, '2026-08-28', 'Realizado');
+
+
+INSERT INTO usuario 
+(nombre_usuario, contrasena, nombre, apellido, activo, id_rol)
+VALUES
+(
+  'admin2',
+  '$2a$10$5XJ1xv6Y1f4Qm6Vn0mX9Iu3P4M4f3x0Q4i4K6kQmN4v2zQ8mJmY7K',
+  'Juan',
+  'Administrador',
+  TRUE,
+  1
+),
+(
+  'usuario',
+  '$2a$10$M7wJm9K1lN4dP8qT2xV0Bu3nF5cQ7zW8rT6yU1iO2pL3kJ4hG5fD6',
+  'Pedro',
+  'Gomez',
+  TRUE,
+  3
+);
+
+
+INSERT INTO usuario
+(nombre_usuario, contrasena, nombre, apellido, activo, id_rol)
+VALUES
+(
+  'admin5',
+  'admin123',
+  'Juan',
+  'Administrador',
+  TRUE,
+  1
+);

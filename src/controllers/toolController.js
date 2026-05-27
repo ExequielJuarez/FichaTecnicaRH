@@ -15,6 +15,10 @@ const toolController = {
       });
     } catch (error) {
       console.log(error);
+      console.log("ERROR COMPLETO:");
+      console.log(error);
+      console.log(error.message);
+      console.log(error.stack);
       res.send("Error al obtener herramientas");
     }
   },
@@ -31,7 +35,10 @@ const toolController = {
 
       res.render("listadoPrestamos", { prestamos });
     } catch (error) {
+      console.log("ERROR COMPLETO:");
       console.log(error);
+      console.log(error.message);
+      console.log(error.stack);
       res.send("Error al obtener el historial global de préstamos");
     }
   },
@@ -55,6 +62,10 @@ const toolController = {
       });
     } catch (error) {
       console.log(error);
+      console.log("ERROR COMPLETO:");
+      console.log(error);
+      console.log(error.message);
+      console.log(error.stack);
       res.send("Error al obtener la herramienta y su historial");
     }
   },
@@ -68,6 +79,10 @@ const toolController = {
       res.render("CargaFichaHerramienta", { sectores });
     } catch (error) {
       console.log(error);
+      console.log("ERROR COMPLETO:");
+      console.log(error);
+      console.log(error.message);
+      console.log(error.stack);
       res.send("Error al cargar formulario");
     }
   },
@@ -81,6 +96,10 @@ const toolController = {
       res.redirect("/Tools");
     } catch (error) {
       console.log(error);
+      console.log("ERROR COMPLETO:");
+      console.log(error);
+      console.log(error.message);
+      console.log(error.stack);
       res.send("Error al guardar la herramienta");
     }
   },
@@ -96,6 +115,10 @@ const toolController = {
       res.render("EditarHerramienta", { herramienta, sectores });
     } catch (error) {
       console.log(error);
+      console.log("ERROR COMPLETO:");
+      console.log(error);
+      console.log(error.message);
+      console.log(error.stack);
       res.send("Error al cargar formulario de edición");
     }
   },
@@ -109,6 +132,10 @@ const toolController = {
       res.redirect("/Tools/" + req.params.id);
     } catch (error) {
       console.log(error);
+      console.log("ERROR COMPLETO:");
+      console.log(error);
+      console.log(error.message);
+      console.log(error.stack);
       res.send("Error al actualizar la herramienta");
     }
   },
@@ -123,6 +150,10 @@ const toolController = {
       res.redirect("/Tools");
     } catch (error) {
       console.log(error);
+      console.log("ERROR COMPLETO:");
+      console.log(error);
+      console.log(error.message);
+      console.log(error.stack);
       res.send("Error al eliminar la herramienta");
     }
   },
@@ -139,6 +170,10 @@ const toolController = {
       res.render("CargaPrestamo", { herramienta, operarios, sectores }); // <-- Y los enviamos a la vista
     } catch (error) {
       console.log(error);
+      console.log("ERROR COMPLETO:");
+      console.log(error);
+      console.log(error.message);
+      console.log(error.stack);
       res.send("Error al cargar formulario de préstamo");
     }
   },
@@ -151,7 +186,10 @@ const toolController = {
       await prestamoService.create(req);
       res.redirect("/Tools/" + req.body.id_herramienta);
     } catch (error) {
+      console.log("ERROR COMPLETO:");
+      console.log(error);
       console.log(error.message);
+      console.log(error.stack);
       res.send("Error al procesar el préstamo: " + error.message);
     }
   },
@@ -164,7 +202,10 @@ const toolController = {
       await prestamoService.devolver(req.body.id_herramienta);
       res.redirect("/Tools/" + req.body.id_herramienta);
     } catch (error) {
+      console.log("ERROR COMPLETO:");
+      console.log(error);
       console.log(error.message);
+      console.log(error.stack);
       res.send("Error al procesar la devolución");
     }
   },
@@ -179,7 +220,10 @@ const toolController = {
 
       res.render("Ajustes", { sectores, operarios });
     } catch (error) {
+      console.log("ERROR COMPLETO:");
       console.log(error);
+      console.log(error.message);
+      console.log(error.stack);
       res.send("Error al cargar la configuración");
     }
   },
@@ -192,7 +236,10 @@ const toolController = {
       await db.Sector.create({ nombre: req.body.nombre });
       res.redirect("/Tools/Ajustes");
     } catch (error) {
+      console.log("ERROR COMPLETO:");
       console.log(error);
+      console.log(error.message);
+      console.log(error.stack);
       res.send("Error al crear sector");
     }
   },
@@ -202,7 +249,10 @@ const toolController = {
       await db.Sector.destroy({ where: { id_sector: req.params.id } });
       res.redirect("/Tools/Ajustes");
     } catch (error) {
+      console.log("ERROR COMPLETO:");
       console.log(error);
+      console.log(error.message);
+      console.log(error.stack);
       res.send("Error al eliminar sector");
     }
   },
@@ -212,7 +262,10 @@ const toolController = {
       await db.Operario.create({ nombre: req.body.nombre, estado: "Activo" });
       res.redirect("/Tools/Ajustes");
     } catch (error) {
+      console.log("ERROR COMPLETO:");
       console.log(error);
+      console.log(error.message);
+      console.log(error.stack);
       res.send("Error al crear operario");
     }
   },
@@ -221,8 +274,10 @@ const toolController = {
     try {
       await db.Operario.destroy({ where: { id_operario: req.params.id } });
       res.redirect("/Tools/Ajustes");
-    } catch (error) {
+    } catch (error) {console.log("ERROR COMPLETO:");
       console.log(error);
+      console.log(error.message);
+      console.log(error.stack);
       res.send("Error al eliminar operario");
     }
   },

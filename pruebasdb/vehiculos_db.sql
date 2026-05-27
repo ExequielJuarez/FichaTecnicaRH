@@ -2,8 +2,7 @@
 --  vehiculos_db  —  Schema unificado
 -- ============================================================
 
-CREATE DATABASE  vehiculos_db;
- 
+CREATE DATABASE vehiculos_db;
 
 USE vehiculos_db;
 
@@ -69,13 +68,15 @@ CREATE TABLE vehiculo (
 -- ============================================================
 
 CREATE TABLE chofer (
-  id_chofer INT         NOT NULL AUTO_INCREMENT,
-  nombre    VARCHAR(50) NOT NULL,
-  apellido  VARCHAR(50) NOT NULL,
-  dni       VARCHAR(20) NOT NULL UNIQUE,
-  telefono  VARCHAR(20),
-  direccion VARCHAR(150),
-  estado    VARCHAR(20) NOT NULL DEFAULT 'Activo',
+  id_chofer   INT          NOT NULL AUTO_INCREMENT,
+  nombre      VARCHAR(50)  NOT NULL,
+  apellido    VARCHAR(50)  NOT NULL,
+  dni         VARCHAR(20)  NOT NULL UNIQUE,
+  telefono    VARCHAR(20),
+  direccion   VARCHAR(150),
+  estado      VARCHAR(20)  NOT NULL DEFAULT 'Activo',
+  createdAt   DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updatedAt   DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (id_chofer)
 );
 
@@ -90,7 +91,6 @@ CREATE TABLE licencia_chofer (
   CONSTRAINT fk_licencia_chofer FOREIGN KEY (id_chofer) REFERENCES chofer (id_chofer)
 );
 
--- operarios es la tabla que ya usás en préstamos de herramientas
 CREATE TABLE operarios (
   id_operario INT          NOT NULL AUTO_INCREMENT,
   nombre      VARCHAR(100) NOT NULL,
@@ -287,30 +287,25 @@ INSERT INTO tipo_vehiculo (descripcion) VALUES
 INSERT INTO usuario (nombre_usuario, contrasena, nombre, apellido, id_rol) VALUES
   ('admin', '$2b$10$PLACEHOLDER_HASH', 'Administrador', 'Sistema', 1);
 
--- Tus datos actuales de herramientas
 INSERT INTO herramienta VALUES
   (2,'HTI-002','Amoladora','Mantenimiento Elect.','Disponible',2,'Energia','Se encuentran en buen estado','Sin título.jpg','2026-05-11 03:08:56'),
   (3,'HTI-003','Destornillador percutor','Taller Mecánico','En uso',1,'Energia','Prueba 3','','2026-05-12 00:30:35');
 
--- Tus datos actuales de operarios
 INSERT INTO operarios (id_operario, nombre, estado) VALUES
   (1,'Hernán Quiroga','Activo'),
   (2,'Marcos Díaz','Activo'),
   (4,'Gomez Juan','Activo');
 
--- Tus datos actuales de préstamos
 INSERT INTO prestamo VALUES
   (3,2,'Gomez Juan','2026-05-11 00:00:00','2026-05-20 00:00:00','2026-05-11 03:10:00','Espacios Verdes','Finalizado'),
   (4,2,'Juan Pérez','2026-05-12 00:00:00','2026-06-20 00:00:00','2026-05-11 03:10:44','Taller Central','Finalizado'),
   (5,3,'Gomez Juan','2026-05-11 00:00:00','2026-06-30 00:00:00',NULL,'Construcción A','Activo');
 
--- Tus datos actuales de sectores
 INSERT INTO sectores (id_sector, nombre) VALUES
   (2,'Construcción A'),
   (3,'Taller Mecánico'),
   (4,'Espacios Verdes');
 
--- Tus datos actuales de vehículos
 INSERT INTO vehiculo
   (id_vehiculo, patente, legajo, marca, modelo, anio, id_tipo, num_chasis, num_motor,
    transmision, km_actual, estado_actual, distrito, area, observaciones, imagen_url, fecha_alta)
@@ -318,3 +313,17 @@ VALUES
   (1,'PPP101',NULL,'TOYOTA','HAYLUX',2000,1,'212313545615646531321546','45642132164654654134654',
    'Manual',100000,'Disponible','Centro',NULL,'Carga de Prueba',
    'viscosidad-del-agua-1024x683.jpg.jpg','2026-05-10');
+   
+   
+
+ALTER TABLE usuario
+ADD COLUMN permisos JSON NULL;
+
+ALTER TABLE rol
+ADD COLUMN permisos JSON NULL;
+
+UPDATE usuario
+SET contrasena = '$2b$12$CLH/uvs4ohyNSFuTNOBuXO9GLMDMklV2945./nMZeQ8qmNAgDz75i'
+WHERE nombre_usuario = 'admin5';
+
+
