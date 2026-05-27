@@ -170,101 +170,92 @@
       </div>
 
       <%# La ruta POST apunta a /Vehicles/Editar/:id %>
-      <form class="form" action="/Vehicles/Editar/<%= vehiculo.id_vehiculo %>" method="post">
+      <form class="form" action="/Vehicles/Editar/<%= vehiculo.id_vehiculo %>" method="post" id="form-editar" novalidate>
 
         <!-- =================== INFORMACIÓN BÁSICA =================== -->
         <section class="form-section">
-          <h3>Información Básica</h3>
-
+          <h3>Información Básica <span style="font-size:12px;color:#94a3b8;font-weight:400;"></span></h3>
+      
           <div class="form-group">
-            <label>Patente</label>
-            <input name="patente" type="text" placeholder="Ej: AB123CD" value="<%= vehiculo.patente %>" required>
+            <label>Patente <span class="field-locked"></span></label>
+            <input name="patente" type="text" value="<%= vehiculo.patente %>" readonly class="input-readonly">
           </div>
-
+      
           <div class="form-group">
-            <label>Tipo de Vehículo</label>
-            <select name="id_tipo" required>
-              <option value="">Seleccione tipo</option>
-              <option value="1" <%= vehiculo.id_tipo === 1 ? 'selected' : '' %>>Camioneta</option>
-              <option value="2" <%= vehiculo.id_tipo === 2 ? 'selected' : '' %>>Camión</option>
-              <option value="3" <%= vehiculo.id_tipo === 3 ? 'selected' : '' %>>Maquinaria Pesada</option>
-            </select>
+            <label>Tipo de Vehículo <span class="field-locked"></span></label>
+            <input type="text" value="<%= vehiculo.TipoVehiculo?.descripcion || '—' %>" readonly class="input-readonly">
+            <input type="hidden" name="id_tipo" value="<%= vehiculo.id_tipo %>">
           </div>
-
+      
           <div class="form-row">
             <div class="form-group">
-              <label>Marca</label>
-              <input name="marca" type="text" value="<%= vehiculo.marca %>">
+              <label>Marca <span class="field-locked"></span></label>
+              <input name="marca" type="text" value="<%= vehiculo.marca %>" readonly class="input-readonly">
             </div>
             <div class="form-group">
-              <label>Modelo</label>
-              <input name="modelo" type="text" value="<%= vehiculo.modelo %>">
+              <label>Modelo <span class="field-locked"></span></label>
+              <input name="modelo" type="text" value="<%= vehiculo.modelo %>" readonly class="input-readonly">
             </div>
           </div>
-
+      
           <div class="form-group small">
-            <label>Año</label>
-            <input name="anio" type="number" value="<%= vehiculo.anio %>">
+            <label>Año <span class="field-locked"></span></label>
+            <input name="anio" type="number" value="<%= vehiculo.anio %>" readonly class="input-readonly">
           </div>
         </section>
-
+      
         <!-- =================== INFORMACIÓN TÉCNICA =================== -->
         <section class="form-section">
-          <h3>Información Técnica</h3>
-
+          <h3>Información Técnica <span style="font-size:12px;color:#94a3b8;font-weight:400;"></span></h3>
+      
           <div class="form-group">
-            <label>Número de Chasis</label>
-            <input name="chasis" type="text" value="<%= vehiculo.chasis || '' %>">
+            <label>Número de Chasis <span class="field-locked"></span></label>
+            <input name="chasis" type="text" value="<%= vehiculo.num_chasis || '' %>" readonly class="input-readonly">
           </div>
-
+      
           <div class="form-group">
-            <label>Número de Motor</label>
-            <input name="num_motor" type="text" value="<%= vehiculo.num_motor || '' %>">
+            <label>Número de Motor <span class="field-locked"></span></label>
+            <input name="num_motor" type="text" value="<%= vehiculo.num_motor || '' %>" readonly class="input-readonly">
           </div>
-
+      
           <div class="form-row">
             <div class="form-group">
-              <label>Combustible</label>
-              <select name="combustible">
-                <option value="">Seleccionar</option>
-                <option value="Diesel"    <%= vehiculo.combustible === 'Diesel'    ? 'selected' : '' %>>Diesel</option>
-                <option value="Nafta"     <%= vehiculo.combustible === 'Nafta'     ? 'selected' : '' %>>Nafta</option>
-                <option value="Electrico" <%= vehiculo.combustible === 'Electrico' ? 'selected' : '' %>>Electrico</option>
-              </select>
+              <label>Combustible <span class="field-locked"></span></label>
+              <input type="text" value="<%= vehiculo.combustible || '—' %>" readonly class="input-readonly">
+              <input type="hidden" name="combustible" value="<%= vehiculo.combustible || '' %>">
             </div>
-
             <div class="form-group">
-              <label>Transmisión</label>
-              <select name="transmision">
-                <option value="">Seleccionar</option>
-                <option value="Manual"     <%= vehiculo.transmision === 'Manual'     ? 'selected' : '' %>>Manual</option>
-                <option value="Automatica" <%= vehiculo.transmision === 'Automatica' ? 'selected' : '' %>>Automatica</option>
-              </select>
+              <label>Transmisión <span class="field-locked"></span></label>
+              <input type="text" value="<%= vehiculo.transmision || '—' %>" readonly class="input-readonly">
+              <input type="hidden" name="transmision" value="<%= vehiculo.transmision || '' %>">
             </div>
           </div>
         </section>
-
-        <!-- =================== ESTADO Y UBICACIÓN =================== -->
+      
+        <!-- =================== EDITABLE =================== -->
         <section class="form-section">
-          <h3>Estado y Ubicación</h3>
-
+          <h3>Estado y Ubicación <span style="font-size:12px;color:#16a34a;font-weight:400;"></span></h3>
+      
           <div class="form-row">
             <div class="form-group">
-              <label>Estado</label>
-              <select name="estado_actual">
+              <label>Estado <span class="req">*</span></label>
+              <select name="estado_actual" id="estado_actual">
+                <option value="">Seleccionar</option>
                 <option value="Disponible"      <%= vehiculo.estado_actual === 'Disponible'      ? 'selected' : '' %>>Disponible</option>
                 <option value="En uso"           <%= vehiculo.estado_actual === 'En uso'           ? 'selected' : '' %>>En uso</option>
                 <option value="En mantenimiento" <%= vehiculo.estado_actual === 'En mantenimiento' ? 'selected' : '' %>>En mantenimiento</option>
                 <option value="Baja"             <%= vehiculo.estado_actual === 'Baja'             ? 'selected' : '' %>>Baja</option>
               </select>
+              <span class="field-error" id="err-estado"></span>
             </div>
-
+      
             <div class="form-group">
-              <label>Kilometraje</label>
-              <input name="km_actual" type="number" value="<%= vehiculo.km_actual || 0 %>">
+              <label>Kilometraje <span class="req">*</span></label>
+              <input name="km_actual" type="number" value="<%= vehiculo.km_actual || 0 %>" id="km_actual" min="0">
+              <span class="field-error" id="err-km"></span>
             </div>
           </div>
-
+      
           <div class="form-group">
             <label>Distrito</label>
             <select name="distrito">
@@ -273,47 +264,47 @@
               <option value="Sur"    <%= vehiculo.distrito === 'Sur'    ? 'selected' : '' %>>Sur</option>
             </select>
           </div>
-
+      
           <div class="form-group">
             <label>Observaciones</label>
             <textarea name="observaciones"><%= vehiculo.observaciones || '' %></textarea>
           </div>
         </section>
-
+      
         <!-- =================== FECHAS =================== -->
         <section class="form-section">
           <h3>Fechas</h3>
-
           <div class="form-row">
             <div class="form-group">
-              <label>Fecha de Alta</label>
-              <%# Formateamos a YYYY-MM-DD para que el input type="date" lo reconozca %>
-              <input name="fecha_alta" type="date" value="<%= vehiculo.fecha_alta ? new Date(vehiculo.fecha_alta).toISOString().split('T')[0] : '' %>">
+              <label>Fecha de Alta <span class="field-locked"></span></label>
+              <input name="fecha_alta" type="date"
+                value="<%= vehiculo.fecha_alta ? new Date(vehiculo.fecha_alta).toISOString().split('T')[0] : '' %>"
+                readonly class="input-readonly" id="fecha_alta">
             </div>
-
             <div class="form-group">
-              <label>Fecha de Baja</label>
-              <input name="fecha_baja" type="date" value="<%= vehiculo.fecha_baja ? new Date(vehiculo.fecha_baja).toISOString().split('T')[0] : '' %>">
+              <label>Fecha de Baja <span style="font-size:12px;color:#16a34a;font-weight:400;">— Editable</span></label>
+              <input name="fecha_baja" type="date"
+                value="<%= vehiculo.fecha_baja ? new Date(vehiculo.fecha_baja).toISOString().split('T')[0] : '' %>"
+                id="fecha_baja">
+              <span class="field-error" id="err-fecha-baja"></span>
             </div>
           </div>
         </section>
-
+      
         <!-- =================== ACCIONES =================== -->
         <div class="acciones">
           <button type="button" class="boton-secundario" onclick="window.history.back();">Cancelar</button>
-
-          <a href="/Mantenimientos/carga/<%= vehiculo.id_vehiculo %>" class="boton-secundario" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.4rem;">
-            <svg viewBox="0 0 20 20" fill="currentColor" style="width:15px;height:15px;flex-shrink:0;">
+          <a href="/Mantenimientos/carga/<%= vehiculo.id_vehiculo %>"
+             class="boton-secundario"
+             style="text-decoration:none;display:inline-flex;align-items:center;gap:0.4rem;">
+            <svg viewBox="0 0 20 20" fill="currentColor" style="width:15px;height:15px">
               <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>
             </svg>
             Registrar Mantenimiento
           </a>
-
-          <button type="submit" class="boton-primario">
-            Guardar Cambios
-          </button>
+          <button type="submit" class="boton-primario">Guardar Cambios</button>
         </div>
-
+      
       </form>
 
     </main>
@@ -326,42 +317,61 @@
   </div><!-- /app-wrapper -->
 
   <script>
-    const sidebar      = document.getElementById('sidebar');
-    const overlay      = document.getElementById('sidebar-overlay');
-    const menuToggle   = document.getElementById('menu-toggle');
-    const sidebarClose = document.getElementById('sidebar-close');
+    /* ── Validación ──────────────────────────────────────── */
+function setError(inputId, errId, msg) {
+  const el = document.getElementById(inputId);
+  const er = document.getElementById(errId);
+  if (msg) {
+    el?.classList.add('input-error');
+    if (er) er.textContent = msg;
+  } else {
+    el?.classList.remove('input-error');
+    if (er) er.textContent = '';
+  }
+}
 
-    function openSidebar() {
-      sidebar.classList.add('sidebar--open');
-      overlay.classList.add('sidebar-overlay--visible');
-      menuToggle.setAttribute('aria-expanded', 'true');
-      document.body.style.overflow = 'hidden';
+document.getElementById('form-editar').addEventListener('submit', function (e) {
+  e.preventDefault();
+  document.querySelectorAll('.input-error').forEach(el => el.classList.remove('input-error'));
+  document.querySelectorAll('.field-error').forEach(el => el.textContent = '');
+
+  let valido = true;
+  const anio      = parseInt(document.getElementById('anio')?.value);
+  const estado    = document.getElementById('estado_actual').value;
+  const km        = document.getElementById('km_actual').value;
+  const fechaAlta = document.getElementById('fecha_alta').value;
+  const fechaBaja = document.getElementById('fecha_baja').value;
+
+  if (!estado) {
+    setError('estado_actual', 'err-estado', 'Seleccioná un estado.');
+    valido = false;
+  }
+  if (km === '' || Number(km) < 0) {
+    setError('km_actual', 'err-km', 'El kilometraje no puede ser negativo.');
+    valido = false;
+  }
+  if (fechaBaja && fechaAlta && fechaBaja <= fechaAlta) {
+    setError('fecha_baja', 'err-fecha-baja', 'La fecha de baja debe ser posterior a la de alta.');
+    valido = false;
+  }
+  if (fechaBaja && anio) {
+    if (new Date(fechaBaja).getFullYear() < anio) {
+      setError('fecha_baja', 'err-fecha-baja', `La fecha de baja no puede ser anterior al año del vehículo (${anio}).`);
+      valido = false;
     }
+  }
 
-    function closeSidebar() {
-      sidebar.classList.remove('sidebar--open');
-      overlay.classList.remove('sidebar-overlay--visible');
-      menuToggle.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
-    }
+  if (valido) this.submit();
+});
 
-    document.querySelectorAll('.sidebar__menu-item--expandable > .sidebar__menu-link')
-      .forEach(link => {
-        link.addEventListener('click', function (e) {
-          e.preventDefault();
-          const item = this.closest('.sidebar__menu-item--expandable');
-          item.classList.toggle('sidebar__menu-item--open');
-        });
-      });
-
-    document.querySelectorAll('.sidebar__submenu-link--active').forEach(active => {
-      const item = active.closest('.sidebar__menu-item--expandable');
-      if (item) item.classList.add('sidebar__menu-item--open');
-    });
-
-    menuToggle.addEventListener('click', openSidebar);
-    sidebarClose.addEventListener('click', closeSidebar);
-    overlay.addEventListener('click', closeSidebar);
+['estado_actual', 'km_actual', 'fecha_baja'].forEach(id => {
+  document.getElementById(id)?.addEventListener('input', function () {
+    this.classList.remove('input-error');
+    const errMap = { estado_actual: 'err-estado', km_actual: 'err-km', fecha_baja: 'err-fecha-baja' };
+    const er = document.getElementById(errMap[id]);
+    if (er) er.textContent = '';
+  });
+});
   </script>
 
 </body>

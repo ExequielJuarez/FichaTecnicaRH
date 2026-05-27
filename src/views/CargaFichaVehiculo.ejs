@@ -163,161 +163,143 @@
         
       </div>
 
-      <form class="form" action="/CargaVehiculo" method="post">
+      <form class="form" action="/CargaVehiculo" method="post" id="form-vehiculo" novalidate>
 
-  <section class="form-section">
-    <h3>Información Básica</h3>
-
-    <div class="form-group">
-      <label>Patente</label>
-      <input name="patente" type="text" placeholder="Ej: AB123CD">
-    </div>
-
-    <div class="form-group">
-      <label>Tipo de Vehículo</label>
-      <select name="id_tipo">
-        <option value="">Seleccione tipo</option>
-        <!-- IMPORTANTE: ahora son IDs -->
-        <option value="1">Camioneta</option>
-        <option value="2">Camión</option>
-        <option value="3">Maquinaria Pesada</option>
-      </select>
-    </div>
-
-    <div class="form-row">
-      <div class="form-group">
-        <label>Marca</label>
-        <input name="marca" type="text">
-      </div>
-      <div class="form-group">
-        <label>Modelo</label>
-        <input name="modelo" type="text">
-      </div>
-    </div>
-
-    <div class="form-group small">
-      <label>Año</label>
-      <!-- CAMBIO: ano → anio -->
-      <input name="anio" type="number">
-    </div>
-  </section>
-
-  <section class="form-section">
-    <h3>Información Técnica</h3>
-
-    <div class="form-group">
-      <label>Número de Chasis</label>
-      <input name="chasis" type="text">
-    </div>
-
-    <div class="form-group">
-      <label>Número de Motor</label>
-      <input name="num_motor" type="text">
-    </div>
-
-    <div class="form-row">
-      <div class="form-group">
-        <label>Combustible</label>
-        <!-- le agrego name por si después lo usás -->
-        <select name="combustible">
-          <option value="">Seleccionar</option>
-          <option>Diesel</option>
-          <option>Nafta</option>
-          <option>Electrico</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label>Transmisión</label>
-        <select name="transmision">
-          <option value="">Seleccionar</option>
-          <!-- SIN tilde (IMPORTANTE por ENUM) -->
-          <option value="Manual">Manual</option>
-          <option value="Automatica">Automatica</option>
-        </select>
-      </div>
-    </div>
-  </section>
-
-  <section class="form-section">
-    <h3>Estado y Ubicación</h3>
-
-    <div class="form-row">
-      <div class="form-group">
-        <label>Estado</label>
-        <select name="estado_actual">
-          <!-- EXACTO como en ENUM -->
-          <option value="Disponible">Disponible</option>
-          <option value="En uso">En uso</option>
-          <option value="En mantenimiento">En mantenimiento</option>
-          <option value="Baja">Baja</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label>Kilometraje</label>
-        <input name="km_actual" type="number">
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label>Distrito</label>
-      <select name="distrito">
-        <option value="Centro">Centro</option>
-        <option value="Norte">Norte</option>
-        <option value="Sur">Sur</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label>Observaciones</label>
-      <!-- LE FALTABA name -->
-      <textarea name="observaciones"></textarea>
-    </div>
-  </section>
-
-  <section class="form-section">
-    <h3>Fechas</h3>
-
-    <div class="form-row">
-      <div class="form-group">
-        <label>Fecha de Alta</label>
-        <input name="fecha_alta" type="date">
-      </div>
-
-      <div class="form-row">
-        <div class="form-group">
-          <label>Fecha baja</label>
-          <input name="fecha_baja" type="date">
+        <section class="form-section">
+          <h3>Información Básica</h3>
+      
+          <div class="form-group">
+            <label>Patente <span class="req">*</span></label>
+            <input name="patente" type="text" placeholder="Ej: AB123CD" id="patente">
+            <span class="field-error" id="err-patente"></span>
+          </div>
+      
+          <div class="form-group">
+            <label>Tipo de Vehículo <span class="req">*</span></label>
+            <select name="id_tipo" id="id_tipo">
+              <option value="">Seleccione tipo</option>
+              <option value="1">Camioneta</option>
+              <option value="2">Camión</option>
+              <option value="3">Maquinaria Pesada</option>
+            </select>
+            <span class="field-error" id="err-tipo"></span>
+          </div>
+      
+          <div class="form-row">
+            <div class="form-group">
+              <label>Marca <span class="req">*</span></label>
+              <input name="marca" type="text" id="marca">
+              <span class="field-error" id="err-marca"></span>
+            </div>
+            <div class="form-group">
+              <label>Modelo <span class="req">*</span></label>
+              <input name="modelo" type="text" id="modelo">
+              <span class="field-error" id="err-modelo"></span>
+            </div>
+          </div>
+      
+          <div class="form-group small">
+            <label>Año <span class="req">*</span></label>
+            <input name="anio" type="number" id="anio" min="1900" max="2100">
+            <span class="field-error" id="err-anio"></span>
+          </div>
+        </section>
+      
+        <section class="form-section">
+          <h3>Información Técnica</h3>
+      
+          <div class="form-group">
+            <label>Número de Chasis <span class="req">*</span></label>
+            <input name="chasis" type="text" id="chasis">
+            <span class="field-error" id="err-chasis"></span>
+          </div>
+      
+          <div class="form-group">
+            <label>Número de Motor <span class="req">*</span></label>
+            <input name="num_motor" type="text" id="num_motor">
+            <span class="field-error" id="err-motor"></span>
+          </div>
+      
+          <div class="form-row">
+            <div class="form-group">
+              <label>Combustible</label>
+              <select name="combustible">
+                <option value="">Seleccionar</option>
+                <option>Diesel</option>
+                <option>Nafta</option>
+                <option>Electrico</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Transmisión</label>
+              <select name="transmision">
+                <option value="">Seleccionar</option>
+                <option value="Manual">Manual</option>
+                <option value="Automatica">Automatica</option>
+              </select>
+            </div>
+          </div>
+        </section>
+      
+        <section class="form-section">
+          <h3>Estado y Ubicación</h3>
+      
+          <div class="form-row">
+            <div class="form-group">
+              <label>Estado <span class="req">*</span></label>
+              <select name="estado_actual" id="estado_actual">
+                <option value="">Seleccionar</option>
+                <option value="Disponible">Disponible</option>
+                <option value="En uso">En uso</option>
+                <option value="En mantenimiento">En mantenimiento</option>
+                <option value="Baja">Baja</option>
+              </select>
+              <span class="field-error" id="err-estado"></span>
+            </div>
+            <div class="form-group">
+              <label>Kilometraje <span class="req">*</span></label>
+              <input name="km_actual" type="number" id="km_actual" min="0">
+              <span class="field-error" id="err-km"></span>
+            </div>
+          </div>
+      
+          <div class="form-group">
+            <label>Distrito</label>
+            <select name="distrito">
+              <option value="Centro">Centro</option>
+              <option value="Norte">Norte</option>
+              <option value="Sur">Sur</option>
+            </select>
+          </div>
+      
+          <div class="form-group">
+            <label>Observaciones</label>
+            <textarea name="observaciones"></textarea>
+          </div>
+        </section>
+      
+        <section class="form-section">
+          <h3>Fechas</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Fecha de Alta <span class="req">*</span></label>
+              <input name="fecha_alta" type="date" id="fecha_alta">
+              <span class="field-error" id="err-fecha-alta"></span>
+            </div>
+            <div class="form-group">
+              <label>Fecha de Baja</label>
+              <input name="fecha_baja" type="date" id="fecha_baja">
+              <span class="field-error" id="err-fecha-baja"></span>
+            </div>
+          </div>
+        </section>
+      
+        <div class="acciones">
+          <button type="button" class="boton-secundario" onclick="history.back()">Volver</button>
+          <button type="submit" class="boton-primario">Guardar Vehículo</button>
         </div>
-  </section>
-
-  <!-- <section class="form-section">
-    <h3>Imagen del Vehículo</h3>
-
-    <div class="upload-box">
-      <label for="imagen">Subir imagen</label>
-      <input type="file" id="imagen" name="imagen">
-    </div>
-
-    <div id="preview">
-      No hay imagen
-    </div>
-  </section> -->
-
-
-  <div class="acciones">
-    <!-- IMPORTANTE: este botón no debe enviar -->
-    <button type="button" class="boton-secundario">Volver</button>
-  
-    <button type="submit" class="boton-primario">
-      Guardar Vehículo
-    </button>
-  </div>
-
-  
-
-</form>
+      
+      </form>
 
 
 
@@ -331,47 +313,163 @@
   </div><!-- /app-wrapper -->
 
   <script>
-    /* ============================================================
-       SIDEBAR TOGGLE — mobile / tablet
-    ============================================================ */
-    const sidebar      = document.getElementById('sidebar');
-    const overlay      = document.getElementById('sidebar-overlay');
-    const menuToggle   = document.getElementById('menu-toggle');
-    const sidebarClose = document.getElementById('sidebar-close');
+    /* ── Sidebar ─────────────────────────────────────────── */
+const sidebar      = document.getElementById('sidebar');
+const overlay      = document.getElementById('sidebar-overlay');
+const menuToggle   = document.getElementById('menu-toggle');
+const sidebarClose = document.getElementById('sidebar-close');
 
-    function openSidebar() {
-      sidebar.classList.add('sidebar--open');
-      overlay.classList.add('sidebar-overlay--visible');
-      menuToggle.setAttribute('aria-expanded', 'true');
-      document.body.style.overflow = 'hidden';
-    }
+function openSidebar() {
+  sidebar.classList.add('sidebar--open');
+  overlay.classList.add('sidebar-overlay--visible');
+  menuToggle.setAttribute('aria-expanded', 'true');
+  document.body.style.overflow = 'hidden';
+}
+function closeSidebar() {
+  sidebar.classList.remove('sidebar--open');
+  overlay.classList.remove('sidebar-overlay--visible');
+  menuToggle.setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+}
 
-    function closeSidebar() {
-      sidebar.classList.remove('sidebar--open');
-      overlay.classList.remove('sidebar-overlay--visible');
-      menuToggle.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
-    }
-
-    /* ── Acordeón submenús ─────────────────────────────── */
-    document.querySelectorAll('.sidebar__menu-item--expandable > .sidebar__menu-link')
-      .forEach(link => {
-        link.addEventListener('click', function (e) {
-          e.preventDefault();
-          const item = this.closest('.sidebar__menu-item--expandable');
-          item.classList.toggle('sidebar__menu-item--open');
-        });
-      });
-
-    /* Abrir el submenú activo al cargar */
-    document.querySelectorAll('.sidebar__submenu-link--active').forEach(active => {
-      const item = active.closest('.sidebar__menu-item--expandable');
-      if (item) item.classList.add('sidebar__menu-item--open');
+document.querySelectorAll('.sidebar__menu-item--expandable > .sidebar__menu-link')
+  .forEach(link => {
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+      const item = this.closest('.sidebar__menu-item--expandable');
+      item.classList.toggle('sidebar__menu-item--open');
     });
+  });
 
-    menuToggle.addEventListener('click', openSidebar);
-    sidebarClose.addEventListener('click', closeSidebar);
-    overlay.addEventListener('click', closeSidebar);
+document.querySelectorAll('.sidebar__submenu-link--active').forEach(active => {
+  const item = active.closest('.sidebar__menu-item--expandable');
+  if (item) item.classList.add('sidebar__menu-item--open');
+});
+
+menuToggle.addEventListener('click', openSidebar);
+sidebarClose.addEventListener('click', closeSidebar);
+overlay.addEventListener('click', closeSidebar);
+
+/* ── Validación del formulario ───────────────────────── */
+function setError(inputId, errId, msg) {
+  const el = document.getElementById(inputId);
+  const er = document.getElementById(errId);
+  if (msg) {
+    el?.classList.add('input-error');
+    if (er) er.textContent = msg;
+  } else {
+    el?.classList.remove('input-error');
+    if (er) er.textContent = '';
+  }
+}
+
+function limpiarErrores() {
+  document.querySelectorAll('.input-error').forEach(el => el.classList.remove('input-error'));
+  document.querySelectorAll('.field-error').forEach(el => el.textContent = '');
+}
+
+document.getElementById('form-vehiculo').addEventListener('submit', function (e) {
+  e.preventDefault();
+  limpiarErrores();
+
+  let valido = true;
+  const anioActual = new Date().getFullYear();
+
+  const patente    = document.getElementById('patente').value.trim();
+  const tipo       = document.getElementById('id_tipo').value;
+  const marca      = document.getElementById('marca').value.trim();
+  const modelo     = document.getElementById('modelo').value.trim();
+  const anio       = parseInt(document.getElementById('anio').value);
+  const chasis     = document.getElementById('chasis').value.trim();
+  const motor      = document.getElementById('num_motor').value.trim();
+  const estado     = document.getElementById('estado_actual').value;
+  const km         = document.getElementById('km_actual').value;
+  const fechaAlta  = document.getElementById('fecha_alta').value;
+  const fechaBaja  = document.getElementById('fecha_baja').value;
+
+  if (!patente) {
+    setError('patente', 'err-patente', 'La patente es obligatoria.');
+    valido = false;
+  }
+
+  if (!tipo) {
+    setError('id_tipo', 'err-tipo', 'Seleccioná un tipo de vehículo.');
+    valido = false;
+  }
+
+  if (!marca) {
+    setError('marca', 'err-marca', 'La marca es obligatoria.');
+    valido = false;
+  }
+
+  if (!modelo) {
+    setError('modelo', 'err-modelo', 'El modelo es obligatorio.');
+    valido = false;
+  }
+
+  if (!anio || anio < 1900 || anio > anioActual) {
+    setError('anio', 'err-anio', `El año debe estar entre 1900 y ${anioActual}.`);
+    valido = false;
+  }
+
+  if (!chasis) {
+    setError('chasis', 'err-chasis', 'El número de chasis es obligatorio.');
+    valido = false;
+  }
+
+  if (!motor) {
+    setError('num_motor', 'err-motor', 'El número de motor es obligatorio.');
+    valido = false;
+  }
+
+  if (!estado) {
+    setError('estado_actual', 'err-estado', 'Seleccioná un estado.');
+    valido = false;
+  }
+
+  if (km === '' || km < 0) {
+    setError('km_actual', 'err-km', 'El kilometraje es obligatorio y no puede ser negativo.');
+    valido = false;
+  }
+
+  if (!fechaAlta) {
+    setError('fecha_alta', 'err-fecha-alta', 'La fecha de alta es obligatoria.');
+    valido = false;
+  }
+
+  // Fecha de alta no puede ser anterior al año del vehículo
+  if (fechaAlta && anio) {
+    const anioAlta = new Date(fechaAlta).getFullYear();
+    if (anioAlta < anio) {
+      setError('fecha_alta', 'err-fecha-alta', 'La fecha de alta no puede ser anterior al año del vehículo.');
+      valido = false;
+    }
+  }
+
+  // Fecha de baja debe ser posterior a la de alta
+  if (fechaBaja && fechaAlta && fechaBaja <= fechaAlta) {
+    setError('fecha_baja', 'err-fecha-baja', 'La fecha de baja debe ser posterior a la de alta.');
+    valido = false;
+  }
+
+  if (valido) this.submit();
+});
+
+// Limpiar error al corregir cada campo
+['patente','id_tipo','marca','modelo','anio','chasis','num_motor',
+ 'estado_actual','km_actual','fecha_alta','fecha_baja'].forEach(id => {
+  document.getElementById(id)?.addEventListener('input', function () {
+    this.classList.remove('input-error');
+    // limpiar el span de error correspondiente
+    const errId = 'err-' + {
+      patente: 'patente', id_tipo: 'tipo', marca: 'marca', modelo: 'modelo',
+      anio: 'anio', chasis: 'chasis', num_motor: 'motor', estado_actual: 'estado',
+      km_actual: 'km', fecha_alta: 'fecha-alta', fecha_baja: 'fecha-baja'
+    }[id];
+    const er = document.getElementById(errId);
+    if (er) er.textContent = '';
+  });
+});
   </script>
 
 </body>

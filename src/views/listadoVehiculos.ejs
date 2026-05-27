@@ -452,7 +452,7 @@
                           <td class="data-table__td" data-label="Fecha">     <%= m.fecha_inicio %>              </td>
                           <td class="data-table__td" data-label="Tipo">      <%= m.tipo_servicio %>             </td>
                           <td class="data-table__td" data-label="Km">        <%= m.km_servicio %> km            </td>
-                          <!-- <td class="data-table__td" data-label="Proveedor"> —  -->                                 </td>
+                          <!-- <td class="data-table__td" data-label="Proveedor"> —  -->                                 
                           <td class="data-table__td" data-label="Costo">     $<%= m.costo_total %>              </td>
                           <td class="data-table__td" data-label="Próximo">
                             <%= m.proxima_fecha ? m.proxima_fecha : (m.proximo_km ? m.proximo_km + ' km' : '—') %>
@@ -472,7 +472,7 @@
                     </tbody>
                   </table>
                 </div>
-                <<a href="/Mantenimientos?patente=<%= vehiculoSeleccionado?.patente || '' %>" class="data-card__see-all">
+                <a href="/Mantenimientos?patente=<%= vehiculoSeleccionado?.patente || '' %>" class="data-card__see-all">
                   Ver todos los mantenimientos
                   <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
                 </a>

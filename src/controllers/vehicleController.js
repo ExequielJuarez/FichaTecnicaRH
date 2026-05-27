@@ -118,27 +118,56 @@ const vehicleController = {
 
 },
 
-    processVehicle : async (req,res) => {
+processVehicle: async (req, res) => {
+    try {
+        const { patente, id_tipo, marca, modelo, anio, chasis, num_motor,
+                estado_actual, km_actual, fecha_alta, fecha_baja } = req.body;
 
-        try {
+        const errores = [];
+        const anioNum    = parseInt(anio);
+        const anioActual = new Date().getFullYear();
 
-            let newVehicle = await vehicleService.create(req);
+        if (!patente?.trim())      errores.push('La patente es obligatoria.');
+        if (!id_tipo)              errores.push('El tipo de vehículo es obligatorio.');
+        if (!marca?.trim())        errores.push('La marca es obligatoria.');
+        if (!modelo?.trim())       errores.push('El modelo es obligatorio.');
+        if (!anio || anioNum < 1900 || anioNum > anioActual)
+                                   errores.push(`El año debe estar entre 1900 y ${anioActual}.`);
+        if (!chasis?.trim())       errores.push('El número de chasis es obligatorio.');
+        if (!num_motor?.trim())    errores.push('El número de motor es obligatorio.');
+        if (!estado_actual)        errores.push('El estado es obligatorio.');
+        if (km_actual === '' || km_actual === undefined || Number(km_actual) < 0)
+                                   errores.push('El kilometraje es obligatorio y no puede ser negativo.');
+        if (!fecha_alta)           errores.push('La fecha de alta es obligatoria.');
 
-            res.redirect('/Vehicles');
-
-            console.log("hola");
-
-            console.log(req.body);
-
-            console.log(newVehicle);
-
-        } catch (error) {      
-
-            console.log(error);
-
+        // Fecha de alta no puede ser anterior al año del vehículo
+        if (fecha_alta && anioNum) {
+            const anioAlta = new Date(fecha_alta).getFullYear();
+            if (anioAlta < anioNum) {
+                errores.push('La fecha de alta no puede ser anterior al año del vehículo.');
+            }
         }
 
-    },
+        // Fecha de baja posterior a fecha de alta
+        if (fecha_baja && fecha_alta && fecha_baja <= fecha_alta) {
+            errores.push('La fecha de baja debe ser posterior a la de alta.');
+        }
+
+        if (errores.length > 0) {
+            return res.status(400).send(
+                `<h3>Errores de validación:</h3><ul>${errores.map(e => `<li>${e}</li>`).join('')}</ul>
+                 <a href="javascript:history.back()">Volver</a>`
+            );
+        }
+
+        await vehicleService.create(req);
+        res.redirect('/Vehicles');
+
+    } catch (error) {
+        console.log(error);
+        res.send("Error al guardar el vehículo");
+    }
+},
     EditVehiculo: async (req, res) => {
         try {
             const vehiculo = await vehicleService.getOne(req.params.id);
@@ -151,8 +180,35 @@ const vehicleController = {
     
     processEditVehiculo: async (req, res) => {
         try {
+            const vehiculo = await vehicleService.getOne(req.params.id);
+            if (!vehiculo) return res.status(404).send('Vehículo no encontrado.');
+    
+            const { estado_actual, km_actual, fecha_baja } = req.body;
+            const errores = [];
+            const anio     = vehiculo.anio;
+            const fechaAlta = vehiculo.fecha_alta
+                ? new Date(vehiculo.fecha_alta).toISOString().split('T')[0]
+                : null;
+    
+            if (!estado_actual)
+                errores.push('El estado es obligatorio.');
+            if (km_actual === '' || km_actual === undefined || Number(km_actual) < 0)
+                errores.push('El kilometraje no puede ser negativo.');
+            if (fecha_baja && fechaAlta && fecha_baja <= fechaAlta)
+                errores.push('La fecha de baja debe ser posterior a la de alta.');
+            if (fecha_baja && anio && new Date(fecha_baja).getFullYear() < anio)
+                errores.push(`La fecha de baja no puede ser anterior al año del vehículo (${anio}).`);
+    
+            if (errores.length > 0) {
+                return res.status(400).send(
+                    `<h3>Errores:</h3><ul>${errores.map(e => `<li>${e}</li>`).join('')}</ul>
+                     <a href="javascript:history.back()">Volver</a>`
+                );
+            }
+    
             await vehicleService.update(req.params.id, req.body);
-            res.redirect('/Vehicles');
+            res.redirect(`/Vehicles/${req.params.id}`);
+    
         } catch (error) {
             console.log(error);
             res.send("Error al actualizar");

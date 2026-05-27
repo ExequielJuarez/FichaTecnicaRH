@@ -601,3 +601,21 @@ svg     { display: block; flex-shrink: 0; }
     text-align: center;
   }
 }
+
+.req {
+  color: #dc2626;
+  margin-left: 2px;
+}
+
+.field-error {
+  display: block;
+  font-size: 12px;
+  color: #dc2626;
+  margin-top: 4px;
+  min-height: 16px;
+}
+
+.input-error {
+  border-color: #dc2626 !important;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1) !important;
+}
