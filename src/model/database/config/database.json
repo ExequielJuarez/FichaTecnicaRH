@@ -1,11 +1,7 @@
 {
   "development": {
     "username": "root",
-<<<<<<< HEAD
     "password": null,
-=======
-    "password": "root",
->>>>>>> feature/modulo-roles
     "database": "vehiculos_db",
     "host": "127.0.0.1",
     "dialect": "mysql"
