@@ -7,6 +7,11 @@ const choferController = require('../controllers/choferController');
 const toolController = require('../controllers/toolController')
 const assignmentController = require('../controllers/assignmentController');
 
+const {
+    choferVAlidation,
+    choferEditValidation
+} = require("../validations/choferValidation");
+const alertaController = require('../controllers/alertaController');
 
 // ================= VEHICULOS =================
 
@@ -25,11 +30,19 @@ router.post('/cargaVehiculo', vehicleController.processVehicle);
 
 // ================= CHOFERES =================
 
-router.get('/Choferes', choferController.ListChoferes);
+router.get('/Choferes',                choferController.ListChoferes);
+router.get('/Choferes/Carga',          choferController.createChofer);
+router.post('/Choferes/Carga',         choferVAlidation(), choferController.processChofer);
 
-router.get('/Choferes/Carga', choferController.createChofer);
+router.get('/Choferes/:id/editar',     choferController.editChofer);
+router.post(
+    '/Choferes/:id/editar',
+    choferEditValidation(),
+    choferController.processEdit
+);
 
-router.post('/Choferes/Carga', choferController.processChofer);
+router.post('/Choferes/:id/desactivar', choferController.desactivarChofer);
+
 
 // ================= MANTENIMIENTOS =================
 router.get('/Mantenimientos', vehicleController.Mantenimientos);
@@ -95,3 +108,9 @@ router.post('/InicioSesion', userController.ProcesoIniciarSesion);
 
 module.exports = router;
 
+//======================= Alertas =======================
+router.get('/Alertas',                alertaController.ListAlertas);
+router.get('/Alertas/recientes',      alertaController.getRecientes);   // ANTES de /:id
+router.post('/Alertas/leer-todas',    alertaController.marcarTodasLeidas);
+router.post('/Alertas/:id/leer',      alertaController.marcarLeida);
+router.get('/Alertas/:id',            alertaController.detalleAlerta);  // DESPUÉS

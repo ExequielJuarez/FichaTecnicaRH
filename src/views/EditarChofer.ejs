@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cargar Vehículo - Gestión de Flota</title>
-  <link rel="stylesheet" href="/css/CargaFichaVehiculo.css" />
+  <link rel="stylesheet" href="/css/CargaChofer.css" />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
 </head>
 <body>
@@ -43,26 +43,26 @@
         </li>
       
         <li class="sidebar__menu-item sidebar__menu-item--expandable">
-          <a href="#" class="sidebar__menu-link sidebar__menu-link--active">
+          <a href="#" class="sidebar__menu-link">
             <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/><path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z"/></svg>
             Vehículos
             <svg class="sidebar__menu-chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
           </a>
           <ul class="sidebar__submenu">
             <li><a href="/Vehicles" class="sidebar__submenu-link">Listado de vehículos</a></li>
-            <li><a href="/CargaVehiculo" class="sidebar__submenu-link sidebar__submenu-link--active">Agregar vehículo</a></li>
+            <li><a href="/CargaVehiculo" class="sidebar__submenu-link">Agregar vehículo</a></li>
           </ul>
         </li>
       
         <li class="sidebar__menu-item sidebar__menu-item--expandable">
-          <a href="#" class="sidebar__menu-link">
+          <a href="#" class="sidebar__menu-link sidebar__menu-link--active">
             <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/></svg>
             Choferes
             <svg class="sidebar__menu-chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
           </a>
           <ul class="sidebar__submenu">
             <li><a href="/Choferes" class="sidebar__submenu-link">Listado de choferes</a></li>
-            <li><a href="/Choferes/carga" class="sidebar__submenu-link">Agregar chofer</a></li>
+            <li><a href="/Choferes/carga" class="sidebar__submenu-link sidebar__submenu-link--active">Agregar chofer</a></li>
           </ul>
         </li>
       
@@ -154,122 +154,177 @@
 
       <div class="page-header">
         <div>
-          <h2 class="page-title">Cargar Vehículo</h2>
-          <p class="page-subtitle">Complete todos los datos del vehículo.</p>
+          <h2 class="page-title">Editar Chofer</h2>
+            <p class="page-subtitle">Modificá los datos del chofer.</p>
         </div>
         
       </div>
 
-      <form class="form" action="/CargaVehiculo" method="post">
+      <form class="form" action="/Choferes/<%= chofer.id_chofer %>/editar" method="post">
 
   <section class="form-section">
     <h3>Información Básica</h3>
 
     <div class="form-group">
-      <label>Patente</label>
-      <input name="patente" type="text" placeholder="Ej: AB123CD">
+      <label>Nombre</label>
+      <input class="input <%= errors?.nombre ? 'input-error' : '' %>" name="nombre" type="text" placeholder="Ingrese el nombre" value="<%= old?.nombre || '' %>">
+      <% if (errors?.nombre) { %>
+        <span class="error"><%= errors.nombre.msg %></span>
+      <% } %>
     </div>
 
     <div class="form-group">
-      <label>Tipo de Vehículo</label>
-      <select name="id_tipo">
-        <option value="">Seleccione tipo</option>
-        <!-- IMPORTANTE: ahora son IDs -->
-        <option value="1">Camioneta</option>
-        <option value="2">Camión</option>
-        <option value="3">Maquinaria Pesada</option>
-      </select>
+      <label>Apellido</label>
+      <input class="input <%= errors?.apellido ? 'input-error' : '' %>" name="apellido" type="text" placeholder="Ingrese el apellido" value="<%= old?.apellido || '' %>">
+      <% if (errors?.apellido) { %>
+        <span class="error"><%= errors.apellido.msg %></span>
+      <% } %>
+    </div>
+
+    <div class="form-group">
+        <label>DNI <small>(no modificable)</small></label>
+
+        <input 
+        class="input" 
+        type="text" 
+        value="<%= old?.dni || chofer?.dni || '' %>" 
+        disabled
+        >
+
+        <input 
+        type="hidden" 
+        name="dni" 
+        value="<%= old?.dni || chofer?.dni || '' %>"
+        >
+
+        <% if (errors?.dni) { %>
+            <span class="error"><%= errors.dni.msg %></span>
+        <% } %>
+    </div>
+
+    <div class="form-group">
+      <label>Fecha de Nacimiento</label>
+      <input class="input <%= errors?.fechaNacimiento ? 'input-error' : '' %>" 
+            name="fechaNacimiento" type="date" 
+            value="<%= old?.fechaNacimiento || '' %>">
+      <% if (errors?.fechaNacimiento) { %>
+        <span class="error"><%= errors.fechaNacimiento.msg %></span>
+      <% } %>
     </div>
 
     <div class="form-row">
       <div class="form-group">
-        <label>Marca</label>
-        <input name="marca" type="text">
+        <label>Teléfono</label>
+        <input class="input <%= errors?.telefono ? 'input-error' : '' %>" name="telefono" type="tel" value="<%= old?.telefono || '' %>">
+        <% if (errors?.telefono) { %>
+          <span class="error"><%= errors.telefono.msg %></span>
+        <% } %>
       </div>
       <div class="form-group">
-        <label>Modelo</label>
-        <input name="modelo" type="text">
+        <label>E-mail</label>
+        <input class="input <%= errors?.email ? 'input-error' : '' %>" name="email" type="email" value="<%= old?.email || '' %>">
+        <% if (errors?.email) { %>
+          <span class="error"><%= errors.email.msg %></span>
+        <% } %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Dirección</label>
+      <input class="input <%= errors?.direccion ? 'input-error' : '' %>" name="direccion" type="text" value="<%= old?.direccion || '' %>">
+      <% if (errors?.direccion) { %>
+        <span class="error"><%= errors.direccion.msg %></span>
+      <% } %>
+    </div>
+  </section>
+
+  <section class="form-section">
+    <h3>Datos laborales</h3>
+
+    <div class="form-row">
+      <div class="form-group">
+          <label>Fecha de Ingreso</label>
+          <input class="input <%= errors?.fechaIngreso ? 'input-error' : '' %>" 
+                name="fechaIngreso" type="date" 
+                value="<%= old?.fechaIngreso || '' %>">
+          <% if (errors?.fechaIngreso) { %>
+            <span class="error"><%= errors.fechaIngreso.msg %></span>
+          <% } %>
+        </div>
+
+      <div class="form-group">
+        <label>Estado</label>
+        <select class="input <%= errors?.['activo-inactivo'] ? 'input-error' : '' %>" name="activo-inactivo">
+          <option value="">Seleccionar</option>
+          <option value="Activo"   <%= old?.['activo-inactivo'] === 'Activo'   ? 'selected' : '' %>>Activo</option>
+          <option value="Inactivo" <%= old?.['activo-inactivo'] === 'Inactivo' ? 'selected' : '' %>>Inactivo</option>
+        </select>
+        <% if (errors?.['activo-inactivo']) { %>
+          <span class="error"><%= errors['activo-inactivo'].msg %></span>
+        <% } %>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Turno</label>
+        <select name="Turno">
+          <option value="">Seleccionar</option>
+          <option <%= old?.Turno === 'Mañana' ? 'selected' : '' %>>Mañana</option>
+          <option <%= old?.Turno === 'Tarde'  ? 'selected' : '' %>>Tarde</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <section class="form-section">
+    <h3>Datos de Licencia</h3>
+
+    <div class="form-group">
+      <label>Número de Licencia</label>
+      <input class="input <%= errors?.numero_licencia ? 'input-error' : '' %>" name="numero_licencia" type="text" placeholder="Ingrese el número de licencia" value="<%= old?.numero_licencia || '' %>">
+      <% if (errors?.numero_licencia) { %>
+        <span class="error"><%= errors.numero_licencia.msg %></span>
+      <% } %>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Categoría de Licencia</label>
+        <select class="input <%= errors?.categoria ? 'input-error' : '' %>" name="categoria">
+          <option value="">Seleccione categoría</option>
+          <option value="A"  <%= old?.categoria === 'A'  ? 'selected' : '' %>>A - Motocicletas</option>
+          <option value="B1" <%= old?.categoria === 'B1' ? 'selected' : '' %>>B1 - Autos y camionetas</option>
+          <option value="B2" <%= old?.categoria === 'B2' ? 'selected' : '' %>>B2 - Vehículos utilitarios</option>
+          <option value="C"  <%= old?.categoria === 'C'  ? 'selected' : '' %>>C - Camiones sin acoplado</option>
+          <option value="D"  <%= old?.categoria === 'D'  ? 'selected' : '' %>>D - Transporte de pasajeros</option>
+          <option value="E"  <%= old?.categoria === 'E'  ? 'selected' : '' %>>E - Camiones con acoplado</option>
+          <option value="G"  <%= old?.categoria === 'G'  ? 'selected' : '' %>>G - Maquinaria especial</option>
+        </select>
+        <% if (errors?.categoria) { %>
+          <span class="error"><%= errors.categoria.msg %></span>
+        <% } %>
+      </div>
+
+      <div class="form-group">
+        <label>Fecha de Emisión</label>
+        <input class="input <%= errors?.fecha_emision ? 'input-error' : '' %>" 
+              name="fecha_emision" type="date" 
+              value="<%= old?.fecha_emision || '' %>">
+        <% if (errors?.fecha_emision) { %>
+          <span class="error"><%= errors.fecha_emision.msg %></span>
+        <% } %>
       </div>
     </div>
 
     <div class="form-group small">
-      <label>Año</label>
-      <!-- CAMBIO: ano → anio -->
-      <input name="anio" type="number">
-    </div>
-  </section>
-
-  <section class="form-section">
-    <h3>Información Técnica</h3>
-
-    <div class="form-group">
-      <label>Número de Chasis</label>
-      <input name="chasis" type="text">
-    </div>
-
-    <div class="form-group">
-      <label>Número de Motor</label>
-      <input name="num_motor" type="text">
-    </div>
-
-    <div class="form-row">
-      <div class="form-group">
-        <label>Combustible</label>
-        <!-- le agrego name por si después lo usás -->
-        <select name="combustible">
-          <option value="">Seleccionar</option>
-          <option>Diesel</option>
-          <option>Nafta</option>
-          <option>Electrico</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label>Transmisión</label>
-        <select name="transmision">
-          <option value="">Seleccionar</option>
-          <!-- SIN tilde (IMPORTANTE por ENUM) -->
-          <option value="Manual">Manual</option>
-          <option value="Automatica">Automatica</option>
-        </select>
-      </div>
-    </div>
-  </section>
-
-  <section class="form-section">
-    <h3>Estado y Ubicación</h3>
-
-    <div class="form-row">
-      <div class="form-group">
-        <label>Estado</label>
-        <select name="estado_actual">
-          <!-- EXACTO como en ENUM -->
-          <option value="Disponible">Disponible</option>
-          <option value="En uso">En uso</option>
-          <option value="En mantenimiento">En mantenimiento</option>
-          <option value="Baja">Baja</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label>Kilometraje</label>
-        <input name="km_actual" type="number">
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label>Distrito</label>
-      <select name="distrito">
-        <option value="Centro">Centro</option>
-        <option value="Norte">Norte</option>
-        <option value="Sur">Sur</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label>Observaciones</label>
-      <!-- LE FALTABA name -->
-      <textarea name="observaciones"></textarea>
+      <label>Vencimiento</label>
+      <input class="input <%= errors?.fecha_vencimiento ? 'input-error' : '' %>" 
+            name="fecha_vencimiento" type="date" 
+            value="<%= old?.fecha_vencimiento || '' %>">
+      <% if (errors?.fecha_vencimiento) { %>
+        <span class="error"><%= errors.fecha_vencimiento.msg %></span>
+      <% } %>
     </div>
   </section>
 
@@ -282,33 +337,39 @@
         <input name="fecha_alta" type="date">
       </div>
 
-      <div class="form-row">
-        <div class="form-group">
-          <label>Fecha baja</label>
-          <input name="fecha_baja" type="date">
-        </div>
+      <div class="form-group">
+        <label>Fecha de Baja</label>
+        <!-- LE FALTABA name -->
+        <input name="fecha_baja" type="date">
+      </div>
+    </div>
   </section>
 
-  <!-- <section class="form-section">
-    <h3>Imagen del Vehículo</h3>
+  <section class="form-section">
+    <h3>Imagenes de la Documentación</h3>
 
     <div class="upload-box">
       <label for="imagen">Subir imagen</label>
+      <!-- LE FALTABA name -->
       <input type="file" id="imagen" name="imagen">
     </div>
 
     <div id="preview">
       No hay imagen
     </div>
-  </section> -->
+  </section>
+
+  <section class="form-sectionMod">
+   
+  </section>
 
 
   <div class="acciones">
     <!-- IMPORTANTE: este botón no debe enviar -->
-    <button type="button" class="boton-secundario">Volver</button>
+    <a href="/Choferes" class="boton-secundario">Volver</a>
   
     <button type="submit" class="boton-primario">
-      Guardar Vehículo
+      Guardar Chofer
     </button>
   </div>
 
@@ -336,6 +397,20 @@
     const menuToggle   = document.getElementById('menu-toggle');
     const sidebarClose = document.getElementById('sidebar-close');
 
+    document.querySelectorAll('.sidebar__menu-item--expandable > .sidebar__menu-link')
+      .forEach(link => {
+        link.addEventListener('click', function (e) {
+          e.preventDefault();
+          const item = this.closest('.sidebar__menu-item--expandable');
+          item.classList.toggle('sidebar__menu-item--open');
+        });
+      });
+
+    document.querySelectorAll('.sidebar__submenu-link--active').forEach(active => {
+      const item = active.closest('.sidebar__menu-item--expandable');
+      if (item) item.classList.add('sidebar__menu-item--open');
+    });
+
     function openSidebar() {
       sidebar.classList.add('sidebar--open');
       overlay.classList.add('sidebar-overlay--visible');
@@ -349,22 +424,6 @@
       menuToggle.setAttribute('aria-expanded', 'false');
       document.body.style.overflow = '';
     }
-
-    /* ── Acordeón submenús ─────────────────────────────── */
-    document.querySelectorAll('.sidebar__menu-item--expandable > .sidebar__menu-link')
-      .forEach(link => {
-        link.addEventListener('click', function (e) {
-          e.preventDefault();
-          const item = this.closest('.sidebar__menu-item--expandable');
-          item.classList.toggle('sidebar__menu-item--open');
-        });
-      });
-
-    /* Abrir el submenú activo al cargar */
-    document.querySelectorAll('.sidebar__submenu-link--active').forEach(active => {
-      const item = active.closest('.sidebar__menu-item--expandable');
-      if (item) item.classList.add('sidebar__menu-item--open');
-    });
 
     menuToggle.addEventListener('click', openSidebar);
     sidebarClose.addEventListener('click', closeSidebar);

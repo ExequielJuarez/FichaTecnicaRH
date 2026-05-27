@@ -26,6 +26,30 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(150),
       allowNull: false
     },
+    fechaNacimiento: {
+      type: DataTypes.DATE,
+      allowNull: false
+    },
+    fechaIngreso: {
+      type: DataTypes.DATE,
+      allowNull: false
+    },
+    email: {
+      type: DataTypes.STRING(150),
+      allowNull: true
+    },
+    turno: {
+    type: DataTypes.ENUM('Mañana', 'Tarde'),
+    allowNull: true       
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: false
+    },
     estado: {
       type: DataTypes.ENUM('Activo', 'Inactivo'),
       allowNull: false,

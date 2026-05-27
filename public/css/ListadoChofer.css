@@ -526,6 +526,32 @@ td {
 }
 
 tr:hover td { background-color: #f8fafc; }
+.btn-accion {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+}
+
+.btn-editar {
+    background-color: var(--color-sidebar-bg);
+    color: #fff;
+}
+
+.btn-desactivar {
+    background-color: #dc2626;
+    color: #fff;
+}
+
+.badge-inactivo {
+    font-size: 0.8rem;
+    color: #6b7280;
+    font-style: italic;
+}
 
 /* ============================================================
    PAGINADO
@@ -537,6 +563,13 @@ tr:hover td { background-color: #f8fafc; }
     margin-top: 16px;
     flex-wrap: wrap;
     gap: 8px;
+}
+
+.pagina--activa {
+    background-color: var(--color-primary, #2563eb);
+    color: #fff;
+    cursor: default;
+    pointer-events: none;
 }
 
 .info {
