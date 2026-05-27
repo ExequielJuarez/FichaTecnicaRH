@@ -36,7 +36,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     email: {
       type: DataTypes.STRING(150),
-      allowNull: false
+      allowNull: true
+    },
+    turno: {
+    type: DataTypes.ENUM('Mañana', 'Tarde'),
+    allowNull: true       
     },
     createdAt: {
       type: DataTypes.DATE,

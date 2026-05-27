@@ -17,14 +17,17 @@ const choferVAlidation = () => [
         .isLength({ min: 2 }).withMessage('Mínimo 2 caracteres'),
 
     body('dni')
-        .notEmpty().withMessage('El DNI es obligatorio')
-        .isNumeric().withMessage('El DNI debe contener solo números')
-        .isLength({ min: 7, max: 8 }).withMessage('El DNI debe tener 7 u 8 dígitos')
-        .custom(async (value) => {
-            const chofer = await db.Chofer.findOne({ where: { dni: value } });
-            if (chofer) throw new Error('El DNI ya está registrado');
+        .notEmpty().withMessage('El DNI es obligatorio').bail()
+        .custom(async (value, { req }) => {
+            const id = req.params?.id;
+            if (!id) throw new Error('Operación inválida');
+            const chofer = await db.Chofer.findByPk(id);
+            if (!chofer) throw new Error('Chofer no encontrado');
+            if (String(chofer.dni) !== String(value)) {
+                throw new Error('El DNI no puede modificarse');
+            }
             return true;
-        }),
+    }),
 
     body('fechaNacimiento')
         .notEmpty().withMessage('La fecha de nacimiento es obligatoria').bail()
@@ -40,17 +43,24 @@ const choferVAlidation = () => [
             const edadReal = cumplioEsteAnio ? edad : edad - 1;
             if (edadReal < 18) throw new Error('El chofer debe ser mayor de 18 años');
             return true;
-        }),
+    }),
 
     body('telefono')
         .notEmpty().withMessage('El teléfono es obligatorio')
         .isNumeric().withMessage('El teléfono debe contener solo números')
         .isLength({ min: 8, max: 12 }).withMessage('Teléfono inválido')
-        .custom(async (value) => {
-            const chofer = await db.Chofer.findOne({ where: { telefono: value } });
+        .custom(async (value, { req }) => {
+            const id = req.params?.id;
+            if (!id) throw new Error('Operación inválida');
+            const chofer = await db.Chofer.findOne({
+                where: {
+                    telefono: value,
+                    id_chofer: { [Op.ne]: id }
+                }
+            });
             if (chofer) throw new Error('El teléfono ya está registrado');
             return true;
-        }),
+    }),
 
     body('direccion')
         .notEmpty().withMessage('La dirección es obligatoria')

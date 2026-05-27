@@ -202,12 +202,14 @@
         <% } %>
     </div>
 
-      <div class="form-group">
-        <label>Fecha de Nacimiento</label>
-        <input class="input <%= errors?.fechaNacimiento ? 'input-error' : '' %>" name="fechaNacimiento" type="date" value="<%= old?.fechaNacimiento || (chofer?.fecha_nacimiento ? new Date(chofer.fecha_nacimiento).toISOString().split('T')[0] : '') %>">
-        <% if (errors?.fechaNacimiento) { %>
-          <span class="error"><%= errors.fechaNacimiento.msg %></span>
-        <% } %>
+    <div class="form-group">
+      <label>Fecha de Nacimiento</label>
+      <input class="input <%= errors?.fechaNacimiento ? 'input-error' : '' %>" 
+            name="fechaNacimiento" type="date" 
+            value="<%= old?.fechaNacimiento || '' %>">
+      <% if (errors?.fechaNacimiento) { %>
+        <span class="error"><%= errors.fechaNacimiento.msg %></span>
+      <% } %>
     </div>
 
     <div class="form-row">
@@ -241,12 +243,14 @@
 
     <div class="form-row">
       <div class="form-group">
-        <label>Fecha de Ingreso</label>
-        <input class="input <%= errors?.fechaIngreso ? 'input-error' : '' %>" name="fechaIngreso" type="date" value="<%= old?.fechaIngreso || (chofer?.fecha_ingreso ? new Date(chofer.fecha_ingreso).toISOString().split('T')[0] : '') %>">
-        <% if (errors?.fechaIngreso) { %>
-          <span class="error"><%= errors.fechaIngreso.msg %></span>
-        <% } %>
-      </div>
+          <label>Fecha de Ingreso</label>
+          <input class="input <%= errors?.fechaIngreso ? 'input-error' : '' %>" 
+                name="fechaIngreso" type="date" 
+                value="<%= old?.fechaIngreso || '' %>">
+          <% if (errors?.fechaIngreso) { %>
+            <span class="error"><%= errors.fechaIngreso.msg %></span>
+          <% } %>
+        </div>
 
       <div class="form-group">
         <label>Estado</label>
@@ -304,7 +308,9 @@
 
       <div class="form-group">
         <label>Fecha de Emisión</label>
-        <input class="input <%= errors?.fecha_emision ? 'input-error' : '' %>" name="fecha_emision" type="date" value="<%= old?.fecha_emision || (chofer?.fecha_emision ? new Date(chofer.fecha_emision).toISOString().split('T')[0] : '') %>">
+        <input class="input <%= errors?.fecha_emision ? 'input-error' : '' %>" 
+              name="fecha_emision" type="date" 
+              value="<%= old?.fecha_emision || '' %>">
         <% if (errors?.fecha_emision) { %>
           <span class="error"><%= errors.fecha_emision.msg %></span>
         <% } %>
@@ -313,7 +319,9 @@
 
     <div class="form-group small">
       <label>Vencimiento</label>
-      <input class="input <%= errors?.fecha_vencimiento ? 'input-error' : '' %>" name="fecha_vencimiento" type="date" value="<%= old?.fecha_vencimiento || (chofer?.fecha_vencimiento ? new Date(chofer.fecha_vencimiento).toISOString().split('T')[0] : '') %>">
+      <input class="input <%= errors?.fecha_vencimiento ? 'input-error' : '' %>" 
+            name="fecha_vencimiento" type="date" 
+            value="<%= old?.fecha_vencimiento || '' %>">
       <% if (errors?.fecha_vencimiento) { %>
         <span class="error"><%= errors.fecha_vencimiento.msg %></span>
       <% } %>

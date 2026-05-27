@@ -107,15 +107,6 @@ const choferService = {
 
   },
 
-    findByPk: async function (id) {
-      try {
-          let allChoferes = await this.getAll(); // Aquí se llama a la función
-          let OneChofer = allChoferes.find(onechofer => onechofer.id === id);
-          return OneChofer;
-      } catch (error) {
-
-      }
-  },
 
   create: async function (req) {
         try {

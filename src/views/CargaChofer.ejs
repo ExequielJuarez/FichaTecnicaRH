@@ -167,66 +167,61 @@
 
     <div class="form-group">
       <label>Nombre</label>
-      <input class="input<%=errors?.nombre ? 'input-error' : '' %>" name="nombre" type="text" placeholder="Ingrese el nombre" value="<%= old?.nombre || '' %>">
+      <input class="input <%= errors?.nombre ? 'input-error' : '' %>" name="nombre" type="text" placeholder="Ingrese el nombre" value="<%= old?.nombre || '' %>">
       <% if (errors?.nombre) { %>
-        <span class ="error">
-          <%= errors.nombre.msg %>
-        </span>
+        <span class="error"><%= errors.nombre.msg %></span>
       <% } %>
     </div>
 
     <div class="form-group">
       <label>Apellido</label>
-      <input class="input <%= errors?.Apellido ? 'input-error' : '' %>" name="Apellido" type="text" placeholder="Ingrese el apellido" value="<%= old?.Apellido || '' %>">
+      <input class="input <%= errors?.apellido ? 'input-error' : '' %>" name="apellido" type="text" placeholder="Ingrese el apellido" value="<%= old?.apellido || '' %>">
       <% if (errors?.apellido) { %>
-
-        <span class="error">
-          <%= errors.apellido.msg%>
-        </span>
-
+        <span class="error"><%= errors.apellido.msg %></span>
       <% } %>
     </div>
 
     <div class="form-row">
       <div class="form-group">
         <label>DNI</label>
-
         <input class="input <%= errors?.dni ? 'input-error' : '' %>" name="dni" type="text" value="<%= old?.dni || '' %>">
         <% if (errors?.dni) { %>
-
-        <span class="error">
-          <%= errors.dni.msg%>
-        </span>
-
-      <% } %>
+          <span class="error"><%= errors.dni.msg %></span>
+        <% } %>
       </div>
+
       <div class="form-group">
         <label>Fecha de Nacimiento</label>
-        <input name="fechaNacimiento" type="date">
+        <input class="input <%= errors?.fechaNacimiento ? 'input-error' : '' %>" name="fechaNacimiento" type="date" value="<%= old?.fechaNacimiento || '' %>">
+        <% if (errors?.fechaNacimiento) { %>
+          <span class="error"><%= errors.fechaNacimiento.msg %></span>
+        <% } %>
       </div>
     </div>
 
     <div class="form-row">
       <div class="form-group">
         <label>Teléfono</label>
-        <input  class="input <%= errors?.telefono ? 'input-error' : '' %>" name="telefono" type="tel" value="<%= old?.telefono || '' %>">
+        <input class="input <%= errors?.telefono ? 'input-error' : '' %>" name="telefono" type="tel" value="<%= old?.telefono || '' %>">
         <% if (errors?.telefono) { %>
-
-        <span class="error">
-          <%= errors.telefono.msg%>
-        </span>
-
-      <% } %>
+          <span class="error"><%= errors.telefono.msg %></span>
+        <% } %>
       </div>
       <div class="form-group">
         <label>E-mail</label>
-        <input name="email" type="email">
+        <input class="input <%= errors?.email ? 'input-error' : '' %>" name="email" type="email" value="<%= old?.email || '' %>">
+        <% if (errors?.email) { %>
+          <span class="error"><%= errors.email.msg %></span>
+        <% } %>
       </div>
     </div>
 
     <div class="form-group">
       <label>Dirección</label>
-      <input name="direccion" type="text">
+      <input class="input <%= errors?.direccion ? 'input-error' : '' %>" name="direccion" type="text" value="<%= old?.direccion || '' %>">
+      <% if (errors?.direccion) { %>
+        <span class="error"><%= errors.direccion.msg %></span>
+      <% } %>
     </div>
   </section>
 
@@ -236,39 +231,34 @@
     <div class="form-row">
       <div class="form-group">
         <label>Fecha de Ingreso</label>
-        <input name="fechaIngreso" type="date">
+        <input class="input <%= errors?.fechaIngreso ? 'input-error' : '' %>" name="fechaIngreso" type="date" value="<%= old?.fechaIngreso || '' %>">
+        <% if (errors?.fechaIngreso) { %>
+          <span class="error"><%= errors.fechaIngreso.msg %></span>
+        <% } %>
       </div>
 
       <div class="form-group">
         <label>Estado</label>
-        <select name="activo-inactivo">
+        <select class="input <%= errors?.['activo-inactivo'] ? 'input-error' : '' %>" name="activo-inactivo">
           <option value="">Seleccionar</option>
-          <option value="Activo">Activo</option>
-          <option value="Inactivo">Inactivo</option>
+          <option value="Activo"   <%= old?.['activo-inactivo'] === 'Activo'   ? 'selected' : '' %>>Activo</option>
+          <option value="Inactivo" <%= old?.['activo-inactivo'] === 'Inactivo' ? 'selected' : '' %>>Inactivo</option>
         </select>
+        <% if (errors?.['activo-inactivo']) { %>
+          <span class="error"><%= errors['activo-inactivo'].msg %></span>
+        <% } %>
       </div>
     </div>
-
 
     <div class="form-row">
       <div class="form-group">
         <label>Turno</label>
-        <!-- le agrego name por si después lo usás -->
         <select name="Turno">
           <option value="">Seleccionar</option>
-          <option>Mañana</option>
-          <option>Tarde</option>
+          <option <%= old?.Turno === 'Mañana' ? 'selected' : '' %>>Mañana</option>
+          <option <%= old?.Turno === 'Tarde'  ? 'selected' : '' %>>Tarde</option>
         </select>
       </div>
-
-      <!-- <div class="form-group">
-        <label>Area</label>
-        <select name="Area">
-          <option value="">Seleccionar</option>
-          <option value="Manual">Manual</option>
-          <option value="Automatica">Automatica</option>
-        </select>
-      </div> -->
     </div>
   </section>
 
@@ -279,49 +269,47 @@
       <label>Número de Licencia</label>
       <input class="input <%= errors?.numero_licencia ? 'input-error' : '' %>" name="numero_licencia" type="text" placeholder="Ingrese el número de licencia" value="<%= old?.numero_licencia || '' %>">
       <% if (errors?.numero_licencia) { %>
-
-        <span class="error">
-          <%= errors.numero_licencia.msg%>
-        </span>
-
+        <span class="error"><%= errors.numero_licencia.msg %></span>
       <% } %>
     </div>
 
     <div class="form-row">
       <div class="form-group">
         <label>Categoría de Licencia</label>
-        <select name="categoria">
-          <!-- EXACTO como en ENUM -->
-            <option value="">Seleccione categoría</option>
-            <option value="A">A - Motocicletas</option>
-            <option value="B1">B1 - Autos y camionetas</option>
-            <option value="B2">B2 - Vehículos utilitarios</option>
-            <option value="C">C - Camiones sin acoplado</option>
-            <option value="D">D - Transporte de pasajeros</option>
-            <option value="E">E - Camiones con acoplado</option>
-            <option value="G">G - Maquinaria especial</option>
+        <select class="input <%= errors?.categoria ? 'input-error' : '' %>" name="categoria">
+          <option value="">Seleccione categoría</option>
+          <option value="A"  <%= old?.categoria === 'A'  ? 'selected' : '' %>>A - Motocicletas</option>
+          <option value="B1" <%= old?.categoria === 'B1' ? 'selected' : '' %>>B1 - Autos y camionetas</option>
+          <option value="B2" <%= old?.categoria === 'B2' ? 'selected' : '' %>>B2 - Vehículos utilitarios</option>
+          <option value="C"  <%= old?.categoria === 'C'  ? 'selected' : '' %>>C - Camiones sin acoplado</option>
+          <option value="D"  <%= old?.categoria === 'D'  ? 'selected' : '' %>>D - Transporte de pasajeros</option>
+          <option value="E"  <%= old?.categoria === 'E'  ? 'selected' : '' %>>E - Camiones con acoplado</option>
+          <option value="G"  <%= old?.categoria === 'G'  ? 'selected' : '' %>>G - Maquinaria especial</option>
         </select>
+        <% if (errors?.categoria) { %>
+          <span class="error"><%= errors.categoria.msg %></span>
+        <% } %>
       </div>
 
       <div class="form-group">
         <label>Fecha de Emisión</label>
-        <input name="fecha_emision" type="date">
+        <input class="input <%= errors?.fecha_emision ? 'input-error' : '' %>" name="fecha_emision" type="date" value="<%= old?.fecha_emision || '' %>">
+        <% if (errors?.fecha_emision) { %>
+          <span class="error">
+            <%= errors.fecha_emision.msg %>
+          </span>
+        <% } %>
       </div>
-
+      
     </div>
 
     <div class="form-group small">
-        <label>Vencimiento</label>
-        <input class="input <%= errors?.fecha_vencimiento ? 'input-error' : '' %>" name="fecha_vencimiento" type="date" value="<%= old?.fehca_vencimiento || '' %>">
-        <% if (errors?.fecha_vencimiento) { %>
-
-        <span class="error">
-          <%= errors.fecha_vencimiento.msg%>
-        </span>
-
+      <label>Vencimiento</label>
+      <input class="input <%= errors?.fecha_vencimiento ? 'input-error' : '' %>" name="fecha_vencimiento" type="date" value="<%= old?.fecha_vencimiento || '' %>">
+      <% if (errors?.fecha_vencimiento) { %>
+        <span class="error"><%= errors.fecha_vencimiento.msg %></span>
       <% } %>
-      </div>
-
+    </div>
   </section>
 
   <section class="form-section">

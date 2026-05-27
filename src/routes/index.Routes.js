@@ -9,7 +9,7 @@ const {
     choferVAlidation,
     choferEditValidation
 } = require("../validations/choferValidation");
-
+const alertaController = require('../controllers/alertaController');
 
 // ================= VEHICULOS =================
 
@@ -94,3 +94,9 @@ router.post('/InicioSesion', userController.ProcesoIniciarSesion);
 
 module.exports = router;
 
+//======================= Alertas =======================
+router.get('/Alertas',                alertaController.ListAlertas);
+router.get('/Alertas/recientes',      alertaController.getRecientes);   // ANTES de /:id
+router.post('/Alertas/leer-todas',    alertaController.marcarTodasLeidas);
+router.post('/Alertas/:id/leer',      alertaController.marcarLeida);
+router.get('/Alertas/:id',            alertaController.detalleAlerta);  // DESPUÉS

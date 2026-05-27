@@ -538,7 +538,7 @@ tr:hover td { background-color: #f8fafc; }
 }
 
 .btn-editar {
-    background-color: #2563eb;
+    background-color: var(--color-sidebar-bg);
     color: #fff;
 }
 
