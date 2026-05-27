@@ -63,6 +63,7 @@
                     <ul class="sidebar__submenu">
                         <li><a href="/Choferes" class="sidebar__submenu-link">Listado de choferes</a></li>
                         <li><a href="/Choferes/carga" class="sidebar__submenu-link">Agregar chofer</a></li>
+                        <li><a href="/asignaciones" class="sidebar__submenu-link ">Asignación de vehículo</a></li>
                     </ul>
                 </li>
 
@@ -75,6 +76,7 @@
                     <ul class="sidebar__submenu">
                         <li><a href="/Mantenimientos" class="sidebar__submenu-link sidebar__submenu-link--active">Listado</a></li>
                         <li><a href="/Mantenimientos/carga" class="sidebar__submenu-link">Agregar mantenimiento</a></li>
+                        
                     </ul>
                 </li>
 
@@ -333,6 +335,9 @@ function openSidebar() {
     menuToggle.setAttribute('aria-expanded', 'true');
     document.body.style.overflow = 'hidden';
 }
+
+
+
 function closeSidebar() {
     sidebar.classList.remove('sidebar--open');
     overlay.classList.remove('sidebar-overlay--visible');
@@ -370,6 +375,13 @@ document.querySelectorAll('.sidebar__menu-item--expandable > .sidebar__menu-link
     const filtroServicio = document.getElementById("filtro-servicio");
     const filtroEstado   = document.getElementById("filtro-estado");
     const btnLimpiar     = document.getElementById("btn-limpiar");
+
+    // ── Leer patente desde URL si viene de "Ver todos los mantenimientos" ──
+    const params = new URLSearchParams(window.location.search);
+    const patenteParam = params.get('patente');
+    if (patenteParam) {
+        filtroBusqueda.value = patenteParam;
+    }
 
     // Elementos de paginación
     const infoPag    = document.querySelector(".info");

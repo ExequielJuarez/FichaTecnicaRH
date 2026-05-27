@@ -51,6 +51,7 @@
           <ul class="sidebar__submenu">
             <li><a href="/Vehicles" class="sidebar__submenu-link sidebar__submenu-link--active">Listado de vehículos</a></li>
             <li><a href="/CargaVehiculo" class="sidebar__submenu-link">Agregar vehículo</a></li>
+            <li><a href="/asignaciones" class="sidebar__submenu-link ">Asignación de vehículo</a></li>
           </ul>
         </li>
       
@@ -63,6 +64,7 @@
           <ul class="sidebar__submenu">
             <li><a href="/Choferes" class="sidebar__submenu-link">Listado de choferes</a></li>
             <li><a href="/Choferes/carga" class="sidebar__submenu-link">Agregar chofer</a></li>
+            
           </ul>
         </li>
       
@@ -195,7 +197,11 @@
         </span>
 
         <div class="vehicle-card__meta">
-          <span class="badge badge--available">
+          <span class="badge 
+            <%= vehiculo.estado_actual === 'Disponible'    ? 'badge--available'       :
+                vehiculo.estado_actual === 'En uso'         ? 'badge--in-use'          :
+                vehiculo.estado_actual === 'Mantenimiento'  ? 'badge--maintenance'     :
+                vehiculo.estado_actual === 'Baja'           ? 'badge--out-of-service'  : 'badge--available' %>">
             <%= vehiculo.estado_actual %>
           </span>
 
@@ -354,38 +360,57 @@
 
                 <div class="vehicle-profile__spec-row">
                   <dt class="vehicle-profile__spec-label">Chofer Asignado</dt>
-                  <dd class="vehicle-profile__spec-value">—</dd>
+                  <dd class="vehicle-profile__spec-value">
+                    <% if (asignacionActiva && asignacionActiva.Chofer) { %>
+                      <%= asignacionActiva.Chofer.apellido %>, <%= asignacionActiva.Chofer.nombre %>
+                    <% } else { %>
+                      —
+                    <% } %>
+                  </dd>
                 </div>
               </dl>
 
             </div>
           </div>
 
-          <% if (vehiculoSeleccionado) { %>
-            <div class="vehicle-profile__actions">
-          
-              <a href="/Vehicles/Editar/<%= vehiculoSeleccionado.id_vehiculo %>" 
-                 class="vehicle-profile__edit-btn"
-                 style="display:inline-flex;align-items:center;gap:0.4rem;text-decoration:none;cursor:pointer;">
-                <svg viewBox="0 0 20 20" fill="currentColor" style="width:16px;height:16px">
-                  <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"/>
-                </svg>
-                Editar Vehículo
-              </a>
-          
-              <a href="/Mantenimientos/carga/<%= vehiculoSeleccionado.id_vehiculo %>"
-                 class="vehicle-profile__edit-btn vehicle-profile__edit-btn--maint"
-                 style="display:inline-flex;align-items:center;gap:0.4rem;text-decoration:none;cursor:pointer;">
-                <svg viewBox="0 0 20 20" fill="currentColor" style="width:16px;height:16px">
-                  <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>
-                </svg>
-                Registrar Mantenimiento
-              </a>
-          
-            </div>
-          <% } %>
-
         </article>
+
+        <!-- Acciones -->
+        <% if (vehiculoSeleccionado) { %>
+          <div class="vehicle-profile__actions" style="margin-bottom: 12px;">
+        
+            <a href="/Vehicles/Editar/<%= vehiculoSeleccionado.id_vehiculo %>" 
+               class="vehicle-profile__edit-btn"
+               style="display:inline-flex;align-items:center;gap:0.4rem;text-decoration:none;">
+              <svg viewBox="0 0 20 20" fill="currentColor" style="width:16px;height:16px">
+                <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"/>
+              </svg>
+              Editar Vehículo
+            </a>
+        
+            <a href="/Mantenimientos/carga/<%= vehiculoSeleccionado.id_vehiculo %>"
+               class="vehicle-profile__edit-btn vehicle-profile__edit-btn--maint"
+               style="display:inline-flex;align-items:center;gap:0.4rem;text-decoration:none;">
+              <svg viewBox="0 0 20 20" fill="currentColor" style="width:16px;height:16px">
+                <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>
+              </svg>
+              Registrar Mantenimiento
+            </a>
+        
+            <!-- Solo aparece si el vehículo está Disponible -->
+            <% if (vehiculoSeleccionado.estado_actual === 'Disponible') { %>
+              <a href="/asignaciones?id_vehiculo=<%= vehiculoSeleccionado.id_vehiculo %>"
+                 class="vehicle-profile__edit-btn vehicle-profile__edit-btn--assign"
+                 style="display:inline-flex;align-items:center;gap:0.4rem;text-decoration:none;">
+                <svg viewBox="0 0 20 20" fill="currentColor" style="width:16px;height:16px">
+                  <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
+                </svg>
+                Asignar a Chofer
+              </a>
+            <% } %>
+        
+          </div>
+        <% } %>
 
         <!-- Tabs de navegación -->
         <nav class="detail-tabs" aria-label="Secciones del vehículo">
@@ -414,56 +439,40 @@
                         <th class="data-table__th">Fecha</th>
                         <th class="data-table__th">Tipo de Servicio</th>
                         <th class="data-table__th">Km al Momento</th>
-                        <th class="data-table__th">Proveedor</th>
+                        <!-- <th class="data-table__th">Proveedor</th> -->
                         <th class="data-table__th">Costo</th>
                         <th class="data-table__th">Próximo Servicio</th>
                         <th class="data-table__th">Acciones</th>
                       </tr>
                     </thead>
                     <tbody class="data-table__body">
-                      <tr class="data-table__row">
-                        <td class="data-table__td" data-label="Fecha">15/03/2025</td>
-                        <td class="data-table__td" data-label="Tipo">Cambio de aceite y filtros</td>
-                        <td class="data-table__td" data-label="Km">40.000 km</td>
-                        <td class="data-table__td" data-label="Proveedor">Lubricentro Central</td>
-                        <td class="data-table__td" data-label="Costo">$ 85.000</td>
-                        <td class="data-table__td" data-label="Próximo">50.000 km / 15/09/2025</td>
-                        <td class="data-table__td" data-label="Acciones">
-                          <button class="data-table__action-btn" aria-label="Ver detalle">
-                            <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/></svg>
-                          </button>
-                        </td>
-                      </tr>
-                      <tr class="data-table__row">
-                        <td class="data-table__td" data-label="Fecha">10/12/2024</td>
-                        <td class="data-table__td" data-label="Tipo">Revisión general</td>
-                        <td class="data-table__td" data-label="Km">35.000 km</td>
-                        <td class="data-table__td" data-label="Proveedor">Taller Municipal</td>
-                        <td class="data-table__td" data-label="Costo">$ 120.000</td>
-                        <td class="data-table__td" data-label="Próximo">40.000 km / 10/06/2025</td>
-                        <td class="data-table__td" data-label="Acciones">
-                          <button class="data-table__action-btn" aria-label="Ver detalle">
-                            <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/></svg>
-                          </button>
-                        </td>
-                      </tr>
-                      <tr class="data-table__row">
-                        <td class="data-table__td" data-label="Fecha">05/09/2024</td>
-                        <td class="data-table__td" data-label="Tipo">Cambio de pastillas</td>
-                        <td class="data-table__td" data-label="Km">30.000 km</td>
-                        <td class="data-table__td" data-label="Proveedor">Frenos del Sur</td>
-                        <td class="data-table__td" data-label="Costo">$ 65.000</td>
-                        <td class="data-table__td" data-label="Próximo">—</td>
-                        <td class="data-table__td" data-label="Acciones">
-                          <button class="data-table__action-btn" aria-label="Ver detalle">
-                            <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/></svg>
-                          </button>
-                        </td>
-                      </tr>
+                      <% if (ultimosMantenimientos && ultimosMantenimientos.length > 0) { %>
+                        <% ultimosMantenimientos.forEach(m => { %>
+                        <tr class="data-table__row">
+                          <td class="data-table__td" data-label="Fecha">     <%= m.fecha_inicio %>              </td>
+                          <td class="data-table__td" data-label="Tipo">      <%= m.tipo_servicio %>             </td>
+                          <td class="data-table__td" data-label="Km">        <%= m.km_servicio %> km            </td>
+                          <!-- <td class="data-table__td" data-label="Proveedor"> —  -->                                 </td>
+                          <td class="data-table__td" data-label="Costo">     $<%= m.costo_total %>              </td>
+                          <td class="data-table__td" data-label="Próximo">
+                            <%= m.proxima_fecha ? m.proxima_fecha : (m.proximo_km ? m.proximo_km + ' km' : '—') %>
+                          </td>
+                          <td class="data-table__td" data-label="Acciones">
+                            <button class="data-table__action-btn" aria-label="Ver detalle">
+                              <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/></svg>
+                            </button>
+                          </td>
+                        </tr>
+                        <% }) %>
+                      <% } else { %>
+                        <tr class="data-table__row">
+                          <td class="data-table__td" colspan="7" style="text-align:center;">Sin mantenimientos registrados</td>
+                        </tr>
+                      <% } %>
                     </tbody>
                   </table>
                 </div>
-                <a href="#" class="data-card__see-all">
+                <<a href="/Mantenimientos?patente=<%= vehiculoSeleccionado?.patente || '' %>" class="data-card__see-all">
                   Ver todos los mantenimientos
                   <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
                 </a>
@@ -473,7 +482,7 @@
               <section class="data-card" aria-label="Préstamos y uso recientes">
                 <header class="data-card__header">
                   <svg class="data-card__icon" viewBox="0 0 20 20" fill="currentColor"><path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/><path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3z"/></svg>
-                  <h3 class="data-card__title">Préstamos / Uso Recientes</h3>
+                  <h3 class="data-card__title">Asignaciones recientes</h3>
                 </header>
                 <div class="data-table-wrapper">
                   <table class="data-table">
@@ -482,32 +491,32 @@
                         <th class="data-table__th">Fecha Salida</th>
                         <th class="data-table__th">Fecha Devolución</th>
                         <th class="data-table__th">Chofer</th>
-                        <th class="data-table__th">Destino / Observaciones</th>
+                        <th class="data-table__th">Destino</th>
                         <th class="data-table__th">Estado</th>
                       </tr>
                     </thead>
                     <tbody class="data-table__body">
-                      <tr class="data-table__row">
-                        <td class="data-table__td" data-label="Salida">10/05/2025</td>
-                        <td class="data-table__td" data-label="Devolución">12/05/2025</td>
-                        <td class="data-table__td" data-label="Chofer">Hernán Quiroga</td>
-                        <td class="data-table__td" data-label="Destino">Traslado al Distrito Norte</td>
-                        <td class="data-table__td" data-label="Estado"><span class="badge badge--finished">Finalizado</span></td>
-                      </tr>
-                      <tr class="data-table__row">
-                        <td class="data-table__td" data-label="Salida">02/05/2025</td>
-                        <td class="data-table__td" data-label="Devolución">05/05/2025</td>
-                        <td class="data-table__td" data-label="Chofer">Marcos Díaz</td>
-                        <td class="data-table__td" data-label="Destino">Servicio de inspección</td>
-                        <td class="data-table__td" data-label="Estado"><span class="badge badge--finished">Finalizado</span></td>
-                      </tr>
-                      <tr class="data-table__row">
-                        <td class="data-table__td" data-label="Salida">20/04/2025</td>
-                        <td class="data-table__td" data-label="Devolución">22/04/2025</td>
-                        <td class="data-table__td" data-label="Chofer">Hernán Quiroga</td>
-                        <td class="data-table__td" data-label="Destino">Traslado materiales</td>
-                        <td class="data-table__td" data-label="Estado"><span class="badge badge--finished">Finalizado</span></td>
-                      </tr>
+                      <% if (ultimasAsignaciones && ultimasAsignaciones.length > 0) { %>
+                        <% ultimasAsignaciones.forEach(a => { %>
+                        <tr class="data-table__row">
+                          <td class="data-table__td" data-label="Salida">
+                            <%= a.fecha_salida ? new Date(a.fecha_salida).toLocaleDateString('es-AR') : '—' %>
+                          </td>
+                          <td class="data-table__td" data-label="Devolución">
+                            <%= a.fecha_devolucion ? new Date(a.fecha_devolucion).toLocaleDateString('es-AR') : '—' %>
+                          </td>
+                          <td class="data-table__td" data-label="Chofer">      <%= a.Chofer?.nombre || '—' %>               </td>
+                          <td class="data-table__td" data-label="Destino">     <%= a.destino_area || a.observaciones || '—' %></td>
+                          <td class="data-table__td" data-label="Estado">
+                            <span class="badge badge--finished"><%= a.estado %></span>
+                          </td>
+                        </tr>
+                        <% }) %>
+                      <% } else { %>
+                        <tr class="data-table__row">
+                          <td class="data-table__td" colspan="5" style="text-align:center;">Sin asignaciones registradas</td>
+                        </tr>
+                      <% } %>
                     </tbody>
                   </table>
                 </div>

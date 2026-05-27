@@ -10,7 +10,10 @@ const vehicleController = {
             let vehiculos = await vehicleService.getAll();
             res.render("listadoVehiculos", {
                 vehiculos,
-                vehiculoSeleccionado: null  // ← esto
+                vehiculoSeleccionado: null,
+                ultimosMantenimientos: [],
+                ultimasAsignaciones:   [],
+                asignacionActiva: null
             });
         } catch (error) {
             console.log(error);
@@ -61,30 +64,28 @@ const vehicleController = {
     },
 
     getVehicleById: async (req, res) => {
-
         try {
-
             const id = req.params.id;
-
-            const vehiculo = await vehicleService.getOne(id);
-
-            const vehiculos = await vehicleService.getAll();
-
+            const vehiculo   = await vehicleService.getOne(id);
+            const vehiculos  = await vehicleService.getAll();
+            const ultimosMantenimientos = await vehicleService.getLastMantenimientos(id);
+            const ultimasAsignaciones   = await vehicleService.getLastAsignaciones(id);
+    
+            // Asignación activa del vehículo
+            const asignacionActiva = await vehicleService.getAsignacionActiva(id);
+    
             res.render("listadoVehiculos", { 
                 vehiculos, 
-                vehiculoSeleccionado: vehiculo
+                vehiculoSeleccionado: vehiculo,
+                ultimosMantenimientos,
+                ultimasAsignaciones,
+                asignacionActiva: asignacionActiva || null
             });
-
         } catch (error) {
-
             console.log(error);
-
             res.send("Error al obtener el vehículo");
-
         }
-
     },
-
     CargaVehiculo : async (req,res) => {
 
         try {

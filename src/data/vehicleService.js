@@ -229,7 +229,48 @@ const vehicleService = {
 
     });
 
-}
+},
+getLastMantenimientos: async function (id_vehiculo, limit = 3) {
+    try {
+        return await db.Mantenimiento.findAll({
+            where: { id_vehiculo },
+            order: [['fecha_inicio', 'DESC']],
+            limit
+        });
+    } catch (error) {
+        console.log(error);
+        return [];
+    }
+},
+
+getLastAsignaciones: async function (id_vehiculo, limit = 3) {
+    try {
+        return await db.AsignacionVehiculo.findAll({
+            where: { id_vehiculo },
+            order: [['fecha_salida', 'DESC']],
+            limit,
+            include: [{ association: 'Chofer' }]
+        });
+    } catch (error) {
+        console.log(error);
+        return [];
+    }
+},
+
+getAsignacionActiva: async function (id_vehiculo) {
+    try {
+        return await db.AsignacionVehiculo.findOne({
+            where: { 
+                id_vehiculo,
+                estado: 'Activo'
+            },
+            include: [{ association: 'Chofer' }]
+        });
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+},
 
 }
 
