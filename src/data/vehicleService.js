@@ -247,6 +247,42 @@ getLastAsignaciones: async function (id_vehiculo, limit = 3) {
     }
 },
 
+getVehiculosAsignados: async function () {
+    try {
+        const asignaciones = await db.AsignacionVehiculo.findAll({
+            where: { estado: 'Activo' },
+            include: [
+                {
+                    association: 'vehiculo',  // minúscula, igual que el as del modelo
+                    attributes: ['id_vehiculo', 'patente', 'marca', 'modelo', 'anio', 'km_actual']
+                },
+                {
+                    model: db.Chofer,  // sin as porque no tiene alias definido
+                    attributes: ['id_chofer', 'nombre', 'apellido']
+                }
+            ]
+        });
+
+        return asignaciones.map(asig => ({
+            id_vehiculo:     asig.vehiculo.id_vehiculo,
+            patente:         asig.vehiculo.patente,
+            marca:           asig.vehiculo.marca,
+            modelo:          asig.vehiculo.modelo,
+            anio:            asig.vehiculo.anio,
+            km_actual:       asig.vehiculo.km_actual,
+            chofer_nombre:   asig.Chofer.nombre,
+            chofer_apellido: asig.Chofer.apellido,
+            destino_area:    asig.destino_area || null,
+            fecha_salida:    asig.fecha_salida || null,
+            id_asignacion:   asig.id_asignacion
+        }));
+
+    } catch (error) {
+        console.log(error);
+        return [];
+    }
+},
+
 getAsignacionActiva: async function (id_vehiculo) {
     try {
         return await db.AsignacionVehiculo.findOne({
@@ -261,6 +297,23 @@ getAsignacionActiva: async function (id_vehiculo) {
         return null;
     }
 },
+
+actualizarKm: async function (id_vehiculo, km_nuevo, observaciones) {
+    try {
+        const updateData = { km_actual: km_nuevo };
+
+        if (observaciones && observaciones.trim() !== '') {
+            updateData.observaciones = observaciones.trim();
+        }
+
+        await db.Vehiculo.update(updateData, {
+            where: { id_vehiculo }
+        });
+
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 }
 

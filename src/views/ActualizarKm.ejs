@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Actualizar Kilometraje - Gestión de Flota</title>
+  <link rel="stylesheet" href="/css/ActualizarKm.css" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
+
+  <!-- ===================== SIDEBAR ===================== -->
+  <aside class="sidebar" id="sidebar" aria-label="Menú de navegación">
+
+    <div class="sidebar__brand">
+      <div class="sidebar__logo">
+        <img class="imglogosidebar" src="/images/header/images-removebg-preview (1).png" alt="">
+      </div>
+      <div class="sidebar__brand-text">
+        <span class="sidebar__brand-name">Ficha Tecnica</span>
+        <span class="sidebar__brand-sub">Municipalidad</span>
+      </div>
+      <button class="sidebar__close-btn" id="sidebar-close" aria-label="Cerrar menú">
+        <svg viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+        </svg>
+      </button>
+    </div>
+
+    <nav class="sidebar__nav" aria-label="Navegación principal">
+      <span class="sidebar__nav-label">Menú Principal</span>
+      <ul class="sidebar__menu">
+
+        <li class="sidebar__menu-item">
+          <a href="#" class="sidebar__menu-link">
+            <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+            Inicio
+          </a>
+        </li>
+
+        <li class="sidebar__menu-item sidebar__menu-item--expandable">
+          <a href="#" class="sidebar__menu-link sidebar__menu-link--active">
+            <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/><path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z"/></svg>
+            Vehículos
+            <svg class="sidebar__menu-chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+          </a>
+          <ul class="sidebar__submenu">
+            <li><a href="/Vehicles" class="sidebar__submenu-link">Listado de vehículos</a></li>
+            <li><a href="/CargaVehiculo" class="sidebar__submenu-link">Agregar vehículo</a></li>
+            <li><a href="/asignaciones" class="sidebar__submenu-link">Asignación de vehículo</a></li>
+            <li><a href="/ActualizarKm" class="sidebar__submenu-link sidebar__submenu-link--active">Actualizar kilometraje</a></li>
+          </ul>
+        </li>
+
+        <li class="sidebar__menu-item sidebar__menu-item--expandable">
+          <a href="#" class="sidebar__menu-link">
+            <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/></svg>
+            Choferes
+            <svg class="sidebar__menu-chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+          </a>
+          <ul class="sidebar__submenu">
+            <li><a href="/Choferes" class="sidebar__submenu-link">Listado de choferes</a></li>
+            <li><a href="/Choferes/carga" class="sidebar__submenu-link">Agregar chofer</a></li>
+          </ul>
+        </li>
+
+        <li class="sidebar__menu-item sidebar__menu-item--expandable">
+          <a href="#" class="sidebar__menu-link">
+            <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/></svg>
+            Mantenimientos
+            <svg class="sidebar__menu-chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+          </a>
+          <ul class="sidebar__submenu">
+            <li><a href="/Mantenimientos" class="sidebar__submenu-link">Listado</a></li>
+            <li><a href="/Mantenimientos/carga" class="sidebar__submenu-link">Agregar mantenimiento</a></li>
+          </ul>
+        </li>
+
+        <li class="sidebar__menu-item sidebar__menu-item--expandable">
+          <a href="#" class="sidebar__menu-link">
+            <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6.672 1.911a1 1 0 10-1.932.518l.259.966a1 1 0 001.932-.518l-.26-.966zM2.429 4.74a1 1 0 10-.517 1.932l.966.259a1 1 0 00.517-1.932l-.966-.26zm8.814-.569a1 1 0 00-1.415-1.414l-.707.707a1 1 0 101.415 1.415l.707-.708zm-7.071 7.072l.707-.707A1 1 0 003.465 9.12l-.708.707a1 1 0 001.415 1.415zm3.2-5.171a1 1 0 00-1.3 1.3l4 10a1 1 0 001.823.075l1.38-2.759 3.018 3.02a1 1 0 001.414-1.415l-3.019-3.02 2.76-1.379a1 1 0 00-.076-1.822l-10-4z" clip-rule="evenodd"/></svg>
+            Herramientas
+            <svg class="sidebar__menu-chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+          </a>
+          <ul class="sidebar__submenu">
+            <li><a href="/Tools" class="sidebar__submenu-link">Inventario</a></li>
+            <li><a href="/Tools/carga" class="sidebar__submenu-link">Carga herramienta</a></li>
+            <li><a href="/Tools/prestamos" class="sidebar__submenu-link">Préstamos</a></li>
+            <li><a href="/Tools/ajustes" class="sidebar__submenu-link">Ajustes</a></li>
+          </ul>
+        </li>
+
+        <li class="sidebar__menu-item">
+          <a href="/Alertas" class="sidebar__menu-link">
+            <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/></svg>
+            Alertas
+            <span class="sidebar__badge">5</span>
+          </a>
+        </li>
+
+        <li class="sidebar__menu-item">
+          <a href="#" class="sidebar__menu-link">
+            <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/></svg>
+            Usuarios
+          </a>
+        </li>
+
+        <li class="sidebar__menu-item">
+          <a href="#" class="sidebar__menu-link">
+            <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"/></svg>
+            Auditoría
+          </a>
+        </li>
+
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- ===================== APP WRAPPER ===================== -->
+  <div class="app-wrapper">
+
+    <!-- ===================== TOPBAR ===================== -->
+    <header class="topbar">
+      <button class="topbar__menu-toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="sidebar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="6"  x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+
+      <div class="topbar__mobile-brand" aria-hidden="true">
+        <img class="imglogosidebarcel" src="/images/header/images-removebg-preview (1).png" alt="">
+        <span>Ficha Tecnica</span>
+      </div>
+
+      <nav class="topbar__breadcrumb" aria-label="Ruta de navegación">
+        <a href="/Vehicles">Vehículos</a>
+        <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
+        <span>Actualizar kilometraje</span>
+      </nav>
+
+      <div class="topbar__actions">
+        <button class="topbar__notification-btn" aria-label="Notificaciones">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/></svg>
+          <span class="topbar__notification-dot" aria-label="3 notificaciones">3</span>
+        </button>
+        <div class="topbar__user" role="button" tabindex="0">
+          <svg class="topbar__user-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/></svg>
+          <span class="topbar__user-name">Administrador</span>
+          <svg class="topbar__user-chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+        </div>
+      </div>
+    </header>
+
+    <!-- ===================== MAIN ===================== -->
+    <main class="main-content" id="main-content">
+
+      <div class="page-header">
+        <div class="page-header__left">
+          <h2 class="page-title">Actualizar Kilometraje</h2>
+          <p class="page-subtitle">Registrá el nuevo kilometraje de un vehículo actualmente asignado.</p>
+        </div>
+      </div>
+
+      <form class="form" action="/ActualizarKm" method="post" id="form-km" novalidate>
+
+        <!-- 1. SELECCIÓN DE VEHÍCULO -->
+        <section class="form-section">
+          <div class="form-section__header">
+            <div class="form-section__icon form-section__icon--blue">
+              <svg viewBox="0 0 20 20" fill="currentColor"><path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/><path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z"/></svg>
+            </div>
+            <h3>Vehículo Asignado</h3>
+          </div>
+
+          <div class="form-group">
+            <label for="id_vehiculo">Seleccionar vehículo <span class="required-star">*</span></label>
+            <select name="id_vehiculo" id="id_vehiculo" required>
+              <option value="">— Elegir vehículo asignado —</option>
+              <% asignaciones.forEach(asig => { %>
+                <option
+                  value="<%= asig.id_vehiculo %>"
+                  data-patente="<%= asig.patente %>"
+                  data-detalle="<%= asig.marca %> <%= asig.modelo %> (<%= asig.anio %>)"
+                  data-km="<%= asig.km_actual %>"
+                  data-chofer="<%= asig.chofer_nombre %> <%= asig.chofer_apellido %>"
+                  data-destino="<%= asig.destino_area || '—' %>"
+                  data-salida="<%= asig.fecha_salida ? new Date(asig.fecha_salida).toLocaleDateString('es-AR') : '—' %>"
+                >
+                  <%= asig.id_vehiculo %> — <%= asig.patente %> · <%= asig.marca %> <%= asig.modelo %>
+                </option>
+              <% }) %>
+            </select>
+            <span class="field-error" id="err-vehiculo"></span>
+          </div>
+
+          <!-- Tarjeta resumen del vehículo -->
+          <div class="vehicle-card" id="vehicle-card" aria-live="polite">
+            <div class="vehicle-card__badge">
+              <svg viewBox="0 0 20 20" fill="currentColor"><path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/><path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z"/></svg>
+            </div>
+            <div class="vehicle-card__info">
+              <div class="vehicle-card__patente" id="vc-patente">—</div>
+              <div class="vehicle-card__detail"  id="vc-detalle">—</div>
+            </div>
+            <div class="vehicle-card__km" id="vc-km">— km</div>
+          </div>
+
+          <!-- Info del chofer asignado -->
+          <div class="chofer-card" id="chofer-card" aria-live="polite">
+            <div class="chofer-card__icon">
+              <svg viewBox="0 0 20 20" fill="currentColor"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/></svg>
+            </div>
+            <div class="chofer-card__data">
+              <span class="chofer-card__label">Chofer asignado</span>
+              <span class="chofer-card__nombre" id="cc-nombre">—</span>
+            </div>
+            <div class="chofer-card__data">
+              <span class="chofer-card__label">Destino / Área</span>
+              <span class="chofer-card__valor" id="cc-destino">—</span>
+            </div>
+            <div class="chofer-card__data">
+              <span class="chofer-card__label">Fecha de salida</span>
+              <span class="chofer-card__valor" id="cc-salida">—</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. ACTUALIZACIÓN DEL KM -->
+        <section class="form-section">
+          <div class="form-section__header">
+            <div class="form-section__icon form-section__icon--amber">
+              <svg viewBox="0 0 20 20" fill="currentColor"><path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"/></svg>
+            </div>
+            <h3>Nuevo Kilometraje</h3>
+          </div>
+
+          <div class="km-update-layout">
+
+            <div class="km-display-block">
+              <span class="km-display-block__label">Kilometraje actual registrado</span>
+              <div class="km-display-block__value" id="km-actual-display">
+                <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg>
+                <span id="km-actual-texto">Seleccioná un vehículo</span>
+              </div>
+            </div>
+
+            <div class="km-arrow">
+              <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+            </div>
+
+            <div class="form-group km-nuevo-group">
+              <label for="km_nuevo">Nuevo kilometraje <span class="required-star">*</span></label>
+              <div class="km-input-wrapper">
+                <input
+                  type="number"
+                  name="km_nuevo"
+                  id="km_nuevo"
+                  min="0"
+                  placeholder="Ej: 102500"
+                  required
+                  autocomplete="off"
+                >
+                <span class="km-input-unit">km</span>
+              </div>
+              <span class="field-error" id="err-km"></span>
+              <span class="form-group__hint" id="km-diff-hint"></span>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- 3. FECHA Y OBSERVACIONES -->
+        <section class="form-section form-col-full">
+          <div class="form-section__header">
+            <div class="form-section__icon form-section__icon--slate">
+              <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/></svg>
+            </div>
+            <h3>Fecha y Observaciones</h3>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fecha_actualizacion">Fecha de actualización <span class="required-star">*</span></label>
+              <input type="date" name="fecha_actualizacion" id="fecha_actualizacion" required>
+              <span class="field-error" id="err-fecha"></span>
+            </div>
+            <div class="form-group">
+              <label for="observaciones">Observaciones</label>
+              <input type="text" name="observaciones" id="observaciones" placeholder="Ej: Lectura tomada al retorno de ruta norte…">
+            </div>
+          </div>
+        </section>
+
+        <!-- ACCIONES -->
+        <div class="acciones form-col-full">
+          <button type="button" class="boton-secundario" onclick="history.back()">
+            <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"/></svg>
+            Volver
+          </button>
+          <button type="submit" class="boton-primario" id="btn-guardar">
+            <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            Guardar Kilometraje
+          </button>
+        </div>
+
+      </form>
+
+    </main>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer class="app-footer">
+      <p class="app-footer__copy">* Campos obligatorios &nbsp;|&nbsp; &copy; 2025 &mdash; Ficha Tecnica · Municipalidad</p>
+    </footer>
+
+  </div><!-- /app-wrapper -->
+
+  <script>
+    /* ── Sidebar ─────────────────────────────────────── */
+    const sidebar      = document.getElementById('sidebar');
+    const overlay      = document.getElementById('sidebar-overlay');
+    const menuToggle   = document.getElementById('menu-toggle');
+    const sidebarClose = document.getElementById('sidebar-close');
+
+    function openSidebar() {
+      sidebar.classList.add('sidebar--open');
+      overlay.classList.add('sidebar-overlay--visible');
+      menuToggle.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeSidebar() {
+      sidebar.classList.remove('sidebar--open');
+      overlay.classList.remove('sidebar-overlay--visible');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+
+    menuToggle  .addEventListener('click', openSidebar);
+    sidebarClose.addEventListener('click', closeSidebar);
+    overlay     .addEventListener('click', closeSidebar);
+
+    document.querySelectorAll('.sidebar__menu-item--expandable > .sidebar__menu-link')
+      .forEach(link => {
+        link.addEventListener('click', function (e) {
+          e.preventDefault();
+          const item = this.closest('.sidebar__menu-item--expandable');
+          item.classList.toggle('sidebar__menu-item--open');
+        });
+      });
+
+    document.querySelectorAll('.sidebar__submenu-link--active').forEach(active => {
+      const item = active.closest('.sidebar__menu-item--expandable');
+      if (item) item.classList.add('sidebar__menu-item--open');
+    });
+
+    /* ── Selección de vehículo ───────────────────────── */
+    const vehicleSelect   = document.getElementById('id_vehiculo');
+    const vehicleCard     = document.getElementById('vehicle-card');
+    const choferCard      = document.getElementById('chofer-card');
+    const vcPatente       = document.getElementById('vc-patente');
+    const vcDetalle       = document.getElementById('vc-detalle');
+    const vcKm            = document.getElementById('vc-km');
+    const kmActualTexto   = document.getElementById('km-actual-texto');
+    const ccNombre        = document.getElementById('cc-nombre');
+    const ccDestino       = document.getElementById('cc-destino');
+    const ccSalida        = document.getElementById('cc-salida');
+    const kmNuevoInput    = document.getElementById('km_nuevo');
+    const kmDiffHint      = document.getElementById('km-diff-hint');
+
+    let kmActualGlobal = null;
+
+    vehicleSelect.addEventListener('change', function () {
+      const opt = this.options[this.selectedIndex];
+
+      if (!this.value) {
+        vehicleCard.classList.remove('visible');
+        choferCard.classList.remove('visible');
+        kmActualTexto.textContent = 'Seleccioná un vehículo';
+        kmActualGlobal = null;
+        kmDiffHint.textContent = '';
+        return;
+      }
+
+      // Tarjeta vehículo
+      vcPatente.textContent = opt.dataset.patente || '—';
+      vcDetalle.textContent = opt.dataset.detalle || '—';
+      const kmNum = parseInt(opt.dataset.km) || 0;
+      vcKm.textContent = kmNum.toLocaleString('es-AR') + ' km';
+      vehicleCard.classList.add('visible');
+
+      // KM actual en bloque visual
+      kmActualGlobal = kmNum;
+      kmActualTexto.textContent = kmNum.toLocaleString('es-AR') + ' km';
+
+      // Tarjeta chofer
+      ccNombre.textContent  = opt.dataset.chofer  || '—';
+      ccDestino.textContent = opt.dataset.destino || '—';
+      ccSalida.textContent  = opt.dataset.salida  || '—';
+      choferCard.classList.add('visible');
+
+      // Pre-completar km nuevo si está vacío
+      if (!kmNuevoInput.value) kmNuevoInput.value = kmNum;
+      actualizarDiff();
+    });
+
+    /* ── Diferencia de km en tiempo real ─────────────── */
+    function actualizarDiff() {
+      if (kmActualGlobal === null) { kmDiffHint.textContent = ''; return; }
+      const nuevo = parseInt(kmNuevoInput.value);
+      if (isNaN(nuevo)) { kmDiffHint.textContent = ''; return; }
+
+      const diff = nuevo - kmActualGlobal;
+      if (diff > 0) {
+        kmDiffHint.textContent = `+${diff.toLocaleString('es-AR')} km respecto al registro actual`;
+        kmDiffHint.className = 'form-group__hint hint--positivo';
+      } else if (diff === 0) {
+        kmDiffHint.textContent = 'Sin cambios respecto al registro actual';
+        kmDiffHint.className = 'form-group__hint hint--neutro';
+      } else {
+        kmDiffHint.textContent = `⚠ El nuevo valor es menor al actual (${Math.abs(diff).toLocaleString('es-AR')} km menos)`;
+        kmDiffHint.className = 'form-group__hint hint--advertencia';
+      }
+    }
+
+    kmNuevoInput.addEventListener('input', actualizarDiff);
+
+    /* ── Fecha por defecto = hoy ─────────────────────── */
+    const fechaInput = document.getElementById('fecha_actualizacion');
+    if (!fechaInput.value) {
+      fechaInput.value = new Date().toISOString().split('T')[0];
+    }
+
+    /* ── Validación ──────────────────────────────────── */
+    function setError(inputId, errId, msg) {
+      const el = document.getElementById(inputId);
+      const er = document.getElementById(errId);
+      if (msg) {
+        el?.classList.add('input-error');
+        if (er) er.textContent = msg;
+      } else {
+        el?.classList.remove('input-error');
+        if (er) er.textContent = '';
+      }
+    }
+
+    document.getElementById('form-km').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      // Limpiar errores
+      document.querySelectorAll('.input-error').forEach(el => el.classList.remove('input-error'));
+      document.querySelectorAll('.field-error').forEach(el => el.textContent = '');
+
+      let valido = true;
+
+      if (!vehicleSelect.value) {
+        setError('id_vehiculo', 'err-vehiculo', 'Seleccioná un vehículo asignado.');
+        valido = false;
+      }
+
+      const kmNuevo = parseInt(kmNuevoInput.value);
+      if (isNaN(kmNuevo) || kmNuevo < 0) {
+        setError('km_nuevo', 'err-km', 'Ingresá un kilometraje válido (mayor o igual a 0).');
+        valido = false;
+      }
+
+      if (!fechaInput.value) {
+        setError('fecha_actualizacion', 'err-fecha', 'La fecha de actualización es obligatoria.');
+        valido = false;
+      }
+
+      if (valido) this.submit();
+    });
+
+    // Limpiar error al corregir
+    ['id_vehiculo', 'km_nuevo', 'fecha_actualizacion'].forEach(id => {
+      document.getElementById(id)?.addEventListener('input', function () {
+        this.classList.remove('input-error');
+        const map = { id_vehiculo: 'err-vehiculo', km_nuevo: 'err-km', fecha_actualizacion: 'err-fecha' };
+        const er = document.getElementById(map[id]);
+        if (er) er.textContent = '';
+      });
+    });
+
+    // Disparar cambio si venía preseleccionado
+    if (vehicleSelect.value) vehicleSelect.dispatchEvent(new Event('change'));
+  </script>
+
+</body>
+</html>

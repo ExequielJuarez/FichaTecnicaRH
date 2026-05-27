@@ -36,13 +36,15 @@ router.get('/Vehicles',             authMiddleware, vehicleController.ListVehicl
 router.get('/Vehicles/:id',         authMiddleware, vehicleController.getVehicleById);
 router.get('/CargaVehiculo',        authMiddleware, vehicleController.CargaVehiculo);
 router.post('/CargaVehiculo',       authMiddleware, vehicleController.processVehicle);
+router.get('/ActualizarKm', vehicleController.CargaActualizarKm);
+router.post('/ActualizarKm', vehicleController.processActualizarKm);
 
 // ================= CHOFERES ================= //para editar
 router.get('/Choferes',        authMiddleware, choferController.ListChoferes);
 router.get('/Choferes/carga',  authMiddleware, choferController.createChofer);
 router.post('/Choferes/carga', authMiddleware, choferController.processChofer);
 
-router.get('/Choferes',                choferController.ListChoferes);
+router.get('/Choferes',  choferController.ListChoferes);
 router.get('/Choferes/Carga',          choferController.createChofer);
 router.post('/Choferes/Carga',         choferVAlidation(), choferController.processChofer);
 

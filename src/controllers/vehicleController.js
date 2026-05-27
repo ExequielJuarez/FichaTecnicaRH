@@ -215,6 +215,47 @@ processVehicle: async (req, res) => {
         }
     },
 
+    CargaActualizarKm: async (req, res) => {
+        try {
+            const asignaciones = await vehicleService.getVehiculosAsignados();
+            res.render('ActualizarKm', { asignaciones });
+        } catch (error) {
+            console.log(error);
+            res.send("Error al cargar la vista");
+        }
+    },
+    
+    processActualizarKm: async (req, res) => {
+        try {
+            const { id_vehiculo, km_nuevo, fecha_actualizacion, observaciones } = req.body;
+    
+            const errores = [];
+    
+            if (!id_vehiculo)
+                errores.push('Seleccioná un vehículo asignado.');
+            if (km_nuevo === '' || km_nuevo === undefined || Number(km_nuevo) < 0)
+                errores.push('Ingresá un kilometraje válido (mayor o igual a 0).');
+            if (!fecha_actualizacion)
+                errores.push('La fecha de actualización es obligatoria.');
+    
+            if (errores.length > 0) {
+                return res.status(400).send(
+                    `<h3>Errores de validación:</h3><ul>${errores.map(e => `<li>${e}</li>`).join('')}</ul>
+                     <a href="javascript:history.back()">Volver</a>`
+                );
+            }
+    
+            await vehicleService.actualizarKm(id_vehiculo, Number(km_nuevo), observaciones);
+            res.redirect('/Vehicles');
+    
+        } catch (error) {
+            console.log(error);
+            res.send("Error al actualizar el kilometraje");
+        }
+    }
+
+    
+
 }
 
 module.exports = vehicleController;

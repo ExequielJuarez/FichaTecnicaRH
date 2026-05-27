@@ -87,7 +87,9 @@ const userController = {
   CargaUsuario: async (req, res) => {
     try {
       let rolesDB = await db.Rol.findAll();
-      res.render("CargaUsuario", { roles: rolesDB });
+      res.render("CargaUsuario");
+      Console.log("PRUEBA")
+      console.log(rolesDB)
     } catch (error) {
       console.log(error);
       res.send("Error al cargar el formulario de usuarios.");
