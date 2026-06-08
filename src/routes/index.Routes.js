@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
+const auditoriaController = require('../controllers/auditoriaController')
 const vehicleController    = require('../controllers/vehicleController');
 const userController       = require('../controllers/userController');
 const choferController     = require('../controllers/choferController');
@@ -96,5 +97,7 @@ router.get('/Alertas/recientes',      alertaController.getRecientes);   // ANTES
 router.post('/Alertas/leer-todas',    alertaController.marcarTodasLeidas);
 router.post('/Alertas/:id/leer',      alertaController.marcarLeida);
 router.get('/Alertas/:id',            alertaController.detalleAlerta);  // DESPUÉS
+
+router.get("/Auditoria", authMiddleware, auditoriaController.ListarAuditoria);
 
 module.exports = router;
