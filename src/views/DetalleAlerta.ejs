@@ -32,12 +32,12 @@
             <span class="sidebar__nav-label">Menú Principal</span>
             <ul class="sidebar__menu">
 
-                <li class="sidebar__menu-item">
+                <!-- <li class="sidebar__menu-item">
                     <a href="#" class="sidebar__menu-link">
                         <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
                         Inicio
                     </a>
-                </li>
+                </li> -->
 
                 <li class="sidebar__menu-item sidebar__menu-item--expandable">
                     <a href="#" class="sidebar__menu-link">
@@ -48,6 +48,8 @@
                     <ul class="sidebar__submenu">
                         <li><a href="/Vehicles" class="sidebar__submenu-link">Listado de vehículos</a></li>
                         <li><a href="/CargaVehiculo" class="sidebar__submenu-link">Agregar vehículo</a></li>
+                        <li><a href="/asignaciones" class="sidebar__submenu-link ">Asignación de vehículo</a></li>
+                        <li><a href="/ActualizarKm" class="sidebar__submenu-link">Actualizar kilometraje</a></li>
                     </ul>
                 </li>
 
@@ -284,39 +286,6 @@
         </footer>
 
     </div>
-
-    <script>
-        const sidebar      = document.getElementById('sidebar');
-        const overlay      = document.getElementById('sidebar-overlay');
-        const menuToggle   = document.getElementById('menu-toggle');
-        const sidebarClose = document.getElementById('sidebar-close');
-
-        document.querySelectorAll('.sidebar__menu-item--expandable > .sidebar__menu-link')
-            .forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    this.closest('.sidebar__menu-item--expandable').classList.toggle('sidebar__menu-item--open');
-                });
-            });
-
-        function openSidebar() {
-            sidebar.classList.add('sidebar--open');
-            overlay.classList.add('sidebar-overlay--visible');
-            menuToggle.setAttribute('aria-expanded', 'true');
-            document.body.style.overflow = 'hidden';
-        }
-        function closeSidebar() {
-            sidebar.classList.remove('sidebar--open');
-            overlay.classList.remove('sidebar-overlay--visible');
-            menuToggle.setAttribute('aria-expanded', 'false');
-            document.body.style.overflow = '';
-        }
-
-        menuToggle.addEventListener('click', openSidebar);
-        sidebarClose.addEventListener('click', closeSidebar);
-        overlay.addEventListener('click', closeSidebar);
-    </script>
-
 
     <script>
         /* ── SIDEBAR ── */

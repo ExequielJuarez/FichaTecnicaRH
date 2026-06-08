@@ -9,7 +9,6 @@
 </head>
 <body>
 
-  <!-- Overlay para cerrar sidebar en mobile/tablet -->
   <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
 
   <!-- ===================== SIDEBAR ===================== -->
@@ -35,13 +34,6 @@
 
       <ul class="sidebar__menu">
 
-        <li class="sidebar__menu-item">
-          <a href="#" class="sidebar__menu-link">
-            <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
-            Inicio
-          </a>
-        </li>
-      
         <li class="sidebar__menu-item sidebar__menu-item--expandable">
           <a href="#" class="sidebar__menu-link sidebar__menu-link--active">
             <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/><path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z"/></svg>
@@ -51,10 +43,11 @@
           <ul class="sidebar__submenu">
             <li><a href="/Vehicles" class="sidebar__submenu-link sidebar__submenu-link--active">Listado de vehículos</a></li>
             <li><a href="/CargaVehiculo" class="sidebar__submenu-link">Agregar vehículo</a></li>
-            <li><a href="/asignaciones" class="sidebar__submenu-link ">Asignación de vehículo</a></li>
+            <li><a href="/asignaciones" class="sidebar__submenu-link">Asignación de vehículo</a></li>
+            <li><a href="/ActualizarKm" class="sidebar__submenu-link">Actualizar kilometraje</a></li>
           </ul>
         </li>
-      
+
         <li class="sidebar__menu-item sidebar__menu-item--expandable">
           <a href="#" class="sidebar__menu-link">
             <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/></svg>
@@ -64,10 +57,9 @@
           <ul class="sidebar__submenu">
             <li><a href="/Choferes" class="sidebar__submenu-link">Listado de choferes</a></li>
             <li><a href="/Choferes/carga" class="sidebar__submenu-link">Agregar chofer</a></li>
-            
           </ul>
         </li>
-      
+
         <li class="sidebar__menu-item sidebar__menu-item--expandable">
           <a href="#" class="sidebar__menu-link">
             <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/></svg>
@@ -79,7 +71,7 @@
             <li><a href="/Mantenimientos/carga" class="sidebar__submenu-link">Agregar mantenimiento</a></li>
           </ul>
         </li>
-      
+
         <li class="sidebar__menu-item sidebar__menu-item--expandable">
           <a href="#" class="sidebar__menu-link">
             <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6.672 1.911a1 1 0 10-1.932.518l.259.966a1 1 0 001.932-.518l-.26-.966zM2.429 4.74a1 1 0 10-.517 1.932l.966.259a1 1 0 00.517-1.932l-.966-.26zm8.814-.569a1 1 0 00-1.415-1.414l-.707.707a1 1 0 101.415 1.415l.707-.708zm-7.071 7.072l.707-.707A1 1 0 003.465 9.12l-.708.707a1 1 0 001.415 1.415zm3.2-5.171a1 1 0 00-1.3 1.3l4 10a1 1 0 001.823.075l1.38-2.759 3.018 3.02a1 1 0 001.414-1.415l-3.019-3.02 2.76-1.379a1 1 0 00-.076-1.822l-10-4z" clip-rule="evenodd"/></svg>
@@ -93,7 +85,7 @@
             <li><a href="/Tools/ajustes" class="sidebar__submenu-link">Ajustes</a></li>
           </ul>
         </li>
-      
+
         <li class="sidebar__menu-item">
           <a href="/Alertas" class="sidebar__menu-link">
             <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/></svg>
@@ -101,27 +93,27 @@
             <span class="sidebar__badge">5</span>
           </a>
         </li>
-      
+
         <li class="sidebar__menu-item">
           <a href="#" class="sidebar__menu-link">
             <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/></svg>
             Usuarios
           </a>
         </li>
-      
+
         <li class="sidebar__menu-item">
           <a href="#" class="sidebar__menu-link">
             <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"/></svg>
             Auditoría
           </a>
         </li>
-      
+
       </ul>
     </nav>
   </aside>
 
   <!-- ===================== APP WRAPPER ===================== -->
-  <div class="app-wrapper">
+  <div class="app-wrapper" id="app-wrapper">
 
     <!-- ===================== HEADER / TOPBAR ===================== -->
     <header class="topbar">
@@ -173,53 +165,35 @@
 
         <ul class="vehicle-list" aria-label="Vehículos">
 
-                        <% if (vehiculos && vehiculos.length > 0) { %>
-  <% vehiculos.forEach(vehiculo => { %>
-
-  <li class="vehicle-card">
-
-    <a href="/Vehicles/<%= vehiculo.id_vehiculo %>" class="vehicle-card__link">
-
-      <img 
-        class="vehicle-card__thumbnail" 
-        src="https://placehold.co/60x44/e2e8f0/64748b?text=<%= vehiculo.modelo %>" 
-        alt="<%= vehiculo.marca %> <%= vehiculo.modelo %>" 
-      />
-
-      <div class="vehicle-card__info">
-        
-        <span class="vehicle-card__plate">
-          <%= vehiculo.patente %>
-        </span>
-
-        <span class="vehicle-card__model">
-          <%= vehiculo.marca %> - <%= vehiculo.modelo %>
-        </span>
-
-        <div class="vehicle-card__meta">
-          <span class="badge 
-            <%= vehiculo.estado_actual === 'Disponible'    ? 'badge--available'       :
-                vehiculo.estado_actual === 'En uso'         ? 'badge--in-use'          :
-                vehiculo.estado_actual === 'Mantenimiento'  ? 'badge--maintenance'     :
-                vehiculo.estado_actual === 'Baja'           ? 'badge--out-of-service'  : 'badge--available' %>">
-            <%= vehiculo.estado_actual %>
-          </span>
-
-          <span class="vehicle-card__km">
-            <%= vehiculo.km_actual %> km
-          </span>
-        </div>
-
-      </div>
-
-    </a>
-
-  </li>
-
-  <% }) %>
-<% } else { %>
-  <p>No hay vehículos</p>
-<% } %>
+          <% if (vehiculos && vehiculos.length > 0) { %>
+            <% vehiculos.forEach(vehiculo => { %>
+            <li class="vehicle-card">
+              <a href="/Vehicles/<%= vehiculo.id_vehiculo %>" class="vehicle-card__link">
+                <img
+                  class="vehicle-card__thumbnail"
+                  src="https://placehold.co/60x44/e2e8f0/64748b?text=<%= vehiculo.modelo %>"
+                  alt="<%= vehiculo.marca %> <%= vehiculo.modelo %>"
+                />
+                <div class="vehicle-card__info">
+                  <span class="vehicle-card__plate"><%= vehiculo.patente %></span>
+                  <span class="vehicle-card__model"><%= vehiculo.marca %> - <%= vehiculo.modelo %></span>
+                  <div class="vehicle-card__meta">
+                    <span class="badge
+                      <%= vehiculo.estado_actual === 'Disponible'    ? 'badge--available'       :
+                          vehiculo.estado_actual === 'En uso'         ? 'badge--in-use'          :
+                          vehiculo.estado_actual === 'Mantenimiento'  ? 'badge--maintenance'     :
+                          vehiculo.estado_actual === 'Baja'           ? 'badge--out-of-service'  : 'badge--available' %>">
+                      <%= vehiculo.estado_actual %>
+                    </span>
+                    <span class="vehicle-card__km"><%= vehiculo.km_actual %> km</span>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <% }) %>
+          <% } else { %>
+            <p>No hay vehículos</p>
+          <% } %>
 
         </ul>
 
@@ -239,7 +213,6 @@
       <!-- ---- PANEL DERECHO: Detalle del Vehículo ---- -->
       <section class="vehicle-detail" id="vehicle-detail" aria-label="Detalle del vehículo">
 
-        <!-- Breadcrumb -->
         <nav class="vehicle-detail__breadcrumb" aria-label="Ruta de navegación">
           <button class="vehicle-detail__back-btn" id="detail-back-btn">
             <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"/></svg>
@@ -249,13 +222,12 @@
 
         <h1 class="vehicle-detail__heading">Detalle del Vehículo</h1>
 
-        <!-- Ficha principal del vehículo -->
-                <article class="vehicle-profile">
+        <article class="vehicle-profile">
 
-          <img 
-            class="vehicle-profile__photo" 
-            src="https://placehold.co/200x130/dbeafe/1d4ed8?text=Vehiculo" 
-            alt="Vehículo" 
+          <img
+            class="vehicle-profile__photo"
+            src="https://placehold.co/200x130/dbeafe/1d4ed8?text=Vehiculo"
+            alt="Vehículo"
           />
 
           <div class="vehicle-profile__content">
@@ -263,7 +235,6 @@
               <h2 class="vehicle-profile__plate">
                 <%= vehiculoSeleccionado?.patente || '—' %>
               </h2>
-
               <span class="badge badge--available">
                 <%= vehiculoSeleccionado?.estado_actual || '—' %>
               </span>
@@ -278,86 +249,56 @@
                     <%= vehiculoSeleccionado ? vehiculoSeleccionado.marca + ' ' + vehiculoSeleccionado.modelo : '—' %>
                   </dd>
                 </div>
-
                 <div class="vehicle-profile__spec-row">
                   <dt class="vehicle-profile__spec-label">Tipo</dt>
                   <dd class="vehicle-profile__spec-value"><%= vehiculoSeleccionado?.TipoVehiculo?.descripcion || '—' %></dd>
                 </div>
-
                 <div class="vehicle-profile__spec-row">
                   <dt class="vehicle-profile__spec-label">Año</dt>
-                  <dd class="vehicle-profile__spec-value">
-                    <%= vehiculoSeleccionado?.anio || '—' %>
-                  </dd>
+                  <dd class="vehicle-profile__spec-value"><%= vehiculoSeleccionado?.anio || '—' %></dd>
                 </div>
-
                 <div class="vehicle-profile__spec-row">
                   <dt class="vehicle-profile__spec-label">Km Actual</dt>
-                  <dd class="vehicle-profile__spec-value">
-                    <%= vehiculoSeleccionado?.km_actual || '0' %> km
-                  </dd>
+                  <dd class="vehicle-profile__spec-value"><%= vehiculoSeleccionado?.km_actual || '0' %> km</dd>
                 </div>
-
                 <div class="vehicle-profile__spec-row">
                   <dt class="vehicle-profile__spec-label">Transmisión</dt>
-                  <dd class="vehicle-profile__spec-value">
-                    <%= vehiculoSeleccionado?.transmision || '—' %>
-                  </dd>
+                  <dd class="vehicle-profile__spec-value"><%= vehiculoSeleccionado?.transmision || '—' %></dd>
                 </div>
               </dl>
 
               <dl class="vehicle-profile__spec-group">
                 <div class="vehicle-profile__spec-row">
                   <dt class="vehicle-profile__spec-label">Patente</dt>
-                  <dd class="vehicle-profile__spec-value">
-                    <%= vehiculoSeleccionado?.patente || '—' %>
-                  </dd>
+                  <dd class="vehicle-profile__spec-value"><%= vehiculoSeleccionado?.patente || '—' %></dd>
                 </div>
-
                 <div class="vehicle-profile__spec-row">
                   <dt class="vehicle-profile__spec-label">Chasis</dt>
-                  <dd class="vehicle-profile__spec-value">
-                    <%= vehiculoSeleccionado?.num_chasis || '—' %>
-                  </dd>
+                  <dd class="vehicle-profile__spec-value"><%= vehiculoSeleccionado?.num_chasis || '—' %></dd>
                 </div>
-
                 <div class="vehicle-profile__spec-row">
                   <dt class="vehicle-profile__spec-label">Motor</dt>
-                  <dd class="vehicle-profile__spec-value">
-                    <%= vehiculoSeleccionado?.num_motor || '—' %>
-                  </dd>
+                  <dd class="vehicle-profile__spec-value"><%= vehiculoSeleccionado?.num_motor || '—' %></dd>
                 </div>
-
                 <div class="vehicle-profile__spec-row">
                   <dt class="vehicle-profile__spec-label">Combustible</dt>
                   <dd class="vehicle-profile__spec-value">Diesel</dd>
                 </div>
-
-                
               </dl>
 
               <dl class="vehicle-profile__spec-group">
                 <div class="vehicle-profile__spec-row">
                   <dt class="vehicle-profile__spec-label">Distrito / Dependencia</dt>
-                  <dd class="vehicle-profile__spec-value">
-                    <%= vehiculoSeleccionado?.distrito || '—' %>
-                  </dd>
+                  <dd class="vehicle-profile__spec-value"><%= vehiculoSeleccionado?.distrito || '—' %></dd>
                 </div>
-
                 <div class="vehicle-profile__spec-row">
                   <dt class="vehicle-profile__spec-label">Fecha de Alta</dt>
-                  <dd class="vehicle-profile__spec-value">
-                    <%= vehiculoSeleccionado?.fecha_alta || '—' %>
-                  </dd>
+                  <dd class="vehicle-profile__spec-value"><%= vehiculoSeleccionado?.fecha_alta || '—' %></dd>
                 </div>
-
                 <div class="vehicle-profile__spec-row">
                   <dt class="vehicle-profile__spec-label">Estado</dt>
-                  <dd class="vehicle-profile__spec-value">
-                    <%= vehiculoSeleccionado?.estado_actual || '—' %>
-                  </dd>
+                  <dd class="vehicle-profile__spec-value"><%= vehiculoSeleccionado?.estado_actual || '—' %></dd>
                 </div>
-
                 <div class="vehicle-profile__spec-row">
                   <dt class="vehicle-profile__spec-label">Chofer Asignado</dt>
                   <dd class="vehicle-profile__spec-value">
@@ -375,11 +316,10 @@
 
         </article>
 
-        <!-- Acciones -->
         <% if (vehiculoSeleccionado) { %>
           <div class="vehicle-profile__actions" style="margin-bottom: 12px;">
-        
-            <a href="/Vehicles/Editar/<%= vehiculoSeleccionado.id_vehiculo %>" 
+
+            <a href="/Vehicles/Editar/<%= vehiculoSeleccionado.id_vehiculo %>"
                class="vehicle-profile__edit-btn"
                style="display:inline-flex;align-items:center;gap:0.4rem;text-decoration:none;">
               <svg viewBox="0 0 20 20" fill="currentColor" style="width:16px;height:16px">
@@ -387,7 +327,7 @@
               </svg>
               Editar Vehículo
             </a>
-        
+
             <a href="/Mantenimientos/carga/<%= vehiculoSeleccionado.id_vehiculo %>"
                class="vehicle-profile__edit-btn vehicle-profile__edit-btn--maint"
                style="display:inline-flex;align-items:center;gap:0.4rem;text-decoration:none;">
@@ -396,8 +336,7 @@
               </svg>
               Registrar Mantenimiento
             </a>
-        
-            <!-- Solo aparece si el vehículo está Disponible -->
+
             <% if (vehiculoSeleccionado.estado_actual === 'Disponible') { %>
               <a href="/asignaciones?id_vehiculo=<%= vehiculoSeleccionado.id_vehiculo %>"
                  class="vehicle-profile__edit-btn vehicle-profile__edit-btn--assign"
@@ -408,25 +347,21 @@
                 Asignar a Chofer
               </a>
             <% } %>
-        
+
           </div>
         <% } %>
 
-        <!-- Tabs de navegación -->
         <nav class="detail-tabs" aria-label="Secciones del vehículo">
           <div class="detail-tabs__track">
             <button class="detail-tabs__tab detail-tabs__tab--active" aria-selected="true">Resumen</button>
           </div>
         </nav>
 
-        <!-- Contenido tab Resumen -->
         <div class="detail-tab-content">
           <div class="detail-columns">
 
-            <!-- Columna principal -->
             <div class="detail-main-column">
 
-              <!-- Mantenimientos Recientes -->
               <section class="data-card" aria-label="Mantenimientos recientes">
                 <header class="data-card__header">
                   <svg class="data-card__icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/></svg>
@@ -439,7 +374,6 @@
                         <th class="data-table__th">Fecha</th>
                         <th class="data-table__th">Tipo de Servicio</th>
                         <th class="data-table__th">Km al Momento</th>
-                        <!-- <th class="data-table__th">Proveedor</th> -->
                         <th class="data-table__th">Costo</th>
                         <th class="data-table__th">Próximo Servicio</th>
                         <th class="data-table__th">Acciones</th>
@@ -449,11 +383,10 @@
                       <% if (ultimosMantenimientos && ultimosMantenimientos.length > 0) { %>
                         <% ultimosMantenimientos.forEach(m => { %>
                         <tr class="data-table__row">
-                          <td class="data-table__td" data-label="Fecha">     <%= m.fecha_inicio %>              </td>
-                          <td class="data-table__td" data-label="Tipo">      <%= m.tipo_servicio %>             </td>
-                          <td class="data-table__td" data-label="Km">        <%= m.km_servicio %> km            </td>
-                          <!-- <td class="data-table__td" data-label="Proveedor"> —  -->                                 
-                          <td class="data-table__td" data-label="Costo">     $<%= m.costo_total %>              </td>
+                          <td class="data-table__td" data-label="Fecha">    <%= m.fecha_inicio %>   </td>
+                          <td class="data-table__td" data-label="Tipo">     <%= m.tipo_servicio %>  </td>
+                          <td class="data-table__td" data-label="Km">       <%= m.km_servicio %> km </td>
+                          <td class="data-table__td" data-label="Costo">    $<%= m.costo_total %>   </td>
                           <td class="data-table__td" data-label="Próximo">
                             <%= m.proxima_fecha ? m.proxima_fecha : (m.proximo_km ? m.proximo_km + ' km' : '—') %>
                           </td>
@@ -478,7 +411,6 @@
                 </a>
               </section>
 
-              <!-- Préstamos / Uso Recientes -->
               <section class="data-card" aria-label="Préstamos y uso recientes">
                 <header class="data-card__header">
                   <svg class="data-card__icon" viewBox="0 0 20 20" fill="currentColor"><path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/><path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3z"/></svg>
@@ -505,8 +437,8 @@
                           <td class="data-table__td" data-label="Devolución">
                             <%= a.fecha_devolucion ? new Date(a.fecha_devolucion).toLocaleDateString('es-AR') : '—' %>
                           </td>
-                          <td class="data-table__td" data-label="Chofer">      <%= a.Chofer?.nombre || '—' %>               </td>
-                          <td class="data-table__td" data-label="Destino">     <%= a.destino_area || a.observaciones || '—' %></td>
+                          <td class="data-table__td" data-label="Chofer">  <%= a.Chofer?.nombre || '—' %>                </td>
+                          <td class="data-table__td" data-label="Destino"> <%= a.destino_area || a.observaciones || '—' %></td>
                           <td class="data-table__td" data-label="Estado">
                             <span class="badge badge--finished"><%= a.estado %></span>
                           </td>
@@ -528,10 +460,8 @@
 
             </div>
 
-            <!-- Columna lateral: alertas e info -->
             <aside class="detail-side-column" aria-label="Alertas e información adicional">
 
-              <!-- Alertas -->
               <section class="alerts-card" aria-label="Alertas del vehículo">
                 <header class="data-card__header">
                   <svg class="data-card__icon" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/></svg>
@@ -575,7 +505,6 @@
                 </a>
               </section>
 
-              <!-- Información Adicional -->
               <section class="info-card" aria-label="Información adicional del vehículo">
                 <header class="data-card__header">
                   <svg class="data-card__icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
@@ -608,7 +537,6 @@
       </section>
     </main>
 
-    <!-- ===================== FOOTER ===================== -->
     <footer class="app-footer">
       <p class="app-footer__copy">&copy; 2025 &mdash; Ficha Tecnica</p>
     </footer>
@@ -616,176 +544,269 @@
   </div><!-- /app-wrapper -->
 
   <script>
-    /* ── Sidebar ─────────────────────────────────────────── */
-    const sidebar      = document.getElementById('sidebar');
-    const overlay      = document.getElementById('sidebar-overlay');
-    const menuToggle   = document.getElementById('menu-toggle');
-    const sidebarClose = document.getElementById('sidebar-close');
+    /* ── Referencias DOM ─────────────────────────────────── */
+const sidebar      = document.getElementById('sidebar');
+const overlay      = document.getElementById('sidebar-overlay');
+const menuToggle   = document.getElementById('menu-toggle');
+const sidebarClose = document.getElementById('sidebar-close');
+const appWrapper   = document.getElementById('app-wrapper');
 
-    function openSidebar() {
-        sidebar.classList.add('sidebar--open');
-        overlay.classList.add('sidebar-overlay--visible');
-        menuToggle.setAttribute('aria-expanded', 'true');
-        document.body.style.overflow = 'hidden';
-    }
-    function closeSidebar() {
-        sidebar.classList.remove('sidebar--open');
-        overlay.classList.remove('sidebar-overlay--visible');
-        menuToggle.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
-    }
+/* ── Helpers ─────────────────────────────────────────── */
+function isMobileOrTablet() { return window.innerWidth < 900; }
 
-    /* ── Acordeón submenús ─────────────────────────────── */
-    document.querySelectorAll('.sidebar__menu-item--expandable > .sidebar__menu-link')
-      .forEach(link => {
-        link.addEventListener('click', function (e) {
-          e.preventDefault();
-          const item = this.closest('.sidebar__menu-item--expandable');
-          item.classList.toggle('sidebar__menu-item--open');
-        });
+/* ── Persistir estado del sidebar ───────────────────── */
+const SIDEBAR_KEY = 'sidebarCollapsed';
+
+function saveSidebarState(collapsed) {
+  sessionStorage.setItem(SIDEBAR_KEY, collapsed ? '1' : '0');
+}
+
+function restoreSidebarState() {
+  if (isMobileOrTablet()) return;
+  const collapsed = sessionStorage.getItem(SIDEBAR_KEY) === '1';
+  if (collapsed) {
+    sidebar.style.transition = 'none';
+    appWrapper.style.transition = 'none';
+
+    sidebar.classList.add('sidebar--collapsed');
+    appWrapper.classList.add('app-wrapper--collapsed');
+    menuToggle.setAttribute('aria-expanded', 'false');
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        sidebar.style.transition = '';
+        appWrapper.style.transition = '';
       });
-
-    /* Abrir el submenú activo al cargar */
-    document.querySelectorAll('.sidebar__submenu-link--active').forEach(active => {
-      const item = active.closest('.sidebar__menu-item--expandable');
-      if (item) item.classList.add('sidebar__menu-item--open');
     });
+  }
+}
 
-    menuToggle.addEventListener('click', openSidebar);
-    sidebarClose.addEventListener('click', closeSidebar);
-    overlay.addEventListener('click', closeSidebar);
+/* ── Abrir / Cerrar sidebar ──────────────────────────── */
+function openSidebar() {
+  sidebar.classList.remove('sidebar--collapsed');
+  sidebar.classList.add('sidebar--open');
+  overlay.classList.add('sidebar-overlay--visible');
+  menuToggle.setAttribute('aria-expanded', 'true');
+  if (isMobileOrTablet()) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    appWrapper.classList.remove('app-wrapper--collapsed');
+    saveSidebarState(false);
+  }
+}
 
-    /* ── Listado ↔ Detalle (mobile) ──────────────────────── */
-    const listPanel   = document.getElementById('vehicle-list-panel');
-    const detailPanel = document.getElementById('vehicle-detail');
-    const backBtn     = document.getElementById('detail-back-btn');
+function closeSidebar() {
+  sidebar.classList.add('sidebar--collapsed');
+  sidebar.classList.remove('sidebar--open');
+  overlay.classList.remove('sidebar-overlay--visible');
+  menuToggle.setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+  if (!isMobileOrTablet()) {
+    appWrapper.classList.add('app-wrapper--collapsed');
+    saveSidebarState(true);
+  }
+}
 
-    function isMobileView() { return window.innerWidth < 900; }
+/* ── Toggle con el botón del topbar ──────────────────── */
+menuToggle.addEventListener('click', function () {
+  if (isMobileOrTablet()) {
+    if (sidebar.classList.contains('sidebar--open')) {
+      closeSidebar();
+    } else {
+      openSidebar();
+    }
+  } else {
+    if (sidebar.classList.contains('sidebar--collapsed')) {
+      openSidebar();
+    } else {
+      closeSidebar();
+    }
+  }
+});
 
+/* ── Botón X dentro del sidebar (mobile) ─────────────── */
+sidebarClose.addEventListener('click', closeSidebar);
+
+/* ── Overlay (mobile) ────────────────────────────────── */
+overlay.addEventListener('click', closeSidebar);
+
+/* ── Acordeón submenús ───────────────────────────────── */
+document.querySelectorAll('.sidebar__menu-item--expandable > .sidebar__menu-link')
+  .forEach(link => {
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+      const item = this.closest('.sidebar__menu-item--expandable');
+      item.classList.toggle('sidebar__menu-item--open');
+    });
+  });
+
+/* Abrir el submenú activo al cargar */
+document.querySelectorAll('.sidebar__submenu-link--active').forEach(active => {
+  const item = active.closest('.sidebar__menu-item--expandable');
+  if (item) item.classList.add('sidebar__menu-item--open');
+});
+
+/* ── Resize: corregir estado al cambiar tamaño ───────── */
+window.addEventListener('resize', function () {
+  if (!isMobileOrTablet()) {
+    if (!sidebar.classList.contains('sidebar--collapsed')) {
+      appWrapper.classList.remove('app-wrapper--collapsed');
+    }
+    document.body.style.overflow = '';
+  } else {
+    if (!sidebar.classList.contains('sidebar--open')) {
+      sidebar.classList.remove('sidebar--collapsed');
+      appWrapper.classList.remove('app-wrapper--collapsed');
+    }
+  }
+  listPanel.classList.remove('vehicle-list-panel--hidden');
+  detailPanel.classList.remove('vehicle-detail--visible');
+});
+
+/* ── Listado ↔ Detalle (mobile) ──────────────────────── */
+const listPanel   = document.getElementById('vehicle-list-panel');
+const detailPanel = document.getElementById('vehicle-detail');
+const backBtn     = document.getElementById('detail-back-btn');
+
+document.querySelectorAll('.vehicle-card').forEach(card => {
+  card.addEventListener('click', function () {
+    document.querySelectorAll('.vehicle-card').forEach(c => c.classList.remove('vehicle-card--active'));
+    this.classList.add('vehicle-card--active');
+    if (isMobileOrTablet()) {
+      listPanel.classList.add('vehicle-list-panel--hidden');
+      detailPanel.classList.add('vehicle-detail--visible');
+      detailPanel.scrollTop = 0;
+    }
+  });
+});
+
+backBtn.addEventListener('click', function () {
+  listPanel.classList.remove('vehicle-list-panel--hidden');
+  detailPanel.classList.remove('vehicle-detail--visible');
+});
+
+/* ── Tabs de detalle ─────────────────────────────────── */
+document.querySelectorAll('.detail-tabs__tab').forEach(tab => {
+  tab.addEventListener('click', function () {
+    document.querySelectorAll('.detail-tabs__tab').forEach(t => {
+      t.classList.remove('detail-tabs__tab--active');
+      t.setAttribute('aria-selected', 'false');
+    });
+    this.classList.add('detail-tabs__tab--active');
+    this.setAttribute('aria-selected', 'true');
+  });
+});
+
+/* ── Paginación del listado ──────────────────────────── */
+const ITEMS_POR_PAG  = 10;
+const todasLasCards  = Array.from(document.querySelectorAll('.vehicle-list .vehicle-card'));
+const searchInput    = document.querySelector('.vehicle-list-panel__search-input');
+const countLabel     = document.querySelector('.vehicle-list-panel__count');
+const paginationEl   = document.querySelector('.pagination');
+
+let paginaActual   = 1;
+let cardsFiltradas = [...todasLasCards];
+
+function filtrar() {
+  const q = searchInput ? searchInput.value.toLowerCase() : '';
+  return todasLasCards.filter(card => {
+    const plate = card.querySelector('.vehicle-card__plate')?.textContent.toLowerCase() || '';
+    const model = card.querySelector('.vehicle-card__model')?.textContent.toLowerCase() || '';
+    return plate.includes(q) || model.includes(q);
+  });
+}
+
+function renderizar() {
+  const total     = cardsFiltradas.length;
+  const totalPags = Math.max(1, Math.ceil(total / ITEMS_POR_PAG));
+  if (paginaActual > totalPags) paginaActual = totalPags;
+
+  const inicio = (paginaActual - 1) * ITEMS_POR_PAG;
+  const fin    = inicio + ITEMS_POR_PAG;
+
+  todasLasCards.forEach(c => c.style.display = 'none');
+  cardsFiltradas.forEach((c, i) => {
+    c.style.display = (i >= inicio && i < fin) ? '' : 'none';
+  });
+
+  const desde = total === 0 ? 0 : inicio + 1;
+  const hasta  = Math.min(fin, total);
+  if (countLabel) countLabel.textContent = `Mostrando ${desde} a ${hasta} de ${total} vehículos`;
+
+  if (!paginationEl) return;
+  paginationEl.innerHTML = '';
+
+  const btnPrev = document.createElement('button');
+  btnPrev.className = 'pagination__btn pagination__btn--arrow';
+  btnPrev.setAttribute('aria-label', 'Página anterior');
+  btnPrev.innerHTML = '&lsaquo;';
+  btnPrev.disabled  = paginaActual <= 1;
+  btnPrev.addEventListener('click', () => { paginaActual--; renderizar(); });
+  paginationEl.appendChild(btnPrev);
+
+  for (let p = 1; p <= totalPags; p++) {
+    const btn = document.createElement('button');
+    btn.className = 'pagination__btn' + (p === paginaActual ? ' pagination__btn--active' : '');
+    btn.textContent = p;
+    if (p === paginaActual) btn.setAttribute('aria-current', 'page');
+    btn.addEventListener('click', () => { paginaActual = p; renderizar(); });
+    paginationEl.appendChild(btn);
+  }
+
+  const btnNext = document.createElement('button');
+  btnNext.className = 'pagination__btn pagination__btn--arrow';
+  btnNext.setAttribute('aria-label', 'Página siguiente');
+  btnNext.innerHTML = '&rsaquo;';
+  btnNext.disabled  = paginaActual >= totalPags;
+  btnNext.addEventListener('click', () => { paginaActual++; renderizar(); });
+  paginationEl.appendChild(btnNext);
+}
+
+function actualizarTodo() {
+  paginaActual   = 1;
+  cardsFiltradas = filtrar();
+  renderizar();
+}
+
+if (searchInput) searchInput.addEventListener('input', actualizarTodo);
+
+const searchBtn = document.querySelector('.vehicle-list-panel__search-btn');
+if (searchBtn) searchBtn.addEventListener('click', actualizarTodo);
+
+/* ── Restaurar estado del listado ────────────────────── */
+const STORAGE_KEY = 'vehicleListState';
+
+document.querySelectorAll('.vehicle-card').forEach(card => {
+  card.querySelector('.vehicle-card__link')?.addEventListener('click', function () {
+    const plate = card.querySelector('.vehicle-card__plate')?.textContent.trim();
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify({
+      pagina: paginaActual,
+      placa: plate
+    }));
+  });
+});
+
+function restaurarEstado() {
+  const raw = sessionStorage.getItem(STORAGE_KEY);
+  if (!raw) return;
+  const { pagina, placa } = JSON.parse(raw);
+
+  paginaActual = pagina || 1;
+
+  if (placa) {
     document.querySelectorAll('.vehicle-card').forEach(card => {
-        card.addEventListener('click', function () {
-            document.querySelectorAll('.vehicle-card').forEach(c => c.classList.remove('vehicle-card--active'));
-            this.classList.add('vehicle-card--active');
-            if (isMobileView()) {
-                listPanel.classList.add('vehicle-list-panel--hidden');
-                detailPanel.classList.add('vehicle-detail--visible');
-                detailPanel.scrollTop = 0;
-            }
-        });
+      const p = card.querySelector('.vehicle-card__plate')?.textContent.trim();
+      if (p === placa) card.classList.add('vehicle-card--active');
     });
+  }
+}
 
-    backBtn.addEventListener('click', function () {
-        listPanel.classList.remove('vehicle-list-panel--hidden');
-        detailPanel.classList.remove('vehicle-detail--visible');
-    });
-
-    window.addEventListener('resize', function () {
-        if (!isMobileView()) {
-            listPanel.classList.remove('vehicle-list-panel--hidden');
-            detailPanel.classList.remove('vehicle-detail--visible');
-        }
-    });
-
-    /* ── Tabs de detalle ─────────────────────────────────── */
-    document.querySelectorAll('.detail-tabs__tab').forEach(tab => {
-        tab.addEventListener('click', function () {
-            document.querySelectorAll('.detail-tabs__tab').forEach(t => {
-                t.classList.remove('detail-tabs__tab--active');
-                t.setAttribute('aria-selected', 'false');
-            });
-            this.classList.add('detail-tabs__tab--active');
-            this.setAttribute('aria-selected', 'true');
-        });
-    });
-
-    /* ── Paginación del listado ──────────────────────────── */
-    const ITEMS_POR_PAG  = 10;
-    const todasLasCards  = Array.from(document.querySelectorAll('.vehicle-list .vehicle-card'));
-    const searchInput    = document.querySelector('.vehicle-list-panel__search-input');
-    const countLabel     = document.querySelector('.vehicle-list-panel__count');
-    const paginationEl   = document.querySelector('.pagination');
-
-    let paginaActual   = 1;
-    let cardsFiltradas = [...todasLasCards];
-
-    function filtrar() {
-        const q = searchInput ? searchInput.value.toLowerCase() : '';
-        return todasLasCards.filter(card => {
-            const plate = card.querySelector('.vehicle-card__plate')?.textContent.toLowerCase() || '';
-            const model = card.querySelector('.vehicle-card__model')?.textContent.toLowerCase() || '';
-            return plate.includes(q) || model.includes(q);
-        });
-    }
-
-    function renderizar() {
-        const total      = cardsFiltradas.length;
-        const totalPags  = Math.max(1, Math.ceil(total / ITEMS_POR_PAG));
-        if (paginaActual > totalPags) paginaActual = totalPags;
-
-        const inicio = (paginaActual - 1) * ITEMS_POR_PAG;
-        const fin    = inicio + ITEMS_POR_PAG;
-
-        // Mostrar/ocultar cards
-        todasLasCards.forEach(c => c.style.display = 'none');
-        cardsFiltradas.forEach((c, i) => {
-            c.style.display = (i >= inicio && i < fin) ? '' : 'none';
-        });
-
-        // Actualizar contador
-        const desde = total === 0 ? 0 : inicio + 1;
-        const hasta  = Math.min(fin, total);
-        if (countLabel) countLabel.textContent = `Mostrando ${desde} a ${hasta} de ${total} vehículos`;
-
-        // Reconstruir botones de paginación
-        if (!paginationEl) return;
-        paginationEl.innerHTML = '';
-
-        // Anterior
-        const btnPrev = document.createElement('button');
-        btnPrev.className = 'pagination__btn pagination__btn--arrow';
-        btnPrev.setAttribute('aria-label', 'Página anterior');
-        btnPrev.innerHTML = '&lsaquo;';
-        btnPrev.disabled  = paginaActual <= 1;
-        btnPrev.addEventListener('click', () => { paginaActual--; renderizar(); });
-        paginationEl.appendChild(btnPrev);
-
-        // Números
-        for (let p = 1; p <= totalPags; p++) {
-            const btn = document.createElement('button');
-            btn.className = 'pagination__btn' + (p === paginaActual ? ' pagination__btn--active' : '');
-            btn.textContent = p;
-            if (p === paginaActual) btn.setAttribute('aria-current', 'page');
-            btn.addEventListener('click', () => { paginaActual = p; renderizar(); });
-            paginationEl.appendChild(btn);
-        }
-
-        // Siguiente
-        const btnNext = document.createElement('button');
-        btnNext.className = 'pagination__btn pagination__btn--arrow';
-        btnNext.setAttribute('aria-label', 'Página siguiente');
-        btnNext.innerHTML = '&rsaquo;';
-        btnNext.disabled  = paginaActual >= totalPags;
-        btnNext.addEventListener('click', () => { paginaActual++; renderizar(); });
-        paginationEl.appendChild(btnNext);
-    }
-
-    function actualizarTodo() {
-        paginaActual   = 1;
-        cardsFiltradas = filtrar();
-        renderizar();
-    }
-
-    if (searchInput) {
-        searchInput.addEventListener('input', actualizarTodo);
-    }
-
-    // Botón lupa (opcional, para confirmar búsqueda)
-    const searchBtn = document.querySelector('.vehicle-list-panel__search-btn');
-    if (searchBtn) searchBtn.addEventListener('click', actualizarTodo);
-
-    // Arranque inicial
-    actualizarTodo();
-</script>
+/* ── Arranque ────────────────────────────────────────── */
+restoreSidebarState();
+cardsFiltradas = filtrar();
+restaurarEstado();
+renderizar();
+  </script>
 
 </body>
 </html>

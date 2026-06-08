@@ -270,7 +270,7 @@ img          { display: block; }
 
 /* Toggle — oculto en desktop */
 .topbar__menu-toggle {
-  display: none;
+  display: flex;   /* ← así */
   width: 36px;
   height: 36px;
   align-items: center;
@@ -1209,4 +1209,12 @@ img          { display: block; }
 .vehicle-profile__edit-btn--assign:hover {
   background-color: #1e40af;
   border-color: #1e40af;
+}
+
+/* Collapse en desktop */
+.sidebar--collapsed {
+  transform: translateX(-100%);
+}
+.app-wrapper--collapsed {
+  margin-left: 0;
 }

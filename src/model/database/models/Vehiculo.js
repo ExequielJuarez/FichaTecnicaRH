@@ -114,6 +114,11 @@ module.exports = (sequelize, DataTypes) => {
             as: "mantenimientos"
         });
 
+        Vehiculo.hasMany(models.HistorialKm, {
+            foreignKey: 'id_vehiculo',
+            as: 'historial_km'
+        });
+
     }
 
     return Vehiculo;

@@ -300,18 +300,68 @@ getAsignacionActiva: async function (id_vehiculo) {
 
 actualizarKm: async function (id_vehiculo, km_nuevo, observaciones) {
     try {
-        const updateData = { km_actual: km_nuevo };
+        // Traer km actual antes de pisar
+        const vehiculo = await db.Vehiculo.findByPk(id_vehiculo, {
+            attributes: ['km_actual']
+        });
 
-        if (observaciones && observaciones.trim() !== '') {
-            updateData.observaciones = observaciones.trim();
-        }
+        const km_anterior = vehiculo.km_actual;
 
-        await db.Vehiculo.update(updateData, {
-            where: { id_vehiculo }
+        // Actualizar km en vehiculo
+        await db.Vehiculo.update(
+            { km_actual: km_nuevo },
+            { where: { id_vehiculo } }
+        );
+
+        // Guardar en historial
+        await db.HistorialKm.create({
+            id_vehiculo,
+            km_anterior,
+            km_nuevo,
+            fecha: new Date().toISOString().split('T')[0],
+            observaciones: observaciones?.trim() || null
         });
 
     } catch (error) {
         console.log(error);
+    }
+},
+
+getHistorialKm: async function (id_vehiculo = null) {
+    try {
+        const where = id_vehiculo ? { id_vehiculo } : {};
+
+        return await db.HistorialKm.findAll({
+            where,
+            order: [['fecha', 'DESC'], ['id_historial', 'DESC']],
+            include: [{
+                association: 'vehiculo',
+                attributes: ['patente', 'marca', 'modelo']
+            }]
+        });
+    } catch (error) {
+        console.log(error);
+        return [];
+    }
+}, 
+
+getVehiculosConHistorial: async function () {
+    try {
+        // Trae los vehículos que tienen al menos un registro en historial_km
+        const vehiculos = await db.Vehiculo.findAll({
+            include: [{
+                model: db.HistorialKm,
+                as: 'historial_km',
+                required: true,  // INNER JOIN — solo los que tienen registros
+                attributes: []
+            }],
+            attributes: ['id_vehiculo', 'patente', 'marca', 'modelo', 'km_actual'],
+            group: ['Vehiculo.id_vehiculo']
+        });
+        return vehiculos;
+    } catch (error) {
+        console.log(error);
+        return [];
     }
 }
 

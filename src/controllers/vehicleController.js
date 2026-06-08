@@ -217,8 +217,10 @@ processVehicle: async (req, res) => {
 
     CargaActualizarKm: async (req, res) => {
         try {
-            const asignaciones = await vehicleService.getVehiculosAsignados();
-            res.render('ActualizarKm', { asignaciones });
+            const asignaciones          = await vehicleService.getVehiculosAsignados();
+            const historial             = await vehicleService.getHistorialKm();
+            const vehiculosConHistorial = await vehicleService.getVehiculosConHistorial();
+            res.render('ActualizarKm', { asignaciones, historial, vehiculosConHistorial });
         } catch (error) {
             console.log(error);
             res.send("Error al cargar la vista");
