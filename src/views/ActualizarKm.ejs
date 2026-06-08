@@ -155,6 +155,7 @@
         </div>
       </div>
 
+      <!-- ===================== FORMULARIO ===================== -->
       <form class="form" action="/ActualizarKm" method="post" id="form-km" novalidate>
 
         <!-- 1. SELECCIÓN DE VEHÍCULO -->
@@ -285,54 +286,91 @@
       </form>
 
       <!-- ===================== HISTORIAL ===================== -->
-      <section class="historial-section" id="historial-section" style="display:none">
+      <div class="historial-wrapper">
 
-        <div class="historial-chart-card">
-          <div class="historial-chart-card__header">
+        <!-- Selector de vehículo para el historial -->
+        <section class="form-section historial-selector-card">
+          <div class="form-section__header">
             <div class="form-section__icon form-section__icon--blue">
               <svg viewBox="0 0 20 20" fill="currentColor"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/></svg>
             </div>
             <div>
-              <h3>Evolución de Kilometraje</h3>
-              <p id="chart-subtitle">—</p>
+              <h3>Historial de Kilometraje</h3>
+              <p>Seleccioná un vehículo para ver su evolución</p>
             </div>
           </div>
-          <div class="historial-chart-card__canvas">
-            <canvas id="kmChart"></canvas>
-          </div>
-        </div>
 
-        <div class="historial-table-card">
-          <div class="historial-table-card__header">
-            <div class="form-section__icon form-section__icon--slate">
+          <div class="form-group">
+            <label for="id_vehiculo_historial">Vehículo</label>
+            <% if (vehiculosConHistorial && vehiculosConHistorial.length > 0) { %>
+              <select id="id_vehiculo_historial">
+                <option value="">— Elegir vehículo —</option>
+                <% vehiculosConHistorial.forEach(v => { %>
+                  <option value="<%= v.id_vehiculo %>">
+                    <%= v.patente %> · <%= v.marca %> <%= v.modelo %> — <%= v.km_actual.toLocaleString('es-AR') %> km
+                  </option>
+                <% }) %>
+              </select>
+            <% } else { %>
+              <div class="historial-empty-inline">
+                <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h5v2H5a1 1 0 01-1-1zm7 1h4a1 1 0 001-1v-1h-5v2zm0-4h5V8h-5v2zM9 8H4v2h5V8z" clip-rule="evenodd"/></svg>
+                <span>Todavía no hay registros de kilometraje cargados.</span>
+              </div>
+            <% } %>
+          </div>
+        </section>
+
+        <!-- Gráfico + Tabla — se muestran al seleccionar -->
+        <section class="historial-section" id="historial-section" style="display:none">
+
+          <div class="historial-chart-card">
+            <div class="historial-chart-card__header">
+              <div class="form-section__icon form-section__icon--blue">
+                <svg viewBox="0 0 20 20" fill="currentColor"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/></svg>
+              </div>
+              <div>
+                <h3>Evolución de Kilometraje</h3>
+                <p id="chart-subtitle">—</p>
+              </div>
+            </div>
+            <div class="historial-chart-card__canvas">
+              <canvas id="kmChart"></canvas>
+            </div>
+          </div>
+
+          <div class="historial-table-card">
+            <div class="historial-table-card__header">
+              <div class="form-section__icon form-section__icon--slate">
+                <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h5v2H5a1 1 0 01-1-1zm7 1h4a1 1 0 001-1v-1h-5v2zm0-4h5V8h-5v2zM9 8H4v2h5V8z" clip-rule="evenodd"/></svg>
+              </div>
+              <div>
+                <h3>Registros</h3>
+                <p id="tabla-subtitle">—</p>
+              </div>
+            </div>
+            <div class="historial-table-wrapper">
+              <table class="historial-table">
+                <thead>
+                  <tr>
+                    <th>Fecha</th>
+                    <th>KM Anterior</th>
+                    <th>KM Nuevo</th>
+                    <th>Diferencia</th>
+                    <th>Observaciones</th>
+                  </tr>
+                </thead>
+                <tbody id="historial-tbody"></tbody>
+              </table>
+            </div>
+            <div class="historial-empty" id="historial-empty" style="display:none">
               <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h5v2H5a1 1 0 01-1-1zm7 1h4a1 1 0 001-1v-1h-5v2zm0-4h5V8h-5v2zM9 8H4v2h5V8z" clip-rule="evenodd"/></svg>
-            </div>
-            <div>
-              <h3>Historial de Actualizaciones</h3>
-              <p id="tabla-subtitle">—</p>
+              <p>Este vehículo no tiene registros aún.</p>
             </div>
           </div>
-          <div class="historial-table-wrapper">
-            <table class="historial-table">
-              <thead>
-                <tr>
-                  <th>Fecha</th>
-                  <th>KM Anterior</th>
-                  <th>KM Nuevo</th>
-                  <th>Diferencia</th>
-                  <th>Observaciones</th>
-                </tr>
-              </thead>
-              <tbody id="historial-tbody"></tbody>
-            </table>
-          </div>
-          <div class="historial-empty" id="historial-empty" style="display:none">
-            <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h5v2H5a1 1 0 01-1-1zm7 1h4a1 1 0 001-1v-1h-5v2zm0-4h5V8h-5v2zM9 8H4v2h5V8z" clip-rule="evenodd"/></svg>
-            <p>Este vehículo no tiene registros de kilometraje aún.</p>
-          </div>
-        </div>
 
-      </section>
+        </section>
+
+      </div>
 
     </main>
 
@@ -377,7 +415,7 @@
       if (item) item.classList.add('sidebar__menu-item--open');
     });
 
-    /* ── Selección de vehículo ───────────────────────── */
+    /* ── Formulario: selección de vehículo asignado ─── */
     const vehicleSelect = document.getElementById('id_vehiculo');
     const vehicleCard   = document.getElementById('vehicle-card');
     const choferCard    = document.getElementById('chofer-card');
@@ -400,7 +438,6 @@
         kmActualTexto.textContent = 'Seleccioná un vehículo';
         kmActualGlobal = null;
         kmDiffHint.textContent = '';
-        document.getElementById('historial-section').style.display = 'none';
         return;
       }
       vcPatente.textContent = opt.dataset.patente || '—';
@@ -416,7 +453,6 @@
       choferCard.classList.add('visible');
       if (!kmNuevoInput.value) kmNuevoInput.value = kmNum;
       actualizarDiff();
-      renderHistorial(this.value);
     });
 
     function actualizarDiff() {
@@ -467,13 +503,11 @@
         setError('id_vehiculo', 'err-vehiculo', 'Seleccioná un vehículo asignado.');
         valido = false;
       }
-
       const kmNuevo = parseInt(kmNuevoInput.value);
       if (isNaN(kmNuevo) || kmNuevo < 0) {
         setError('km_nuevo', 'err-km', 'Ingresá un kilometraje válido (mayor o igual a 0).');
         valido = false;
       }
-
       if (!fechaInput.value) {
         setError('fecha_actualizacion', 'err-fecha', 'La fecha de actualización es obligatoria.');
         valido = false;
@@ -494,7 +528,9 @@
       });
     });
 
-    /* ── Historial por vehículo ──────────────────────── */
+    if (vehicleSelect.value) vehicleSelect.dispatchEvent(new Event('change'));
+
+    /* ── Historial: selector independiente ───────────── */
     const historialTodos = <%- JSON.stringify(historial.map(h => ({
       id_vehiculo:   h.id_vehiculo,
       fecha:         h.fecha,
@@ -506,6 +542,13 @@
     }))) %>;
 
     let kmChartInstance = null;
+
+    const historialSelect = document.getElementById('id_vehiculo_historial');
+    if (historialSelect) {
+      historialSelect.addEventListener('change', function () {
+        renderHistorial(this.value);
+      });
+    }
 
     function renderHistorial(id_vehiculo) {
       const seccion  = document.getElementById('historial-section');
@@ -592,9 +635,6 @@
         }
       });
     }
-
-    // Disparar si venía preseleccionado
-    if (vehicleSelect.value) vehicleSelect.dispatchEvent(new Event('change'));
   </script>
 
 </body>

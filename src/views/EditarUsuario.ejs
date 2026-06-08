@@ -9,11 +9,14 @@
 </head>
 <body>
 
-    <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
-    <%- include('./partials/sidebar') %>
+    <!-- ===================== SIDEBAR ===================== -->
+  <%- include('./partials/sidebar') %>
 
-    <div class="app-wrapper">
-        <%- include('./partials/topbar') %>
+  <!-- ===================== APP WRAPPER ===================== -->
+  <div class="app-wrapper" id="app-wrapper">
+
+    <!-- ===================== HEADER / TOPBAR ===================== -->
+    <%- include('./partials/topbar') %>
 
         <main class="main-content">
             
@@ -76,39 +79,6 @@
         </footer>
     </div>
 
-    <script>
-        const sidebar      = document.getElementById('sidebar');
-        const overlay      = document.getElementById('sidebar-overlay');
-        const menuToggle   = document.getElementById('menu-toggle');
-        const sidebarClose = document.getElementById('sidebar-close');
-
-        document.querySelectorAll('.sidebar__menu-item--expandable > .sidebar__menu-link').forEach(link => {
-            link.addEventListener('click', function (e) {
-                e.preventDefault();
-                const item = this.closest('.sidebar__menu-item--expandable');
-                item.classList.toggle('sidebar__menu-item--open');
-            });
-        });
-
-        document.querySelectorAll('.sidebar__submenu-link--active').forEach(active => {
-            const item = active.closest('.sidebar__menu-item--expandable');
-            if (item) item.classList.add('sidebar__menu-item--open');
-        });
-
-        menuToggle.addEventListener('click', () => {
-            sidebar.classList.add('sidebar--open');
-            overlay.classList.add('sidebar-overlay--visible');
-        });
-
-        sidebarClose.addEventListener('click', () => {
-            sidebar.classList.remove('sidebar--open');
-            overlay.classList.remove('sidebar-overlay--visible');
-        });
-        
-        overlay.addEventListener('click', () => {
-            sidebar.classList.remove('sidebar--open');
-            overlay.classList.remove('sidebar-overlay--visible');
-        });
-    </script>
+    <script src="/js/sidebar.js"></script>
 </body>
 </html>

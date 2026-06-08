@@ -203,7 +203,7 @@ svg    { display: block; flex-shrink: 0; }
 }
 
 .topbar__menu-toggle {
-    display: none;
+    display: flex;
     width: 36px; height: 36px;
     align-items: center; justify-content: center;
     border-radius: var(--radius-md);
@@ -854,3 +854,8 @@ tr:hover td { background-color: #f8fafc; }
         gap: 15px;
     }
 }
+
+.sidebar--collapsed    { transform: translateX(-100%); }
+.app-wrapper--collapsed { margin-left: 0; }
+
+img { display: block; }

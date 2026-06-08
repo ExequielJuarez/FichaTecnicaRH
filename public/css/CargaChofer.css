@@ -277,7 +277,7 @@
   }
   
   .topbar__menu-toggle {
-    display: none;
+    display: flex;
     width: 36px;
     height: 36px;
     align-items: center;
@@ -623,3 +623,8 @@
       text-align: center;
     }
   }
+
+.sidebar--collapsed    { transform: translateX(-100%); }
+.app-wrapper--collapsed { margin-left: 0; }
+
+img { display: block; }

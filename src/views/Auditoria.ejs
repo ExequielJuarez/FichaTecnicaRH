@@ -57,11 +57,14 @@
 </head>
 <body>
 
-    <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
-    <%- include('./partials/sidebar') %>
+    <!-- ===================== SIDEBAR ===================== -->
+  <%- include('./partials/sidebar') %>
 
-    <div class="app-wrapper">
-        <%- include('./partials/topbar') %>
+  <!-- ===================== APP WRAPPER ===================== -->
+  <div class="app-wrapper" id="app-wrapper">
+
+    <!-- ===================== HEADER / TOPBAR ===================== -->
+    <%- include('./partials/topbar') %>
 
         <main class="main-content">
             <div class="header-section" style="margin-bottom: 20px;">
@@ -161,6 +164,8 @@
             <p class="app-footer__copy">&copy; 2025 &mdash; Ficha Tecnica</p>
         </footer>
     </div>
+
+    <script src="/js/sidebar.js"></script>
 
     <script>
         // 1. Lógica del Menú Lateral Móvil

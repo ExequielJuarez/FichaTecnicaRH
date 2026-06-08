@@ -255,7 +255,7 @@ img          { display: block; }
 }
 
 .topbar__menu-toggle {
-  display: none;
+  display: flex;
   width: 36px; height: 36px;
   align-items: center; justify-content: center;
   border-radius: var(--radius-md);
@@ -952,3 +952,6 @@ img          { display: block; }
   .form-actions { padding: 14px; }
   .page-header__title { font-size: 18px; }
 }
+
+.sidebar--collapsed    { transform: translateX(-100%); }
+.app-wrapper--collapsed { margin-left: 0; }
