@@ -55,6 +55,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: 'Activo'
     },
+
+    motivoBaja: {
+    type: DataTypes.TEXT,
+    allowNull: true
+  },
   }, {
     tableName: 'chofer',
     timestamps: true

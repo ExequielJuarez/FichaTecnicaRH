@@ -102,3 +102,6 @@ VALUES
   TRUE,
   1
 );
+
+-- Agregar columna motivoBaja a la tabla chofer
+ALTER TABLE chofer ADD COLUMN motivoBaja TEXT NULL;

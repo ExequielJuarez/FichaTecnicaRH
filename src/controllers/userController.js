@@ -88,7 +88,7 @@ const userController = {
     try {
       let rolesDB = await db.Rol.findAll();
       res.render("CargaUsuario");
-      Console.log("PRUEBA")
+      console.log("PRUEBA")
       console.log(rolesDB)
     } catch (error) {
       console.log(error);

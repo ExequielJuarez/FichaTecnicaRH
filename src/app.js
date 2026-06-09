@@ -2,11 +2,24 @@ const express = require("express");
 const path = require("path");
 const methodOverride = require("method-override");
 const session = require("express-session"); // PASO 1: Importamos la librería de sesiones
+const alertaService = require('./data/alertaService');
 
 // 1. Importar la base de datos (esto llama al index.js de models)
 const db = require("./model/database/models");
 
+const cron                  = require('node-cron');
+const alertaGeneradorService = require('./data/alertaGeneradorService');
+
 const app = express();
+
+app.use(async (req, res, next) => {
+    try {
+        res.locals.noLeidas = await alertaService.contarNoLeidas();
+    } catch (e) {
+        res.locals.noLeidas = 0;
+    }
+    next();
+});
 
 // Importar rutas
 const indexRouter = require("./routes/index.Routes");
@@ -65,6 +78,15 @@ db.sequelize
     // Iniciar servidor
     app.listen(puerto, () => {
       console.log(`🚀 Servidor Express corriendo en el puerto ${puerto}`);
+      
+    });
+    // Generar alertas al iniciar el servidor
+    alertaGeneradorService.generarTodas();
+
+    // Cron: se ejecuta todos los días a las 7am
+    cron.schedule('0 7 * * *', () => {
+        console.log('⏰ Cron job: generando alertas automáticas...');
+        alertaGeneradorService.generarTodas();
     });
   })
   .catch((error) => {

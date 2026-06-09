@@ -17,6 +17,7 @@
     "express-validator": "^7.3.2",
     "method-override": "^3.0.0",
     "mysql2": "^3.22.2",
+    "node-cron": "^4.2.1",
     "sequelize": "^6.37.8"
   },
   "devDependencies": {

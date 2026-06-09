@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle Chofer - Gestión de Flota</title>
+    <link rel="stylesheet" href="/css/CargaChofer.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
+
+    <aside class="sidebar" id="sidebar" aria-label="Menú de navegación">
+        <div class="sidebar__brand">
+            <div class="sidebar__logo">
+                <img class="imglogosidebar" src="/images/header/images-removebg-preview (1).png" alt="">
+            </div>
+            <div class="sidebar__brand-text">
+                <span class="sidebar__brand-name">Ficha Tecnica</span>
+                <span class="sidebar__brand-sub">Municipalidad</span>
+            </div>
+            <button class="sidebar__close-btn" id="sidebar-close" aria-label="Cerrar menú">
+                <svg viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                </svg>
+            </button>
+        </div>
+
+        <nav class="sidebar__nav" aria-label="Navegación principal">
+            <span class="sidebar__nav-label">Menú Principal</span>
+            <ul class="sidebar__menu">
+
+                <li class="sidebar__menu-item sidebar__menu-item--expandable">
+                    <a href="#" class="sidebar__menu-link">
+                        <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/><path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z"/></svg>
+                        Vehículos
+                        <svg class="sidebar__menu-chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+                    </a>
+                    <ul class="sidebar__submenu">
+                        <li><a href="/Vehicles" class="sidebar__submenu-link">Listado de vehículos</a></li>
+                        <li><a href="/CargaVehiculo" class="sidebar__submenu-link">Agregar vehículo</a></li>
+                    </ul>
+                </li>
+
+                <li class="sidebar__menu-item sidebar__menu-item--expandable">
+                    <a href="#" class="sidebar__menu-link sidebar__menu-link--active">
+                        <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/></svg>
+                        Choferes
+                        <svg class="sidebar__menu-chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+                    </a>
+                    <ul class="sidebar__submenu">
+                        <li><a href="/Choferes" class="sidebar__submenu-link">Listado de choferes</a></li>
+                        <li><a href="/Choferes/Carga" class="sidebar__submenu-link">Agregar chofer</a></li>
+                    </ul>
+                </li>
+
+                <li class="sidebar__menu-item">
+                    <a href="/Alertas" class="sidebar__menu-link">
+                        <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/></svg>
+                        Alertas
+                        <span class="sidebar__badge badge--hidden" id="sidebar-badge"><%= noLeidas %></span>
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+    </aside>
+
+    <div class="app-wrapper">
+        <header class="topbar">
+            <button class="topbar__menu-toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="6" x2="21" y2="6"/>
+                    <line x1="3" y1="12" x2="21" y2="12"/>
+                    <line x1="3" y1="18" x2="21" y2="18"/>
+                </svg>
+            </button>
+            <div class="topbar__mobile-brand" aria-hidden="true">
+                <img class="imglogosidebarcel" src="/images/header/images-removebg-preview (1).png" alt="">
+                <span>Gestión de Flota</span>
+            </div>
+            <div class="topbar__actions">
+                <div class="topbar__user" role="button" tabindex="0">
+                    <svg class="topbar__user-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/></svg>
+                    <span class="topbar__user-name">Administrador</span>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+
+            <div class="page-header">
+                <div>
+                    <h2 class="page-title"><%= chofer.nombre %> <%= chofer.apellido %></h2>
+                    <p class="page-subtitle">Ficha del chofer</p>
+                </div>
+                <div style="display:flex; gap:8px;">
+                    <a href="/Choferes" class="boton-secundario">← Volver</a>
+                    <a href="/Choferes/<%= chofer.id_chofer %>/editar" class="boton-primario">Editar</a>
+                </div>
+            </div>
+
+            <div class="detalle-card">
+
+                <div class="detalle-card__top">
+                    <div class="detalle-tipo">
+                        <div>
+                            <span class="detalle-tipo__label">
+                                <%= chofer.nombre %> <%= chofer.apellido %>
+                            </span>
+                            <span class="detalle-tipo__fecha">DNI: <%= chofer.dni %></span>
+                        </div>
+                    </div>
+                    <div class="detalle-badges">
+                        <span class="badge <%= chofer.estado === 'Activo' ? 'badge-baja' : 'badge-alta' %>">
+                            <%= chofer.estado %>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="detalle-card__body">
+
+                    <div class="detalle-seccion">
+                        <h3 class="detalle-seccion__titulo">Información Personal</h3>
+                        <div class="detalle-grid">
+
+                            <div class="detalle-campo">
+                                <span class="detalle-campo__label">Teléfono</span>
+                                <span class="detalle-campo__valor"><%= chofer.telefono || '—' %></span>
+                            </div>
+
+                            <div class="detalle-campo">
+                                <span class="detalle-campo__label">Email</span>
+                                <span class="detalle-campo__valor"><%= chofer.email || '—' %></span>
+                            </div>
+
+                            <div class="detalle-campo">
+                                <span class="detalle-campo__label">Dirección</span>
+                                <span class="detalle-campo__valor"><%= chofer.direccion || '—' %></span>
+                            </div>
+
+                            <div class="detalle-campo">
+                                <span class="detalle-campo__label">Fecha de nacimiento</span>
+                                <span class="detalle-campo__valor">
+                                    <%= chofer.fechaNacimiento ? new Date(chofer.fechaNacimiento).toLocaleDateString('es-AR') : '—' %>
+                                </span>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="detalle-seccion">
+                        <h3 class="detalle-seccion__titulo">Datos Laborales</h3>
+                        <div class="detalle-grid">
+
+                            <div class="detalle-campo">
+                                <span class="detalle-campo__label">Fecha de ingreso</span>
+                                <span class="detalle-campo__valor">
+                                    <%= chofer.fechaIngreso ? new Date(chofer.fechaIngreso).toLocaleDateString('es-AR') : '—' %>
+                                </span>
+                            </div>
+
+                            <div class="detalle-campo">
+                                <span class="detalle-campo__label">Turno</span>
+                                <span class="detalle-campo__valor"><%= chofer.turno || '—' %></span>
+                            </div>
+
+                            <div class="detalle-campo">
+                                <span class="detalle-campo__label">Estado</span>
+                                <span class="detalle-campo__valor"><%= chofer.estado %></span>
+                            </div>
+
+                            <% if (chofer.motivoBaja) { %>
+                            <div class="detalle-campo">
+                                <span class="detalle-campo__label">Motivo de baja</span>
+                                <span class="detalle-campo__valor"><%= chofer.motivoBaja %></span>
+                            </div>
+                            <% } %>
+
+                        </div>
+                    </div>
+
+                    <% if (chofer.licencias && chofer.licencias.length > 0) { %>
+                    <div class="detalle-seccion">
+                        <h3 class="detalle-seccion__titulo">Licencia</h3>
+                        <div class="detalle-grid">
+
+                            <div class="detalle-campo">
+                                <span class="detalle-campo__label">Número</span>
+                                <span class="detalle-campo__valor"><%= chofer.licencias[0].numero %></span>
+                            </div>
+
+                            <div class="detalle-campo">
+                                <span class="detalle-campo__label">Categoría</span>
+                                <span class="detalle-campo__valor"><%= chofer.licencias[0].categoria %></span>
+                            </div>
+
+                            <div class="detalle-campo">
+                                <span class="detalle-campo__label">Fecha de emisión</span>
+                                <span class="detalle-campo__valor">
+                                    <%= chofer.licencias[0].fecha_emision ? new Date(chofer.licencias[0].fecha_emision).toLocaleDateString('es-AR') : '—' %>
+                                </span>
+                            </div>
+
+                            <div class="detalle-campo">
+                                <span class="detalle-campo__label">Vencimiento</span>
+                                <span class="detalle-campo__valor">
+                                    <%= chofer.licencias[0].fecha_vencimiento ? new Date(chofer.licencias[0].fecha_vencimiento).toLocaleDateString('es-AR') : '—' %>
+                                </span>
+                            </div>
+
+                        </div>
+                    </div>
+                    <% } %>
+
+                </div>
+
+                <div class="detalle-card__footer">
+                    <a href="/Choferes" class="boton-secundario">Volver</a>
+                    <a href="/Choferes/<%= chofer.id_chofer %>/editar" class="boton-primario">Editar chofer</a>
+                </div>
+
+            </div>
+
+        </main>
+
+        <footer class="app-footer">
+            <p class="app-footer__copy">&copy; 2025 &mdash; Ficha Tecnica</p>
+        </footer>
+    </div>
+
+    <script>
+        const sidebar      = document.getElementById('sidebar');
+        const overlay      = document.getElementById('sidebar-overlay');
+        const menuToggle   = document.getElementById('menu-toggle');
+        const sidebarClose = document.getElementById('sidebar-close');
+
+        document.querySelectorAll('.sidebar__menu-item--expandable > .sidebar__menu-link')
+            .forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    this.closest('.sidebar__menu-item--expandable').classList.toggle('sidebar__menu-item--open');
+                });
+            });
+
+        document.querySelectorAll('.sidebar__submenu-link--active').forEach(active => {
+            const item = active.closest('.sidebar__menu-item--expandable');
+            if (item) item.classList.add('sidebar__menu-item--open');
+        });
+
+        function openSidebar() {
+            sidebar.classList.add('sidebar--open');
+            overlay.classList.add('sidebar-overlay--visible');
+            menuToggle.setAttribute('aria-expanded', 'true');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeSidebar() {
+            sidebar.classList.remove('sidebar--open');
+            overlay.classList.remove('sidebar-overlay--visible');
+            menuToggle.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = '';
+        }
+
+        menuToggle.addEventListener('click', openSidebar);
+        sidebarClose.addEventListener('click', closeSidebar);
+        overlay.addEventListener('click', closeSidebar);
+    </script>
+
+</body>
+</html>

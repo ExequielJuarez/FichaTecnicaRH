@@ -13,10 +13,29 @@
   </div>
 
   <div class="topbar__actions">
-    <button class="topbar__notification-btn" aria-label="Notificaciones (3 sin leer)">
-      <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/></svg>
-      <span class="topbar__notification-dot" aria-label="3 notificaciones">3</span>
-    </button>
+    <div class="notif-wrapper" id="notif-wrapper">
+        <button class="topbar__notification-btn" id="notif-btn"
+                aria-label="Notificaciones" aria-expanded="false">
+            <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/></svg>
+            <span class="topbar__notification-dot <%= noLeidas === 0 ? 'notif-badge--hidden' : '' %>"
+                  id="notif-badge"><%= noLeidas %></span>
+        </button>
+
+        <div class="notif-panel" id="notif-panel" aria-hidden="true">
+            <div class="notif-panel__header">
+                <span class="notif-panel__title">Notificaciones</span>
+                <button class="notif-panel__marcar-todas" id="marcar-todas-btn">
+                    Marcar todas como leídas
+                </button>
+            </div>
+            <div class="notif-panel__list" id="notif-list">
+                <div class="notif-panel__loading">Cargando...</div>
+            </div>
+            <div class="notif-panel__footer">
+                <a href="/Alertas" class="notif-panel__ver-todas">Ver todas las alertas</a>
+            </div>
+        </div>
+    </div>
     
     <div class="topbar__user" role="button" tabindex="0">
       <% if (usuarioLocal) { %>

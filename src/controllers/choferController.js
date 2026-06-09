@@ -126,6 +126,19 @@ const choferController = {
             res.send('Error');
         }
     },
+    detalleChofer: async (req, res) => {
+        try {
+            const chofer = await choferService.getOneConLicencia(req.params.id);
+
+            if (!chofer) return res.send('Chofer no encontrado');
+
+            res.render('detalleChofer', { chofer });
+
+        } catch (error) {
+            console.log(error);
+            res.send('Error');
+        }
+    },
 
     
     processEdit: async (req, res) => {
@@ -158,6 +171,8 @@ const choferController = {
             }
 
             const body = req.body;
+            const estadoAnterior = chofer.estado;
+            const estadoNuevo    = body['activo-inactivo'];
 
             // Actualizar datos del chofer
             await choferService.update(req.params.id, {
@@ -166,18 +181,18 @@ const choferController = {
                 dni:             body.dni,
                 telefono:        body.telefono,
                 direccion:       body.direccion,
-                estado:          body['activo-inactivo'],
+                estado:          estadoNuevo,
                 email:           body.email           || null,
                 fechaNacimiento: body.fechaNacimiento || null,
                 fechaIngreso:    body.fechaIngreso    || null,
                 turno:           body.Turno           || null,
+                // Guardar motivo solo si pasa a Inactivo, limpiar si vuelve a Activo
+                motivoBaja:      estadoNuevo === 'Inactivo' ? (body.motivoBaja || null) : null,
             });
 
             // Actualizar o crear licencia
             const licencia = chofer.licencias?.[0];
-
             if (licencia) {
-                
                 await licencia.update({
                     numero:            body.numero_licencia,
                     categoria:         body.categoria,
@@ -185,13 +200,25 @@ const choferController = {
                     fecha_vencimiento: body.fecha_vencimiento
                 });
             } else {
-                
                 await db.LicenciaChofer.create({
                     id_chofer:         chofer.id_chofer,
                     numero:            body.numero_licencia,
                     categoria:         body.categoria,
                     fecha_emision:     body.fecha_emision,
                     fecha_vencimiento: body.fecha_vencimiento
+                });
+            }
+
+            // Crear alerta solo cuando cambia de Activo → Inactivo
+            if (estadoAnterior === 'Activo' && estadoNuevo === 'Inactivo') {
+                await db.Alerta.create({
+                    tipo:                     'informativa',
+                    prioridad:                'media',
+                    mensaje:                  `Chofer ${chofer.nombre} ${chofer.apellido} fue dado de baja. Motivo: ${body.motivoBaja}`,
+                    entidad_tipo:             'Chofer',
+                    entidad_id:               chofer.id_chofer,
+                    entidad_nombre:           `${chofer.nombre} ${chofer.apellido}`,
+                    generada_automaticamente: false
                 });
             }
 

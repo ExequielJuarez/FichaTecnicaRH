@@ -40,23 +40,15 @@ router.post('/CargaVehiculo',       authMiddleware, vehicleController.processVeh
 router.get('/ActualizarKm', vehicleController.CargaActualizarKm);
 router.post('/ActualizarKm', vehicleController.processActualizarKm);
 
-// ================= CHOFERES ================= //para editar
-router.get('/Choferes',        authMiddleware, choferController.ListChoferes);
-router.get('/Choferes/carga',  authMiddleware, choferController.createChofer);
-router.post('/Choferes/carga', authMiddleware, choferController.processChofer);
+// ================= CHOFERES =================
+router.get('/Choferes',                 authMiddleware, choferController.ListChoferes);
+router.get('/Choferes/Carga',           authMiddleware, choferController.createChofer);
+router.post('/Choferes/Carga',          authMiddleware, choferVAlidation(), choferController.processChofer);
 
-router.get('/Choferes',  choferController.ListChoferes);
-router.get('/Choferes/Carga',          choferController.createChofer);
-router.post('/Choferes/Carga',         choferVAlidation(), choferController.processChofer);
-
-router.get('/Choferes/:id/editar',     choferController.editChofer);
-router.post(
-    '/Choferes/:id/editar',
-    choferEditValidation(),
-    choferController.processEdit
-);
-
-router.post('/Choferes/:id/desactivar', choferController.desactivarChofer);
+router.get('/Choferes/:id',             authMiddleware, choferController.detalleChofer);
+router.get('/Choferes/:id/editar',      authMiddleware, choferController.editChofer);
+router.post('/Choferes/:id/editar',     authMiddleware, choferEditValidation(), choferController.processEdit);
+router.post('/Choferes/:id/desactivar', authMiddleware, choferController.desactivarChofer);
 
 
 // ================= MANTENIMIENTOS =================

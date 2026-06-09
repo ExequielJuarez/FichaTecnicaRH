@@ -203,6 +203,11 @@ const choferEditValidation = () => [
         .notEmpty().withMessage('El estado es obligatorio')
         .isIn(['Activo', 'Inactivo']).withMessage('Estado inválido'),
 
+    body('motivoBaja')
+        .if(body('activo-inactivo').equals('Inactivo'))
+        .notEmpty().withMessage('El motivo de baja es obligatorio al desactivar un chofer')
+        .isLength({ max: 500 }).withMessage('El motivo no puede superar los 500 caracteres'),
+
     body('numero_licencia')
         .notEmpty().withMessage('El número de licencia es obligatorio')
         .isLength({ min: 8, max: 16 }).withMessage('Número de licencia inválido'),
