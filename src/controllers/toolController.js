@@ -1,6 +1,7 @@
 const db = require("../model/database/models");
 const toolService = require("../data/toolService");
 const prestamoService = require("../data/prestamoService");
+const alertaGeneradorService = require('../data/alertaGeneradorService');
 
 const toolController = {
   // =========================
@@ -8,10 +9,12 @@ const toolController = {
   // =========================
   ListTools: async (req, res) => {
     try {
+      const db = require('../model/database/models');
       const herramientas = await toolService.getAll();
       res.render("listadoHerramientas", {
         herramientas,
         herramientaSeleccionada: null,
+        alertasHerramienta:      []
       });
     } catch (error) {
       console.log(error);
@@ -48,6 +51,7 @@ const toolController = {
   // =========================
   getToolById: async (req, res) => {
     try {
+      const db = require('../model/database/models');
       const id = req.params.id;
 
       const herramienta = await db.Herramienta.findByPk(id, {
@@ -56,16 +60,22 @@ const toolController = {
 
       const herramientas = await toolService.getAll();
 
+      const alertasHerramienta = await db.Alerta.findAll({
+            where: {
+                entidad_tipo: 'Herramienta',
+                entidad_id:   id,
+                resuelta:     false
+            },
+            order: [['createdAt', 'DESC']]
+        });
+
       res.render("listadoHerramientas", {
         herramientas,
         herramientaSeleccionada: herramienta,
+        alertasHerramienta
       });
     } catch (error) {
       console.log(error);
-      console.log("ERROR COMPLETO:");
-      console.log(error);
-      console.log(error.message);
-      console.log(error.stack);
       res.send("Error al obtener la herramienta y su historial");
     }
   },
@@ -198,18 +208,28 @@ const toolController = {
   // PROCESAR DEVOLUCIÓN
   // =========================
   processDevolucion: async (req, res) => {
-    try {
-      await prestamoService.devolver(req.body.id_herramienta);
-      res.redirect("/Tools/" + req.body.id_herramienta);
-    } catch (error) {
-      console.log("ERROR COMPLETO:");
-      console.log(error);
-      console.log(error.message);
-      console.log(error.stack);
-      res.send("Error al procesar la devolución");
-    }
-  },
+      try {
+          await prestamoService.devolver(req.body.id_herramienta);
 
+          // Resolver alertas de préstamo vencido para esta herramienta
+          await require('../model/database/models').Alerta.update(
+              { resuelta: true },
+              {
+                  where: {
+                      tipo:       'prestamo_vencido',
+                      entidad_id: req.body.id_herramienta,
+                      resuelta:   false
+                  }
+              }
+          );
+
+          res.redirect('/Tools/' + req.body.id_herramienta);
+
+      } catch (error) {
+          console.log(error);
+          res.send("Error al procesar la devolución");
+      }
+  },
   // =========================
   // PANTALLA DE AJUSTES
   // =========================

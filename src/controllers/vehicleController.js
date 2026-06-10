@@ -2,6 +2,7 @@ const path = require('path');
 const fs = require('fs');
 
 const vehicleService = require('../data/vehicleService');
+const alertaGeneradorService = require('../data/alertaGeneradorService');
 
 const vehicleController = {
     
@@ -13,7 +14,8 @@ const vehicleController = {
                 vehiculoSeleccionado: null,
                 ultimosMantenimientos: [],
                 ultimasAsignaciones:   [],
-                asignacionActiva: null
+                asignacionActiva: null,
+                alertasVehiculo:       []
             });
         } catch (error) {
             console.log(error);
@@ -44,42 +46,58 @@ const vehicleController = {
        GUARDAR MANTENIMIENTO
     ========================================================= */
 
-    processMaintenance: async (req,res) => {
-
+    processMaintenance: async (req, res) => {
         try {
-            console.log("holaaa")
-            console.log(req.body)
-            await vehicleService.createMaintenance(req.body);
+            const mantenimiento = await vehicleService.createMaintenance(req.body);
+
+            // Resolver alertas de mantenimiento pendiente para este vehículo
+            if (req.body.id_vehiculo) {
+                await require('../model/database/models').Alerta.update(
+                    { resuelta: true },
+                    {
+                        where: {
+                            tipo:       'mantenimiento_pendiente',
+                            entidad_id: req.body.id_vehiculo,
+                            resuelta:   false
+                        }
+                    }
+                );
+            }
 
             res.redirect('/Mantenimientos');
 
         } catch (error) {
-
             console.log(error);
-
             res.send("Error al guardar mantenimiento");
-
         }
-
     },
 
     getVehicleById: async (req, res) => {
         try {
-            const id = req.params.id;
-            const vehiculo   = await vehicleService.getOne(id);
-            const vehiculos  = await vehicleService.getAll();
+            const id       = req.params.id;
+            const vehiculo = await vehicleService.getOne(id);
+            const vehiculos = await vehicleService.getAll();
             const ultimosMantenimientos = await vehicleService.getLastMantenimientos(id);
             const ultimasAsignaciones   = await vehicleService.getLastAsignaciones(id);
-    
-            // Asignación activa del vehículo
-            const asignacionActiva = await vehicleService.getAsignacionActiva(id);
-    
-            res.render("listadoVehiculos", { 
-                vehiculos, 
-                vehiculoSeleccionado: vehiculo,
+            const asignacionActiva      = await vehicleService.getAsignacionActiva(id);
+
+            // Alertas activas (no resueltas) del vehículo seleccionado
+            const alertasVehiculo = await require('../model/database/models').Alerta.findAll({
+                where: {
+                    entidad_tipo: 'Vehiculo',
+                    entidad_id:   id,
+                    resuelta:     false
+                },
+                order: [['createdAt', 'DESC']]
+            });
+
+            res.render("listadoVehiculos", {
+                vehiculos,
+                vehiculoSeleccionado:  vehiculo,
                 ultimosMantenimientos,
                 ultimasAsignaciones,
-                asignacionActiva: asignacionActiva || null
+                asignacionActiva:      asignacionActiva || null,
+                alertasVehiculo        // nuevo
             });
         } catch (error) {
             console.log(error);
@@ -182,14 +200,14 @@ processVehicle: async (req, res) => {
         try {
             const vehiculo = await vehicleService.getOne(req.params.id);
             if (!vehiculo) return res.status(404).send('Vehículo no encontrado.');
-    
+
             const { estado_actual, km_actual, fecha_baja } = req.body;
             const errores = [];
-            const anio     = vehiculo.anio;
+            const anio      = vehiculo.anio;
             const fechaAlta = vehiculo.fecha_alta
                 ? new Date(vehiculo.fecha_alta).toISOString().split('T')[0]
                 : null;
-    
+
             if (!estado_actual)
                 errores.push('El estado es obligatorio.');
             if (km_actual === '' || km_actual === undefined || Number(km_actual) < 0)
@@ -198,17 +216,71 @@ processVehicle: async (req, res) => {
                 errores.push('La fecha de baja debe ser posterior a la de alta.');
             if (fecha_baja && anio && new Date(fecha_baja).getFullYear() < anio)
                 errores.push(`La fecha de baja no puede ser anterior al año del vehículo (${anio}).`);
-    
+
             if (errores.length > 0) {
                 return res.status(400).send(
                     `<h3>Errores:</h3><ul>${errores.map(e => `<li>${e}</li>`).join('')}</ul>
-                     <a href="javascript:history.back()">Volver</a>`
+                    <a href="javascript:history.back()">Volver</a>`
                 );
             }
-    
+
+            const estadoAnterior = vehiculo.estado_actual;
+
             await vehicleService.update(req.params.id, req.body);
+
+            // ── Disparar alertas según el nuevo estado ──────────────
+            if (estadoAnterior !== estado_actual) {
+
+                if (estado_actual === 'Baja') {
+                    // Generar alerta inmediata de baja
+                    await alertaGeneradorService.generarAlertasVehiculosBaja();
+                }
+
+                if (estado_actual === 'En mantenimiento') {
+                    // Generar alerta inmediata de mantenimiento
+                    const patente = vehiculo.patente;
+                    const existente = await require('../model/database/models').Alerta.findOne({
+                        where: {
+                            tipo:       'vehiculo_en_mantenimiento',
+                            entidad_id: vehiculo.id_vehiculo,
+                            resuelta:   false
+                        }
+                    });
+                    if (!existente) {
+                        await require('../model/database/models').Alerta.create({
+                            tipo:                     'mantenimiento_pendiente',
+                            prioridad:                'media',
+                            mensaje:                  `Vehículo ${patente} puesto en mantenimiento`,
+                            entidad_tipo:             'Vehiculo',
+                            entidad_id:               vehiculo.id_vehiculo,
+                            entidad_nombre:           patente,
+                            generada_automaticamente: false
+                        });
+                    }
+                }
+
+                // Si vuelve a Disponible → resolver alertas activas de ese vehículo
+                if (estado_actual === 'Disponible') {
+                    await require('../model/database/models').Alerta.update(
+                        { resuelta: true },
+                        {
+                            where: {
+                                tipo:       [
+                                    'documentacion_vencida',
+                                     'mantenimiento_pendiente',
+                                    'vehiculo_fuera_servicio',
+                                    'vehiculo_en_mantenimiento'
+                                ],
+                                entidad_id: vehiculo.id_vehiculo,
+                                resuelta:   false
+                            }
+                        }
+                    );
+                }
+            }
+
             res.redirect(`/Vehicles/${req.params.id}`);
-    
+
         } catch (error) {
             console.log(error);
             res.send("Error al actualizar");

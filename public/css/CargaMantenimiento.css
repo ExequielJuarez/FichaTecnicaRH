@@ -242,7 +242,7 @@ svg { display: block; }
 }
 
 .topbar__menu-toggle {
-  display: none;
+  display: flex;
   background: none; border: none; color: var(--color-text-muted);
   padding: 6px;
 }
@@ -670,3 +670,6 @@ svg { display: block; }
   font-size: .75rem; color: var(--color-text-light);
   text-align: center;
 }
+
+.sidebar--collapsed    { transform: translateX(-100%); }
+.app-wrapper--collapsed { margin-left: 0; }

@@ -236,7 +236,7 @@ svg     { display: block; flex-shrink: 0; }
 }
 
 .topbar__menu-toggle {
-  display: none;
+  display: flex;
   width: 36px;
   height: 36px;
   align-items: center;
@@ -279,7 +279,7 @@ svg     { display: block; flex-shrink: 0; }
   transition: background 0.15s;
 }
 
-.topbar__notification-btn svg { width: 18px; height: 18px; }
+.topbar__notification-btn svg { width: 20px; height: 20px; }
 .topbar__notification-btn:hover { background-color: var(--color-bg); }
 
 .topbar__notification-dot {
@@ -619,3 +619,13 @@ svg     { display: block; flex-shrink: 0; }
   border-color: #dc2626 !important;
   box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1) !important;
 }
+
+.sidebar--collapsed {
+  transform: translateX(-100%);
+}
+
+.app-wrapper--collapsed {
+  margin-left: 0;
+}
+
+img { display: block; }

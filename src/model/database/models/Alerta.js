@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
         'mantenimiento_finalizado',
         'documentacion_vencida',
         'vehiculo_fuera_servicio',
+        'vehiculo_en_mantenimiento',  
         'herramienta_devuelta',
         'prestamo_vencido',
         'critica',
@@ -62,6 +63,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: false
+    },
+    resuelta: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: false
     },
 
     // Para alertas automáticas generadas por el sistema

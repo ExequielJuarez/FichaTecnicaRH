@@ -9,162 +9,14 @@
 </head>
 <body>
 
-    <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
-
     <!-- ===================== SIDEBAR ===================== -->
-    <aside class="sidebar" id="sidebar" aria-label="Menú de navegación">
-        <div class="sidebar__brand">
-            <div class="sidebar__logo">
-                <img class="imglogosidebar" src="/images/header/images-removebg-preview (1).png" alt="">
-            </div>
-            <div class="sidebar__brand-text">
-                <span class="sidebar__brand-name">Ficha Tecnica</span>
-                <span class="sidebar__brand-sub">Municipalidad</span>
-            </div>
-            <button class="sidebar__close-btn" id="sidebar-close" aria-label="Cerrar menú">
-                <svg viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                </svg>
-            </button>
-        </div>
+  <%- include('./partials/sidebar') %>
 
-        <nav class="sidebar__nav" aria-label="Navegación principal">
-            <span class="sidebar__nav-label">Menú Principal</span>
-            <ul class="sidebar__menu">
+  <!-- ===================== APP WRAPPER ===================== -->
+  <div class="app-wrapper" id="app-wrapper">
 
-                <!-- <li class="sidebar__menu-item">
-                    <a href="#" class="sidebar__menu-link">
-                        <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
-                        Inicio
-                    </a>
-                </li> -->
-
-                <li class="sidebar__menu-item sidebar__menu-item--expandable">
-                    <a href="#" class="sidebar__menu-link">
-                        <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/><path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z"/></svg>
-                        Vehículos
-                        <svg class="sidebar__menu-chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
-                    </a>
-                    <ul class="sidebar__submenu">
-                        <li><a href="/Vehicles" class="sidebar__submenu-link">Listado de vehículos</a></li>
-                        <li><a href="/CargaVehiculo" class="sidebar__submenu-link">Agregar vehículo</a></li>
-                        <li><a href="/asignaciones" class="sidebar__submenu-link ">Asignación de vehículo</a></li>
-                        <li><a href="/ActualizarKm" class="sidebar__submenu-link">Actualizar kilometraje</a></li>
-                    </ul>
-                </li>
-
-                <li class="sidebar__menu-item sidebar__menu-item--expandable">
-                    <a href="#" class="sidebar__menu-link">
-                        <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/></svg>
-                        Choferes
-                        <svg class="sidebar__menu-chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
-                    </a>
-                    <ul class="sidebar__submenu">
-                        <li><a href="/Choferes" class="sidebar__submenu-link">Listado de choferes</a></li>
-                        <li><a href="/Choferes/Carga" class="sidebar__submenu-link">Agregar chofer</a></li>
-                    </ul>
-                </li>
-
-                <li class="sidebar__menu-item sidebar__menu-item--expandable">
-                    <a href="#" class="sidebar__menu-link">
-                        <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/></svg>
-                        Mantenimientos
-                        <svg class="sidebar__menu-chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
-                    </a>
-                    <ul class="sidebar__submenu">
-                        <li><a href="/Mantenimientos" class="sidebar__submenu-link">Listado</a></li>
-                        <li><a href="/Mantenimientos/carga" class="sidebar__submenu-link">Agregar mantenimiento</a></li>
-                    </ul>
-                </li>
-
-                <li class="sidebar__menu-item">
-                    <a href="/Alertas" class="sidebar__menu-link sidebar__menu-link--active">
-                        <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/></svg>
-                        Alertas
-                        <%# Siempre renderizado — JS lo muestra u oculta %>
-                        <span class="sidebar__badge <%= noLeidas === 0 ? 'badge--hidden' : '' %>"
-                            id="sidebar-badge">
-                            <%= noLeidas %>
-                        </span>
-                    </a>
-                </li>
-
-                <li class="sidebar__menu-item">
-                    <a href="#" class="sidebar__menu-link">
-                        <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/></svg>
-                        Usuarios
-                    </a>
-                </li>
-
-                <li class="sidebar__menu-item">
-                    <a href="#" class="sidebar__menu-link">
-                        <svg class="sidebar__menu-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"/></svg>
-                        Auditoría
-                    </a>
-                </li>
-
-            </ul>
-        </nav>
-    </aside>
-
-    <!-- ===================== APP WRAPPER ===================== -->
-    <div class="app-wrapper">
-
-        <!-- ===================== HEADER ===================== -->
-        <header class="topbar">
-            <button class="topbar__menu-toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="sidebar">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <line x1="3" y1="6"  x2="21" y2="6"/>
-                    <line x1="3" y1="12" x2="21" y2="12"/>
-                    <line x1="3" y1="18" x2="21" y2="18"/>
-                </svg>
-            </button>
-
-            <div class="topbar__mobile-brand" aria-hidden="true">
-                <img class="imglogosidebarcel" src="/images/header/images-removebg-preview (1).png" alt="">
-                <span>Gestión de Flota</span>
-            </div>
-
-            <div class="topbar__actions">
-
-                <!-- ── PANEL DE NOTIFICACIONES ── -->
-                <div class="notif-wrapper" id="notif-wrapper">
-                    <button class="topbar__notification-btn" id="notif-btn" aria-label="Notificaciones" aria-expanded="false">
-                        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/></svg>
-                        <% if (noLeidas > 0) { %>
-                            <span class="topbar__notification-dot" id="notif-badge"><%= noLeidas %></span>
-                        <% } else { %>
-                            <span class="topbar__notification-dot notif-badge--hidden" id="notif-badge">0</span>
-                        <% } %>
-                    </button>
-
-                    <!-- Panel desplegable -->
-                    <div class="notif-panel" id="notif-panel" aria-hidden="true">
-                        <div class="notif-panel__header">
-                            <span class="notif-panel__title">Notificaciones</span>
-                            <button class="notif-panel__marcar-todas" id="marcar-todas-btn">
-                                Marcar todas como leídas
-                            </button>
-                        </div>
-
-                        <div class="notif-panel__list" id="notif-list">
-                            <!-- Se carga via fetch al abrir el panel -->
-                            <div class="notif-panel__loading">Cargando...</div>
-                        </div>
-
-                        <div class="notif-panel__footer">
-                            <a href="/Alertas" class="notif-panel__ver-todas">Ver todas las alertas</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="topbar__user" role="button" tabindex="0">
-                    <svg class="topbar__user-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/></svg>
-                    <span class="topbar__user-name">Administrador</span>
-                    <svg class="topbar__user-chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
-                </div>
-            </div>
-        </header>
+    <!-- ===================== HEADER / TOPBAR ===================== -->
+    <%- include('./partials/topbar') %>
 
         <!-- ===================== MAIN ===================== -->
         <main class="Main-content">
@@ -173,19 +25,38 @@
             <p class="descripcion">Control y seguimiento de alertas del sistema.</p>
 
             <!-- ── TARJETAS RESUMEN ── -->
-            <div class="acciones">
-                <button class="btnLicVencidas" data-filtro="licencia_vencida">
-                    <span>Licencias Vencidas</span>
-                    <span class="numero-alerta"><%= resumen.licVencidas %></span>
-                </button>
-                <button class="btnProxVencer" data-filtro="licencia_proxima">
-                    <span>Próximas a vencer</span>
-                    <span class="numero-alerta"><%= resumen.licProximas %></span>
-                </button>
-                <button class="btnMantenimientosPendientes" data-filtro="mantenimiento_pendiente">
-                    <span>Mantenimientos Pendientes</span>
-                    <span class="numero-alerta"><%= resumen.mantPendientes %></span>
-                </button>
+            <div class="resumen-badges">
+                <div class="resumen-badge resumen-badge--alta">
+                    <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+                        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                    </svg>
+                    <span class="resumen-badge__num"><%= resumen.alta %></span>
+                    <span class="resumen-badge__label">Alta prioridad</span>
+                </div>
+
+                <div class="resumen-badge resumen-badge--media">
+                    <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                    </svg>
+                    <span class="resumen-badge__num"><%= resumen.media %></span>
+                    <span class="resumen-badge__label">Media prioridad</span>
+                </div>
+
+                <div class="resumen-badge resumen-badge--mant" data-filtro="mantenimiento_pendiente">
+                    <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+                        <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>
+                    </svg>
+                    <span class="resumen-badge__num"><%= resumen.mantPendientes %></span>
+                    <span class="resumen-badge__label">Mantenimientos</span>
+                </div>
+
+                <div class="resumen-badge resumen-badge--total">
+                    <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+                        <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/>
+                    </svg>
+                    <span class="resumen-badge__num"><%= totalRegistros %></span>
+                    <span class="resumen-badge__label">Total</span>
+                </div>
             </div>
 
             <!-- ── CAJA PRINCIPAL ── -->
@@ -223,6 +94,7 @@
                                 <option value="mantenimiento_finalizado"  <%= filtros.tipo === 'mantenimiento_finalizado'  ? 'selected' : '' %>>Mantenimiento finalizado</option>
                                 <option value="documentacion_vencida"     <%= filtros.tipo === 'documentacion_vencida'     ? 'selected' : '' %>>Documentación vencida</option>
                                 <option value="vehiculo_fuera_servicio"   <%= filtros.tipo === 'vehiculo_fuera_servicio'   ? 'selected' : '' %>>Vehículo fuera de servicio</option>
+                                <option value="vehiculo_en_mantenimiento" <%= filtros.tipo === 'vehiculo_en_mantenimiento' ? 'selected' : '' %>>Vehículo en mantenimiento</option>
                                 <option value="herramienta_devuelta"      <%= filtros.tipo === 'herramienta_devuelta'      ? 'selected' : '' %>>Herramienta devuelta</option>
                                 <option value="prestamo_vencido"          <%= filtros.tipo === 'prestamo_vencido'          ? 'selected' : '' %>>Préstamo vencido</option>
                                 <option value="critica"                   <%= filtros.tipo === 'critica'                   ? 'selected' : '' %>>Crítica</option>
@@ -244,8 +116,9 @@
                             <label>Estado</label>
                             <select name="estado" class="input">
                                 <option value="">Todas</option>
-                                <option value="no_leida" <%= filtros.estado === 'no_leida' ? 'selected' : '' %>>No leídas</option>
-                                <option value="leida"    <%= filtros.estado === 'leida'    ? 'selected' : '' %>>Leídas</option>
+                                <option value="no_leida"  <%= filtros.estado === 'no_leida'  ? 'selected' : '' %>>No leídas</option>
+                                <option value="leida"     <%= filtros.estado === 'leida'     ? 'selected' : '' %>>Leídas</option>
+                                <option value="resuelta"  <%= filtros.estado === 'resuelta'  ? 'selected' : '' %>>Resueltas</option>
                             </select>
                         </div>
 
@@ -295,6 +168,7 @@
                                                     mantenimiento_finalizado: '✅',
                                                     documentacion_vencida:    '📄',
                                                     vehiculo_fuera_servicio:  '🚫',
+                                                    vehiculo_en_mantenimiento: '🔨',
                                                     herramienta_devuelta:     '🔙',
                                                     prestamo_vencido:         '📋',
                                                     critica:                  '🚨',
@@ -307,6 +181,7 @@
                                                     mantenimiento_finalizado: 'Mant. finalizado',
                                                     documentacion_vencida:    'Doc. vencida',
                                                     vehiculo_fuera_servicio:  'Fuera de servicio',
+                                                    vehiculo_en_mantenimiento: 'Vehículo en mantenimiento',
                                                     herramienta_devuelta:     'Herramienta devuelta',
                                                     prestamo_vencido:         'Préstamo vencido',
                                                     critica:                  'Crítica',
@@ -347,13 +222,17 @@
                                         </td>
 
                                         <td data-label="Estado">
-                                            <span class="badge <%= alerta.leida ? 'badge-leida' : 'badge-noleida' %>">
-                                                <%= alerta.leida ? 'Leída' : 'No leída' %>
-                                            </span>
+                                            <% if (alerta.resuelta) { %>
+                                                <span class="badge badge-resuelta">Resuelta</span>
+                                            <% } else if (alerta.leida) { %>
+                                                <span class="badge badge-leida">Leída</span>
+                                            <% } else { %>
+                                                <span class="badge badge-noleida">No leída</span>
+                                            <% } %>
                                         </td>
 
                                         <td class="acciones-tabla" data-label="Acciones">
-                                            <% if (!alerta.leida) { %>
+                                            <% if (!alerta.leida && !alerta.resuelta) { %>
                                                 <button class="btn-resolver btn-marcar-leida"
                                                         data-id="<%= alerta.id_alerta %>">
                                                     Marcar leída
@@ -410,223 +289,18 @@
 
     </div>
 
+
+    <script src="/js/sidebar.js"></script>
     <script>
-    /* ============================================================
-       SIDEBAR TOGGLE
-    ============================================================ */
-    const sidebar      = document.getElementById('sidebar');
-    const overlay      = document.getElementById('sidebar-overlay');
-    const menuToggle   = document.getElementById('menu-toggle');
-    const sidebarClose = document.getElementById('sidebar-close');
 
-    document.querySelectorAll('.sidebar__menu-item--expandable > .sidebar__menu-link')
-        .forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                this.closest('.sidebar__menu-item--expandable').classList.toggle('sidebar__menu-item--open');
-            });
-        });
 
-    document.querySelectorAll('.sidebar__submenu-link--active').forEach(active => {
-        const item = active.closest('.sidebar__menu-item--expandable');
-        if (item) item.classList.add('sidebar__menu-item--open');
-    });
-
-    function openSidebar() {
-        sidebar.classList.add('sidebar--open');
-        overlay.classList.add('sidebar-overlay--visible');
-        menuToggle.setAttribute('aria-expanded', 'true');
-        document.body.style.overflow = 'hidden';
-    }
-    function closeSidebar() {
-        sidebar.classList.remove('sidebar--open');
-        overlay.classList.remove('sidebar-overlay--visible');
-        menuToggle.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
-    }
-
-    menuToggle.addEventListener('click', openSidebar);
-    sidebarClose.addEventListener('click', closeSidebar);
-    overlay.addEventListener('click', closeSidebar);
-
-    /* ============================================================
-       PANEL DE NOTIFICACIONES
-    ============================================================ */
-    const notifBtn    = document.getElementById('notif-btn');
-    const notifPanel  = document.getElementById('notif-panel');
-    const notifBadge  = document.getElementById('notif-badge');
-    const notifList   = document.getElementById('notif-list');
-    let   panelAbierto = false;
-    let   panelCargado = false;
-
-    // Mapas para íconos y labels (mismo criterio que helpers EJS)
-    const TIPO_LABEL = {
-        licencia_vencida:         'Licencia vencida',
-        licencia_proxima:         'Licencia próxima',
-        mantenimiento_pendiente:  'Mant. pendiente',
-        mantenimiento_finalizado: 'Mant. finalizado',
-        documentacion_vencida:    'Doc. vencida',
-        vehiculo_fuera_servicio:  'Vehículo fuera de servicio',
-        herramienta_devuelta:     'Herramienta devuelta',
-        prestamo_vencido:         'Préstamo vencido',
-        critica:                  'Crítica',
-        informativa:              'Informativa',
-    };
-
-    const TIPO_COLOR = {
-        licencia_vencida:         'tipo-icono--licencia_vencida',
-        licencia_proxima:         'tipo-icono--licencia_proxima',
-        mantenimiento_pendiente:  'tipo-icono--mantenimiento_pendiente',
-        mantenimiento_finalizado: 'tipo-icono--mantenimiento_finalizado',
-        documentacion_vencida:    'tipo-icono--documentacion_vencida',
-        vehiculo_fuera_servicio:  'tipo-icono--vehiculo_fuera_servicio',
-        herramienta_devuelta:     'tipo-icono--herramienta_devuelta',
-        prestamo_vencido:         'tipo-icono--prestamo_vencido',
-        critica:                  'tipo-icono--critica',
-        informativa:              'tipo-icono--informativa',
-    };
+    
 
     function formatFecha(iso) {
         return new Date(iso).toLocaleDateString('es-AR');
     }
 
-    async function cargarNotificaciones() {
-        try {
-            const res  = await fetch('/Alertas/recientes');
-            const data = await res.json();
-
-            if (data.alertas.length === 0) {
-                notifList.innerHTML = '<p class="notif-panel__empty">Sin alertas pendientes.</p>';
-                return;
-            }
-
-            notifList.innerHTML = data.alertas.map(a => `
-                <div class="notif-item notif-item--noleida" data-id="${a.id_alerta}">
-                    <div class="notif-item__dot"></div>
-                    <div class="notif-item__body">
-                        <span class="notif-item__tipo ${TIPO_COLOR[a.tipo] || ''}">${TIPO_LABEL[a.tipo] || a.tipo}</span>
-                        <p class="notif-item__msg">${a.mensaje}</p>
-                        <span class="notif-item__fecha">${formatFecha(a.createdAt)}</span>
-                    </div>
-                    <button class="notif-item__marcar" data-id="${a.id_alerta}" title="Marcar como leída">
-                        <svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14">
-                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                        </svg>
-                    </button>
-                </div>
-            `).join('');
-
-            actualizarBadge();
-            panelCargado = true;
-
-        } catch (e) {
-            notifList.innerHTML = '<p class="notif-panel__empty">Error al cargar.</p>';
-        }
-    }
-
-    async function actualizarBadge() {
-        try {
-            const res  = await fetch('/Alertas/recientes');
-            const data = await res.json();
-            const n    = data.noLeidas;
-
-            // Badge campana header
-            notifBadge.textContent = n;
-            if (n > 0) {
-                notifBadge.classList.remove('notif-badge--hidden');
-            } else {
-                notifBadge.classList.add('notif-badge--hidden');
-            }
-
-            // Badge sidebar — ahora siempre existe en el DOM
-            const sidebarBadge = document.getElementById('sidebar-badge');
-            if (sidebarBadge) {
-                sidebarBadge.textContent = n;
-                if (n > 0) {
-                    sidebarBadge.classList.remove('badge--hidden');
-                } else {
-                    sidebarBadge.classList.add('badge--hidden');
-                }
-            }
-
-        } catch(err) {
-            console.log(err);
-        }
-    }
-
-    notifBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        panelAbierto = !panelAbierto;
-        notifPanel.classList.toggle('notif-panel--open', panelAbierto);
-        notifBtn.setAttribute('aria-expanded', panelAbierto);
-
-        if (panelAbierto && !panelCargado) {
-            cargarNotificaciones();
-        }
-    });
-
-    // Cerrar al hacer click fuera
-    document.addEventListener('click', (e) => {
-        if (panelAbierto && !document.getElementById('notif-wrapper').contains(e.target)) {
-            panelAbierto = false;
-            notifPanel.classList.remove('notif-panel--open');
-            notifBtn.setAttribute('aria-expanded', 'false');
-        }
-    });
-
-    // Marcar leída desde el panel
-    notifList.addEventListener('click', async (e) => {
-        const btn = e.target.closest('.notif-item__marcar');
-        if (!btn) return;
-
-        const id   = btn.dataset.id;
-        const item = notifList.querySelector(`.notif-item[data-id="${id}"]`);
-
-        try {
-            const res = await fetch(`/Alertas/${id}/leer`, { method: 'POST' });
-            if ((await res.json()).ok) {
-                item.classList.remove('notif-item--noleida');
-                item.classList.add('notif-item--leida');
-                btn.remove();
-
-                const actual  = parseInt(notifBadge.textContent) || 0;
-                actualizarBadge();
-
-                // Actualizar la fila en la tabla si existe
-                const fila = document.querySelector(`.alerta-row[data-id="${id}"]`);
-                if (fila) {
-                    fila.classList.remove('alerta-row--noleida');
-                    fila.classList.add('alerta-row--leida');
-                    const btnFila = fila.querySelector('.btn-marcar-leida');
-                    if (btnFila) btnFila.remove();
-                }
-            }
-        } catch(err) { console.log(err); }
-    });
-
-    // Marcar todas desde el panel
-    document.getElementById('marcar-todas-btn').addEventListener('click', async () => {
-        try {
-            const res = await fetch('/Alertas/leer-todas', { method: 'POST' });
-            if ((await res.json()).ok) {
-                notifList.querySelectorAll('.notif-item').forEach(item => {
-                    item.classList.remove('notif-item--noleida');
-                    item.classList.add('notif-item--leida');
-                    const btn = item.querySelector('.notif-item__marcar');
-                    if (btn) btn.remove();
-                });
-                actualizarBadge(0);
-
-                // Actualizar toda la tabla
-                document.querySelectorAll('.alerta-row--noleida').forEach(fila => {
-                    fila.classList.remove('alerta-row--noleida');
-                    fila.classList.add('alerta-row--leida');
-                    const btn = fila.querySelector('.btn-marcar-leida');
-                    if (btn) btn.remove();
-                });
-            }
-        } catch(err) { console.log(err); }
-    });
+    
 
     /* ============================================================
        MARCAR LEÍDA DESDE LA TABLA

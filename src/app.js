@@ -50,6 +50,11 @@ app.use(
   }),
 );
 
+app.use((req, res, next) => {
+  res.locals.currentPath = req.path;
+  next();
+});
+
 // Megáfono global: Pasa los datos de la sesión a todas las vistas EJS
 app.use((req, res, next) => {
   // Creamos una variable global llamada "usuarioLocal" que el HTML podrá leer

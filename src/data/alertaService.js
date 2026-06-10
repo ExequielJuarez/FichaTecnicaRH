@@ -13,6 +13,9 @@ const alertaService = {
 
             if (filtros.estado === 'leida')    where.leida = true;
             if (filtros.estado === 'no_leida') where.leida = false;
+            if (filtros.estado === 'resuelta') where.resuelta = true;
+            if (filtros.entidad_id)   where.entidad_id   = filtros.entidad_id;
+            if (filtros.entidad_tipo) where.entidad_tipo = filtros.entidad_tipo;
 
             if (filtros.buscar) {
                 where[Op.or] = [
@@ -85,15 +88,15 @@ const alertaService = {
     // Conteos por tipo — para las tarjetas de resumen
     getResumen: async function () {
         try {
-            const [licVencidas, licProximas, mantPendientes] = await Promise.all([
-                db.Alerta.count({ where: { tipo: 'licencia_vencida'        } }),
-                db.Alerta.count({ where: { tipo: 'licencia_proxima'        } }),
-                db.Alerta.count({ where: { tipo: 'mantenimiento_pendiente' } }),
+            const [alta, media, mantPendientes] = await Promise.all([
+                db.Alerta.count({ where: { prioridad: 'alta',                    resuelta: false } }),
+                db.Alerta.count({ where: { prioridad: 'media',                   resuelta: false } }),
+                db.Alerta.count({ where: { tipo: 'mantenimiento_pendiente',      resuelta: false } }),
             ]);
-            return { licVencidas, licProximas, mantPendientes };
+            return { alta, media, mantPendientes };
         } catch (error) {
             console.log(error);
-            return { licVencidas: 0, licProximas: 0, mantPendientes: 0 };
+            return { alta: 0, media: 0, mantPendientes: 0 };
         }
     },
 

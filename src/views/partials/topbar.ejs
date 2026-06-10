@@ -1,4 +1,5 @@
 <header class="topbar">
+  <link rel="stylesheet" href="/css/ListadoAlertas.css">
   <button class="topbar__menu-toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="sidebar">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
       <line x1="3" y1="6"  x2="21" y2="6"/>
@@ -51,3 +52,144 @@
     </div>
   </div>
 </header>
+
+<script>
+/* ── PANEL DE NOTIFICACIONES ── */
+const notifBtn   = document.getElementById('notif-btn');
+const notifPanel = document.getElementById('notif-panel');
+const notifBadge = document.getElementById('notif-badge');
+const notifList  = document.getElementById('notif-list');
+let panelAbierto = false;
+let panelCargado = false;
+
+const TIPO_COLOR = {
+        licencia_vencida:         'tipo-icono--licencia_vencida',
+        licencia_proxima:         'tipo-icono--licencia_proxima',
+        mantenimiento_pendiente:  'tipo-icono--mantenimiento_pendiente',
+        mantenimiento_finalizado: 'tipo-icono--mantenimiento_finalizado',
+        documentacion_vencida:    'tipo-icono--documentacion_vencida',
+        vehiculo_fuera_servicio:  'tipo-icono--vehiculo_fuera_servicio',
+        herramienta_devuelta:     'tipo-icono--herramienta_devuelta',
+        prestamo_vencido:         'tipo-icono--prestamo_vencido',
+        critica:                  'tipo-icono--critica',
+        informativa:              'tipo-icono--informativa',
+    };
+
+
+const TIPO_LABEL = {
+    licencia_vencida:         'Licencia vencida',
+    licencia_proxima:         'Licencia próxima',
+    mantenimiento_pendiente:  'Mant. pendiente',
+    mantenimiento_finalizado: 'Mant. finalizado',
+    documentacion_vencida:    'Doc. vencida',
+    vehiculo_fuera_servicio:  'Fuera de servicio',
+    herramienta_devuelta:     'Herramienta devuelta',
+    prestamo_vencido:         'Préstamo vencido',
+    critica:                  'Crítica',
+    informativa:              'Informativa',
+};
+
+
+
+async function actualizarBadge() {
+    try {
+        const res  = await fetch('/Alertas/recientes');
+        const data = await res.json();
+        const n    = data.noLeidas;
+
+        notifBadge.textContent = n;
+        if (n > 0) {
+            notifBadge.classList.remove('notif-badge--hidden');
+        } else {
+            notifBadge.classList.add('notif-badge--hidden');
+        }
+
+        const sidebarBadge = document.getElementById('sidebar-badge');
+        if (sidebarBadge) {
+            sidebarBadge.textContent = n;
+            if (n > 0) {
+                sidebarBadge.classList.remove('badge--hidden');
+            } else {
+                sidebarBadge.classList.add('badge--hidden');
+            }
+        }
+    } catch(err) { console.log(err); }
+}
+
+async function cargarNotificaciones() {
+    try {
+        const res  = await fetch('/Alertas/recientes');
+        const data = await res.json();
+
+        if (data.alertas.length === 0) {
+            notifList.innerHTML = '<p class="notif-panel__empty">Sin alertas pendientes.</p>';
+            return;
+        }
+
+        notifList.innerHTML = data.alertas.map(a => `
+            <div class="notif-item notif-item--noleida" data-id="${a.id_alerta}">
+                <div class="notif-item__dot"></div>
+                <div class="notif-item__body">
+                    <span class="notif-item__tipo">${TIPO_LABEL[a.tipo] || a.tipo}</span>
+                    <p class="notif-item__msg">${a.mensaje}</p>
+                    <span class="notif-item__fecha">${new Date(a.createdAt).toLocaleDateString('es-AR')}</span>
+                </div>
+                <button class="notif-item__marcar" data-id="${a.id_alerta}" title="Marcar como leída">
+                    <svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                </button>
+            </div>
+        `).join('');
+
+        panelCargado = true;
+    } catch(e) {
+        notifList.innerHTML = '<p class="notif-panel__empty">Error al cargar.</p>';
+    }
+}
+
+notifBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    panelAbierto = !panelAbierto;
+    notifPanel.classList.toggle('notif-panel--open', panelAbierto);
+    notifBtn.setAttribute('aria-expanded', panelAbierto);
+    if (panelAbierto && !panelCargado) cargarNotificaciones();
+});
+
+document.addEventListener('click', (e) => {
+    const wrapper = document.getElementById('notif-wrapper');
+    if (panelAbierto && wrapper && !wrapper.contains(e.target)) {
+        panelAbierto = false;
+        notifPanel.classList.remove('notif-panel--open');
+        notifBtn.setAttribute('aria-expanded', 'false');
+    }
+});
+
+notifList.addEventListener('click', async (e) => {
+    const btn = e.target.closest('.notif-item__marcar');
+    if (!btn) return;
+    const id   = btn.dataset.id;
+    const item = notifList.querySelector(`.notif-item[data-id="${id}"]`);
+    try {
+        const res = await fetch(`/Alertas/${id}/leer`, { method: 'POST' });
+        if ((await res.json()).ok) {
+            item.classList.replace('notif-item--noleida', 'notif-item--leida');
+            btn.remove();
+            actualizarBadge();
+        }
+    } catch(err) { console.log(err); }
+});
+
+document.getElementById('marcar-todas-btn').addEventListener('click', async () => {
+    try {
+        const res = await fetch('/Alertas/leer-todas', { method: 'POST' });
+        if ((await res.json()).ok) {
+            notifList.querySelectorAll('.notif-item').forEach(item => {
+                item.classList.replace('notif-item--noleida', 'notif-item--leida');
+                item.querySelector('.notif-item__marcar')?.remove();
+            });
+            actualizarBadge();
+        }
+    } catch(err) { console.log(err); }
+});
+</script>
